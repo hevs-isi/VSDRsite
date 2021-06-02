@@ -62,9 +62,10 @@
       }
     },
     mounted() {
+      console.log("hello world")
       //this.sideBarTitle = location.hostname.split('.')[0]
       this.sideBarTitle = this.$PROJECT
-      axios.get('https://snow-server.watermon.ch:443/sensorList') //
+      axios.get('https://snow-server.watermon.ch:443/sensorList') 
         .then(res => {
           let tempVar=[]
           tempVar.push(res.data)
@@ -78,7 +79,7 @@
               }
             }
           )
-         // console.log(this.sensorListJson)
+          console.log(this.sensorListJson)
         })
         .catch(error => {
           console.log(error)
