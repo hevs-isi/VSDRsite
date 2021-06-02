@@ -1,51 +1,6 @@
 <template>
   <div>
-    <div class="row" v-for="(sensor, index) in sensors.filter(s => s.where === locationName , s=>s.type === 'hei')"><!--add : v-for="(sensor, index) in sensors.filter(s => s.where === locationName , s=>s.type === 'hei')" -->
-      <div class="col-lg-3">
-        <card title="Il y a 4 heures">
-          <h1 align="center" v-if="sensor.snow_4h[0]!=undefined && ((sensor.snow_4h[0]-sensor.snowOffset[0])/10)>=0">{{ ((sensor.snow_4h[0]-sensor.snowOffset[0])/10).toFixed(0)}} cm</h1>
-          <h1 align="center"  v-if="((sensor.snow_4h[0]-sensor.snowOffset[0])/10)<0"> 0 cm</h1>
-          <h1 align="center" style="color: lightgray" v-if="sensor.snow_4h[0]===undefined"> No data</h1>
-
-        </card>
-      </div>
-
-      <div class="col-lg-3">
-        <card title="Il y a 1 heure">
-          <h1 align="center" v-if="sensor.snow_1h[0]!=undefined && ((sensor.snow_1h[0]-sensor.snowOffset[0])/10)>=0">{{((sensor.snow_1h[0]-sensor.snowOffset[0])/10).toFixed(0)}} cm</h1>
-          <h1 align="center"  v-if="((sensor.snow_1h[0]-sensor.snowOffset[0])/10)<0"> 0 cm</h1>
-          <h1 align="center" style="color: lightgray" v-if="sensor.snow_1h[0]===undefined"> No data</h1>
-        </card>
-      </div>
-
-      <div class="col-lg-3">
-        <card title="Il y a 30 minutes" >
-          <h1 align="center" v-if="sensor.snow_30m[0]!=undefined && ((sensor.snow_30m[0]-sensor.snowOffset[0])/10)>=0">{{((sensor.snow_30m[0]-sensor.snowOffset[0])/10).toFixed(0)}} cm</h1>
-          <h1 align="center"  v-if="((sensor.snow_30m[0]-sensor.snowOffset[0])/10)<0"> 0 cm</h1>
-          <h1 align="center" style="color: lightgray" v-if="sensor.snow_30m[0]===undefined"> No data</h1>
-        </card>
-      </div>
-
-      <div class="col-lg-3">
-        <card title="Actuellement" >
-          <h1 align="center" v-if="sensor.snow[0]!=undefined  && ((sensor.snow[0]-sensor.snowOffset[0])/10)>=0">{{((sensor.snow[0]-sensor.snowOffset[0])/10).toFixed(0)}} cm</h1>
-          <h1 align="center"  v-if="((sensor.snow[0]-sensor.snowOffset[0])/10)<0"> 0 cm</h1>
-          <h1 align="center" style="color: lightgray" v-if="sensor.snow[0]===undefined"> No data</h1>
-        </card>
-      </div>
-
-      <div class="col-lg-12">
-        <card title="Cumul de neige sur les 365 derniers jours" >
-          <h1 align="center">{{(cumul_snow/10).toFixed(0)}} cm
-          </h1>
-        </card>
-      </div>
-      <div class="col-lg-12">
-        <card>
-          <SnowChart style="padding-right: 10px" :dataSnowChart="series_chart"></SnowChart>
-        </card>
-      </div>
-    </div>
+   <h1>Snow page</h1>
   </div>
 </template>
 
