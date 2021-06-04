@@ -10,7 +10,7 @@
         <sidebar-item :link="{name: 'Fontaines', icon: 'fa fa-thermometer-half'}" >
 
           <!----------------------------------------------------------------------------------------------------------->
-          <sidebar-item v-for="loc in sensorListJson.filter(s=>s.type==='Fontaine')" :key="loc.location" :link="{name: loc.realName, path: '/temperature/'+loc.location }"></sidebar-item>
+        <sidebar-item v-for="loc in sensorListJson.filter(s=>s.type==='Fontaine')" :key="loc.location" :link="{name: loc.realName, path: '/Fontaines/'+loc.location }"></sidebar-item>
 
           <!--<sidebar-item :link="{name: 'Télécabine', path: '/temperature/telecabine'} "></sidebar-item>
           <sidebar-item :link="{name: 'Pralan', path: '/temperature/pralan'}"></sidebar-item>
@@ -22,6 +22,8 @@
 
 
         </sidebar-item>
+
+
         <hr class="mt-2 border-top">
         <sidebar-item :link="{name: 'Infos techniques', icon: 'nc-icon nc-settings-90', path: '/admin/Technique'}"></sidebar-item>
         <hr class="mt-2 border-top" v-if="$auth.isAuthenticated">

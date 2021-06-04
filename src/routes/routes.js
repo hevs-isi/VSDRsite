@@ -6,7 +6,6 @@ import Overview from 'src/pages/Dashboard/Dashboard/Overview.vue'
 
 
 //--------------------------------------------------------------------------------------------------------------
-import Temperature from "../pages/Dashboard/Temperature/Temperature";
 
 import Snow from "../pages/Dashboard/Neige/Snow"
 
@@ -14,41 +13,32 @@ import Contact from "../pages/Dashboard/Contact";
 import Technical from "../pages/Dashboard/Technical";
 import Login from "../pages/Dashboard/Admin";
 
+import Fountains from "../pages/Dashboard/Fountains";
+import WaterLevel from "../pages/Dashboard/WaterLevel";
+
 // Auth0 related
 import Profile from "../components/Profile.vue";
 import {authGuard} from "../auth";
 
-
-//-------------------------------------------------------------------------------------------------------------------
-let temperatureMenu ={
-  path: '/Temperature',
+let fountainsMenu ={
+  path: '/Fontaines',
   component: DashboardLayout,
-  //redirect: '/Temperature/Télécabine',
   children: [
    {
-      path: 'telecabine',
-      name: 'telecabine',
-      component: Temperature
+      path: 'Patinoire',
+      name: 'Patinoire',
+      component: Fountains
     },
     {
-      path: 'pralan',
-      name: 'pralan',
-      component: Temperature
-    },
-    {
-      path: 'prodesavioz',
-      name: 'prodesavioz',
-      component: Temperature
-    },
-    {
-      path: 'stepstleo',
-      name: 'stepstleo',
-      component: Temperature
+      path: 'Sonvillez',
+      name: 'Sonvillez',
+      component: Fountains
     }
-
+    
   ]
-
 }
+
+
 //-------------------------------------------------------------------------------------------------------------------
 let neigeMenu ={
   path: '/neige',
@@ -119,7 +109,7 @@ const routes = [
 
     ]
   },
-   temperatureMenu,
+  fountainsMenu,
   neigeMenu,
 
   {path: '*', component: NotFound}
