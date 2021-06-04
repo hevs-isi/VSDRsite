@@ -1,26 +1,27 @@
 <template>
   <div class="wrapper" :class="{'nav-open': $sidebar.showSidebar}">
     <notifications></notifications>
-    <side-bar :title="sideBarTitle + ' Snow'">
+    <side-bar :title="sideBarTitle">
       <mobile-menu></mobile-menu>
       <template slot-scope="props" slot="links">
         <hr class="mt-2 border-top">
         <sidebar-item :link="{name: 'Vue générale', icon: 'fa fa-home', path: '/admin/overview'}">
         </sidebar-item>
-        <sidebar-item :link="{name: 'Température', icon: 'fa fa-thermometer-half'}" >
+        <sidebar-item :link="{name: 'Fontaines', icon: 'fa fa-thermometer-half'}" >
 
           <!----------------------------------------------------------------------------------------------------------->
-          <sidebar-item v-for="loc in sensorListJson.filter(s=>s.type==='decentlab')" :key="loc.location" :link="{name: loc.realName, path: '/temperature/'+loc.location }"></sidebar-item>
+          <sidebar-item v-for="loc in sensorListJson.filter(s=>s.type==='Fontaine')" :key="loc.location" :link="{name: loc.realName, path: '/temperature/'+loc.location }"></sidebar-item>
 
           <!--<sidebar-item :link="{name: 'Télécabine', path: '/temperature/telecabine'} "></sidebar-item>
           <sidebar-item :link="{name: 'Pralan', path: '/temperature/pralan'}"></sidebar-item>
           <sidebar-item :link="{name: 'Pro De Savioz', path: '/temperature/prodesavioz'}"></sidebar-item>-->
         </sidebar-item>
-  <!--      <sidebar-item :link="{name: 'Hauteur de neige', icon: 'fa fa-snowflake-o'}">
-          <sidebar-item v-for="loc in sensorListJson.filter(s=>s.type==='hei')" :key="loc.location":link="{name: loc.realName, path: '/neige/'+loc.location} "></sidebar-item>
+
+        <sidebar-item :link="{name: 'Hauteur des lacs', icon: 'fa fa-snowflake-o'}">
+          <sidebar-item v-for="loc in sensorListJson.filter(s=>s.type==='Hauteur d\'eau')" :key="loc.location":link="{name: loc.realName, path: '/neige/'+loc.location} "></sidebar-item>
 
 
-        </sidebar-item>-->
+        </sidebar-item>
         <hr class="mt-2 border-top">
         <sidebar-item :link="{name: 'Infos techniques', icon: 'nc-icon nc-settings-90', path: '/admin/Technique'}"></sidebar-item>
         <hr class="mt-2 border-top" v-if="$auth.isAuthenticated">
