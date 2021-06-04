@@ -7,8 +7,6 @@ import Overview from 'src/pages/Dashboard/Dashboard/Overview.vue'
 
 //--------------------------------------------------------------------------------------------------------------
 
-import Snow from "../pages/Dashboard/Neige/Snow"
-
 import Contact from "../pages/Dashboard/Contact";
 import Technical from "../pages/Dashboard/Technical";
 import Login from "../pages/Dashboard/Admin";
@@ -38,35 +36,20 @@ let fountainsMenu ={
   ]
 }
 
-
-//-------------------------------------------------------------------------------------------------------------------
-let neigeMenu ={
-  path: '/neige',
+let waterLevelMenu ={
+  path: '/Hauteurdelac',
   component: DashboardLayout,
- // redirect: '/neige/Télécabine',
   children: [
-    {
-      path: 'telecabine',
-      name: 'telecabine',
-      component: Snow
-    },
-    {
-      path: 'pralan',
-      name: 'pralan',
-      component: Snow
-    },
-    {
-      path: 'prodesavioz',
-      name: 'prodesavioz',
-      component: Snow
-    },
-    {
-      path: 'stepstleo',
-      name: 'stepstleo',
-      component: Snow
-    },
+   {
+      path: 'Besson',
+      name: 'Besson',
+      component: WaterLevel
+    }
+    
   ]
 }
+
+
 //-------------------------------------------------------------------------------------------------------------------
 
 const routes = [
@@ -110,7 +93,7 @@ const routes = [
     ]
   },
   fountainsMenu,
-  neigeMenu,
+  waterLevelMenu,
 
   {path: '*', component: NotFound}
 ]
