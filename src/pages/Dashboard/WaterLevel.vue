@@ -1,6 +1,6 @@
 <template>
   <div>
-   <h1>Waterlevel page {{locationName}}</h1>
+   <h1>{{locationName}}</h1>
   </div>
 </template>
 
