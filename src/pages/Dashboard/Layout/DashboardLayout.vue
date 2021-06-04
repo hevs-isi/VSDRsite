@@ -10,17 +10,11 @@
         <sidebar-item :link="{name: 'Fontaines', icon: 'fa fa-thermometer-half'}" >
 
           <!----------------------------------------------------------------------------------------------------------->
-        <sidebar-item v-for="loc in sensorListJson.filter(s=>s.type==='Fontaine')" :key="loc.location" :link="{name: loc.realName, path: '/Fontaines/'+loc.location }"></sidebar-item>
-
-          <!--<sidebar-item :link="{name: 'Télécabine', path: '/temperature/telecabine'} "></sidebar-item>
-          <sidebar-item :link="{name: 'Pralan', path: '/temperature/pralan'}"></sidebar-item>
-          <sidebar-item :link="{name: 'Pro De Savioz', path: '/temperature/prodesavioz'}"></sidebar-item>-->
+          <sidebar-item v-for="loc in sensorListJson.filter(s=>s.type==='Fontaine')" :key="loc.location" :link="{name: loc.realName, path: '/Fontaines/'+loc.location }"></sidebar-item>
         </sidebar-item>
 
         <sidebar-item :link="{name: 'Hauteur des lacs', icon: 'fa fa-snowflake-o'}">
           <sidebar-item v-for="loc in sensorListJson.filter(s=>s.type==='Hauteur d\'eau')" :key="loc.location":link="{name: loc.realName, path: '/Hauteurdelac/'+loc.location} "></sidebar-item>
-
-
         </sidebar-item>
 
 
@@ -49,7 +43,6 @@
   import MobileMenu from './Extra/MobileMenu.vue'
   import axios from "axios"
 
- // import Temperature from "@/pages/Dashboard/Temperature/Temperature";
 
   export default {
     components: {
@@ -65,8 +58,6 @@
       }
     },
     mounted() {
-      console.log("hello world")
-      //this.sideBarTitle = location.hostname.split('.')[0]
       this.sideBarTitle = this.$PROJECT
       axios.get('https://snow-server.watermon.ch:443/vsdr_sensorList') 
         .then(res => {
