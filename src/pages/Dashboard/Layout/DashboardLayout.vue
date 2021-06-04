@@ -49,7 +49,7 @@
   import MobileMenu from './Extra/MobileMenu.vue'
   import axios from "axios"
 
-  import Temperature from "@/pages/Dashboard/Temperature/Temperature";
+ // import Temperature from "@/pages/Dashboard/Temperature/Temperature";
 
   export default {
     components: {
