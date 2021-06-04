@@ -65,14 +65,12 @@
       console.log("hello world")
       //this.sideBarTitle = location.hostname.split('.')[0]
       this.sideBarTitle = this.$PROJECT
-      console.log(this.$PROJECT)
       axios.get('https://snow-server.watermon.ch:443/vsdr_sensorList') 
         .then(res => {
           let tempVar=[]
           tempVar.push(res.data)
 
           var i = 0;
-          //console.log(tempVar)
           tempVar[0].forEach(element => {
               if(element.project.toLowerCase() === this.sideBarTitle) {
                 //this.sensorListJson[i]=element;
@@ -81,7 +79,7 @@
               }
             }
           )
-          console.log(this.sensorListJson)
+          //console.log(this.sensorListJson)
         })
         .catch(error => {
           console.log(error)

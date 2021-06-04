@@ -1,15 +1,15 @@
 <template>
   <div class="info" id="contact">
-    <h1 class="p-0" style="margin-top: 0">{{this.contactTitle}} Snow</h1>
+    <h1 class="p-0" style="margin-top: 0">VSDR : {{this.contactTitle}}</h1>
     <hr>
 
     <h3>Bienvenue</h3>
-    <p v-if="contactTitle==='Ayent'">
-      Bienvenue sur le site du projet <b>{{this.contactTitle}}Snow</b>, une collaboration entre la <a :href=this.communeUrl>commune
+    <p v-if="contactTitle==='Grimisuat'">
+      Bienvenue sur le site du projet <b>VSDR {{this.contactTitle}}</b>, une collaboration entre la <a :href=this.communeUrl>commune
       d'{{this.contactTitle}}</a> et la <a href="https://www.hevs.ch/fr/hautes-ecoles/haute-ecole-d-ingenierie/">Haute école
       d'Ingénierie</a> de la HES-SO Valais-Wallis.
     </p>
-    <p v-if="contactTitle==='St-Léonard'">
+    <p v-if="contactTitle==='Saviese'">
       Bienvenue sur le site du projet <b>{{this.contactTitle}}Snow</b>, une collaboration entre la <a :href=this.communeUrl>commune
       de {{this.contactTitle}}</a> et la <a href="https://www.hevs.ch/fr/hautes-ecoles/haute-ecole-d-ingenierie/">Haute école
       d'Ingénierie</a> de la HES-SO Valais-Wallis.
@@ -17,11 +17,10 @@
 
     <h3>Objectifs du projet</h3>
     <p>
-      L'objectif de ce projet est de mettre en place un système de surveillance des conditions des routes en hiver, ceci
-      afin de faciliter et optimiser le travail de dénneigement. Ce réseau de surveillance est composé de plusieurs
-      capteurs qui permettent de connaître la température de la chaussée ainsi que la quantité de neige. Il est ainsi
-      possible de déclencher des alertes au service technique de la commune lorsque la quantité de neige varie de
-      manière significative ainsi que d'aider à la décision pour le salage à effectuer.
+      L'objectif de ce projet est de mettre en place un système de surveillance de hauteur d'eau dans des lac ainsi que de piloter à distance des 
+      fontaines, ceci afin de faciliter et optimiser le travail du service technique et faire des économies d'eau.
+      Ce réseau de surveillance est composé de plusieurs capteurs qui permettent de connaître la hauteur d'eau des lacs, le débit et la consommation des fontaines. 
+      Il est ainsi possible de déclencher des alertes au service technique de la commune lorsque la hauteur d'eau varie de manière significative.
     </p>
 
     <h3>Considérations techniques</h3>
