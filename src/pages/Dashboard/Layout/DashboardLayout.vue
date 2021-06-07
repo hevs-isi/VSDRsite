@@ -63,7 +63,6 @@
         .then(res => {
           let tempVar=[]
           tempVar.push(res.data)
-
           var i = 0;
           tempVar[0].forEach(element => {
               if(element.project.toLowerCase() === this.sideBarTitle) {

@@ -49,8 +49,21 @@
       <div class="col-lg-12">
         <el-collapse class="collapse-info">
           <el-collapse-item style="background-color: white" title="Changer les horaires d'activation" name="1">
-
-            
+            <br>
+            <div>
+               <label for="timepicker-invalid">Heure d'activation</label>
+               <b-form-timepicker v-model="newStartTime" locale="en"></b-form-timepicker>
+            </div>
+            <br>
+              <div>
+               <label for="timepicker-invalid">Heure de désactivation</label>
+               <b-form-timepicker v-model="newStopTime" locale="en"></b-form-timepicker>
+            </div>
+            <br>
+            <div class="col-lg-2">
+                <button type="button" class="btn btn-light" v-on:click="validateNewTime">Enregistrer</button>
+            </div>
+            <br>
           </el-collapse-item>
         </el-collapse>
       </div>
@@ -75,14 +88,17 @@
         locationName: this.$route.name,             //route of the page
         valveState : 0,                             //state of the valve, toggled by the button and the function toggleValve 0-close, 1 open, 2 in transition
         startTime : 0,
-        stopTime : 0
+        stopTime : 0,
+        newStartTime : "",
+        newStopTime : ""
+
       }
     },
     mounted() {
     },
     watch: {
-      '$route.route': {                               //watch if the route has change (this is how i now that i've change page)
-        handler: function () {                        //if the route change, reload data
+      '$route.route': {                               //watch if the route has changed (this is how i now that i've changed page)
+        handler: function () {                        //if the route changed, reload data
           this.locationName = this.$route.name
           /**
            * reload all data here
@@ -93,9 +109,8 @@
               this.startTime = this.$SENSORSLISTJSON[i].startTime
               this.stopTime = this.$SENSORSLISTJSON[i].stopTime
             }
-
           }
-          
+
 
 
          
@@ -119,7 +134,15 @@
           console.log("open valve")
           this.valveState = 2
         }
-        
+      },
+
+      /**
+       * validate the time activation change
+       */
+      validateNewTime : function(){
+
+        console.log(this.newStartTime)
+        console.log(this.newStopTime)
       }
     }
 
