@@ -4,7 +4,11 @@
       <div class="col-lg-4"  v-for="sensor in mySensorList.filter(s=> (s.project.toLowerCase() === project.toLowerCase() && s.type === 'Fontaine'))">
         <fountains-valve-card :location="sensor.location"></fountains-valve-card> <!--Add the operating times-->  
       </div>
-      
+    </div>
+    <div class="col-lg-12"  v-for="sensor in mySensorList.filter(s=> (s.project.toLowerCase() === project.toLowerCase() && s.type === 'Hauteur d\'eau'))">
+      <card title="here will be all the water height plot">
+        
+      </card>
     </div>
   </div>
 </template>
@@ -12,8 +16,9 @@
 
 <script>
 import FountainsValveCard from '../../../components/FountainsValveCard.vue'
+import TemperatureChart from '../../../components/TemperatureChart.vue'
    export default {
-  components: { FountainsValveCard },
+  components: { FountainsValveCard, TemperatureChart },
     name: "Overview",
     
     
