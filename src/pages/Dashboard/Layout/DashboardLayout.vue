@@ -69,6 +69,7 @@
               if(element.project.toLowerCase() === this.sideBarTitle) {
                 //this.sensorListJson[i]=element;
                 this.sensorListJson.push(element)
+                this.$SENSORSLISTJSON.push(element)
                 i++
               }
             }
