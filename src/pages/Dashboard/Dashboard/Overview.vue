@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-lg-4"  v-for="sensor in mySensorList.filter(s=> (s.project.toLowerCase() === project.toLowerCase()))">
-        <fountains-valve-card :location="sensor.location"></fountains-valve-card> <!--Add the operating times-->
+      <div class="col-lg-4"  v-for="sensor in mySensorList.filter(s=> (s.project.toLowerCase() === project.toLowerCase() && s.type === 'Fontaine'))">
+        <fountains-valve-card :location="sensor.location"></fountains-valve-card> <!--Add the operating times-->  
       </div>
       
     </div>
