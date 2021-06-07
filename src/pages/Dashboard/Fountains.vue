@@ -1,6 +1,7 @@
 <template>
   <div> 
     <div class="row justify-content-md-center">
+      <!--Valve card-->
       <div class="col-lg-4">
             <fountains-valve-card 
               :location="this.$route.name" 
@@ -9,7 +10,7 @@
             </fountains-valve-card>
       </div>
     </div>
-
+    <!--Information about water consumption-->
     <div class="row">
       <div class="col-lg-4">
         <card title="Débit actuel">
@@ -55,7 +56,7 @@
             </div>
             <br>
             <div class="col-lg-2">
-                <button type="button" class="btn btn-light" v-on:click="validateNewTime">Enregistrer</button>
+                <button type="button" class="btn btn-light" v-on:click="$SaveNewValveTime(newStartTime, newStopTime)">Enregistrer</button>
             </div>
             <br>
           </el-collapse-item>
@@ -120,14 +121,7 @@ import FountainsValveCard from '../../components/FountainsValveCard.vue'
     methods: {
 
 
-      /**
-       * validate the time activation change
-       */
-      validateNewTime : function(){
-
-        console.log(this.newStartTime)
-        console.log(this.newStopTime)
-      }
+     
     }
 
 }
