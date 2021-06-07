@@ -34,6 +34,9 @@ const data_fields = [
 
 export default {
   install(Vue, options) {
+    /**
+     * Global variables
+     */
     Vue.prototype.$PROJECT = location.hostname.split('.')[0]
     Vue.prototype.$SENSORSLISTJSON=[];
     Vue.prototype.$GATEWAYLISTJSON=[];
@@ -41,13 +44,15 @@ export default {
 
     /**
      * Function that save into JSON the new operating time of the fountains valve
-     * @param {*} start 
-     * @param {*} stop 
+     * @param {*} start : start time
+     * @param {*} stop  : stop time
      */
     Vue.prototype.$SaveNewValveTime = function(start, stop){
       console.log(start)
       console.log(stop)
     } 
+
+    
 
     }
   }

@@ -2,7 +2,7 @@
   <div>
       <b-card>
           
-          <h4 class="card.title">Etat de la vanne {{this.$route.name}}
+          <h4 class="card.title">Etat de la vanne {{location}}
             <i v-bind:class="[hovered ? 'fa fa-info-circle text-muted animate__animated animate__rubberBand' : 'fa fa-info-circle text-muted']"
           v-on:mouseover="hovered=true" v-on:mouseout="hovered=false" @click="info = !info">
           </i>
