@@ -2,8 +2,15 @@
   <div> 
     <div class="row justify-content-md-center">
       <div class="col-lg-4">
-        <card title="Etat de la vanne">
-          <h5>Horaire de fonctionnement : {{startTime}}-{{stopTime}}</h5>
+        <b-card>
+          
+          <h4 class="card.title">Etat de la vanne 
+            <i v-bind:class="[hovered ? 'fa fa-info-circle text-muted animate__animated animate__rubberBand' : 'fa fa-info-circle text-muted']"
+          v-on:mouseover="hovered=true" v-on:mouseout="hovered=false" @click="info = !info">
+          </i>
+        </h4>
+          
+          <h5>Horaire de fonctionnement : {{startTime}}-{{stopTime}} </h5>
           <h5 v-if="valveState===0">Etat actuel : fermée  <img src="../../assets/sensorNotOk.png" align="center"> </h5>
           <h5 v-if="valveState===1">Etat actuel : ouverte  <img src="../../assets/sensorOk.png" align="center"> </h5>
           <h5 v-if="valveState===2">Etat actuel : en transition  <img src="../../assets/sensorTransition.png" align="center"> </h5>
@@ -22,7 +29,13 @@
           </div>
 
           </div>
-        </card>
+           <!--Additionnal informations-->
+          <div v-if="info" class="animate__animated animate__fadeInDown" transition="zoomInOut">
+            <br>
+            <h5>Le système de communication que nous utilisons ne permet pas d'envoyer des ordres d'ouvertures ou de fermeture en tout temps. <br> L'état "en transition"
+            survient durant le temps d'attente de réception de la vanne. En principe, ce temps est de 10 minutes.</h5>
+          </div> 
+        </b-card>
       </div>
     </div>
 
@@ -51,13 +64,23 @@
           <el-collapse-item style="background-color: white" title="Changer les horaires d'activation" name="1">
             <br>
             <div>
-               <label for="timepicker-invalid">Heure d'activation</label>
-               <b-form-timepicker v-model="newStartTime" locale="en"></b-form-timepicker>
+               <label for="example-input">Heure d'activation</label>
+                <b-input-group class="mb-3">
+                  <b-form-input id="example-input" v-model="newStartTime" type="text" placeholder="HH:mm:ss"></b-form-input>
+                  <b-input-group-append>
+                    <b-form-timepicker button-only right disabled></b-form-timepicker>
+                  </b-input-group-append>
+                </b-input-group>
             </div>
             <br>
               <div>
-               <label for="timepicker-invalid">Heure de désactivation</label>
-               <b-form-timepicker v-model="newStopTime" locale="en"></b-form-timepicker>
+               <label for="example-input">Heure de désactivation</label>
+                <b-input-group class="mb-3">
+                  <b-form-input id="example-input" v-model="newStopTime" type="text" placeholder="HH:mm:ss"></b-form-input>
+                  <b-input-group-append>
+                    <b-form-timepicker button-only right disabled></b-form-timepicker>
+                  </b-input-group-append>
+                </b-input-group>
             </div>
             <br>
             <div class="col-lg-2">
@@ -69,15 +92,14 @@
       </div>
     </card>
 
-
+   
   </div>
 </template>
 
 <script>
 
-
   export default {
-    components: {  },
+    components: {},
     name: "Fountains",
     
     component: {
@@ -90,7 +112,9 @@
         startTime : 0,
         stopTime : 0,
         newStartTime : "",
-        newStopTime : ""
+        newStopTime : "",
+        hovered: false,
+        info:false
 
       }
     },
