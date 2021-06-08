@@ -5,19 +5,19 @@
 
     <h3>Bienvenue</h3>
     <p v-if="contactTitle==='Grimisuat'">
-      Bienvenue sur le site du projet <b>VSDR {{this.contactTitle}}</b>, une collaboration entre la <a :href=this.communeUrl>commune
-      d'{{this.contactTitle}}</a> et la <a href="https://www.hevs.ch/fr/hautes-ecoles/haute-ecole-d-ingenierie/">Haute école
+      Bienvenue sur le site du projet <b>Valais Smart Dynamic Region {{this.contactTitle}}</b>, une collaboration entre la <a href="https://www.grimisuat.ch/">commune
+      de {{this.contactTitle}}</a> et la <a href="https://www.hevs.ch/fr/hautes-ecoles/haute-ecole-d-ingenierie/">Haute école
       d'Ingénierie</a> de la HES-SO Valais-Wallis.
     </p>
     <p v-if="contactTitle==='Saviese'">
-      Bienvenue sur le site du projet <b>{{this.contactTitle}}Snow</b>, une collaboration entre la <a :href=this.communeUrl>commune
+      Bienvenue sur le site du projet <b>Valais Smart Dynamic Region {{this.contactTitle}}</b>, une collaboration entre la <a href="https://www.saviese.ch/">commune
       de {{this.contactTitle}}</a> et la <a href="https://www.hevs.ch/fr/hautes-ecoles/haute-ecole-d-ingenierie/">Haute école
       d'Ingénierie</a> de la HES-SO Valais-Wallis.
     </p>
 
     <h3>Objectifs du projet</h3>
     <p>
-      L'objectif de ce projet est de mettre en place un système de surveillance de hauteur d'eau dans des lac ainsi que de piloter à distance des 
+      L'objectif de ce projet est de mettre en place un système de surveillance de hauteur d'eau dans des lacs ainsi que de piloter à distance des 
       fontaines, ceci afin de faciliter et optimiser le travail du service technique et faire des économies d'eau.
       Ce réseau de surveillance est composé de plusieurs capteurs qui permettent de connaître la hauteur d'eau des lacs, le débit et la consommation des fontaines. 
       Il est ainsi possible de déclencher des alertes au service technique de la commune lorsque la hauteur d'eau varie de manière significative.

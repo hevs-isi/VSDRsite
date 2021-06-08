@@ -6,9 +6,11 @@
       </div>
     </div>
     <div class="col-lg-12"  v-for="sensor in mySensorList.filter(s=> (s.project.toLowerCase() === project.toLowerCase() && s.type === 'Hauteur d\'eau'))">
-      <card title="here will be all the water height plot">
+      <b-card>
+            <h4 class="card.title">Hauteur d'eau {{sensor.location}}</h4>
 
-      </card>
+            <!--waterlevel chart-->
+      </b-card>           
     </div>
   </div>
 </template>
