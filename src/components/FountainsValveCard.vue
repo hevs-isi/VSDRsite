@@ -30,7 +30,8 @@
            <!--Additionnal informations-->
           <div v-if="info" class="animate__animated animate__fadeInDown" transition="zoomInOut">
             <br>
-            <h5 align="justify">Le système de communication que nous utilisons ne permet pas d'envoyer des ordres d'ouvertures ou de fermeture en tout temps. 
+            <h5 align="justify">Le système de communication que nous utilisons ne permet pas d'envoyer des ordres d'ouvertures ou de fermeture en tout temps,
+              cependant, la demande est mise en attente. 
               <br><br>
              L'état <i><b>"en transition"</b></i> survient durant le temps d'attente de réception de la vanne. En principe, ce temps est de 10 minutes.</h5>
           </div> 
@@ -66,11 +67,11 @@
        */
       toggleValve : function (){
         if(this.valveState === 1){
-          console.log("close Valve")
+          console.log("close Valve " + this.location)
           this.valveState = 2
           this.myBorder="danger"
         }else{
-          console.log("open valve")
+          console.log("open valve "  + this.location)
           this.valveState = 2
           this.myBorder="success"
         }
