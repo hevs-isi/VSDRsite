@@ -4,19 +4,19 @@
     <hr>
 
     <h3>Bienvenue</h3>
-    <p v-if="contactTitle==='Grimisuat'">
+    <p v-if="contactTitle==='Grimisuat'" align="justify">
       Bienvenue sur le site du projet <b>Valais Smart Dynamic Region {{this.contactTitle}}</b>, une collaboration entre la <a href="https://www.grimisuat.ch/">commune
       de {{this.contactTitle}}</a> et la <a href="https://www.hevs.ch/fr/hautes-ecoles/haute-ecole-d-ingenierie/">Haute école
       d'Ingénierie</a> de la HES-SO Valais-Wallis.
     </p>
-    <p v-if="contactTitle==='Saviese'">
+    <p v-if="contactTitle==='Saviese'" align="justify">
       Bienvenue sur le site du projet <b>Valais Smart Dynamic Region {{this.contactTitle}}</b>, une collaboration entre la <a href="https://www.saviese.ch/">commune
       de {{this.contactTitle}}</a> et la <a href="https://www.hevs.ch/fr/hautes-ecoles/haute-ecole-d-ingenierie/">Haute école
       d'Ingénierie</a> de la HES-SO Valais-Wallis.
     </p>
 
     <h3>Objectifs du projet</h3>
-    <p>
+    <p align="justify">
       L'objectif de ce projet est de mettre en place un système de surveillance de hauteur d'eau dans des lacs ainsi que de piloter à distance des 
       fontaines, ceci afin de faciliter et optimiser le travail du service technique et faire des économies d'eau.
       Ce réseau de surveillance est composé de plusieurs capteurs qui permettent de connaître la hauteur d'eau des lacs, le débit et la consommation des fontaines. 
@@ -24,7 +24,7 @@
     </p>
 
     <h3>Considérations techniques</h3>
-    <p>
+    <p align="justify">
       Ce système de monitoring fonctionne sur batterie et utilise une technologie de communication à très basse
       consommation et longue distance nommé LoRa. Cette communication sans fil est très peu énergétique. En effet, les
       énergies d'émission en jeu sont de l'ordre de celles émise par les thermomètres sans fils que l'on peut acheter
