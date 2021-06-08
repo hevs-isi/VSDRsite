@@ -31,7 +31,23 @@ let fountainsMenu ={
       path: 'Sonvillez',
       name: 'Sonvillez',
       component: Fountains
+    },
+    {
+    path: 'Golf',
+    name: 'Golf',
+    component: Fountains
+    },
+    {
+    path: 'Commune',
+    name: 'Commune',
+    component: Fountains
+    },
+    {
+      path: 'Skatepark',
+      name: 'Skatepark',
+      component: Fountains
     }
+      
     
   ]
 }
@@ -44,8 +60,17 @@ let waterLevelMenu ={
       path: 'Besson',
       name: 'Besson',
       component: WaterLevel
+    },
+    {
+      path: 'Mouchy',
+      name: 'Mouchy',
+      component: WaterLevel
+    },
+    {
+      path: 'Rocher',
+      name: 'Rocher',
+      component: WaterLevel
     }
-    
   ]
 }
 
