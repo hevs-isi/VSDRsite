@@ -32,14 +32,14 @@
     </p>
 
     <h3>Informations de contact</h3>
-    <p v-if="contactTitle==='Ayent'">
-      Pour plus d'information, vous pouvez contacter pour la commune d'Ayent M. Stéphane Cotter, responsable des travaux
+    <p v-if="contactTitle==='Grimisuat'">
+      Pour plus d'information, vous pouvez contacter pour la commune de Grimisuat M. XXXXXX, responsable des travaux
       publics et pour la Haute école d'Ingénierie, <a
       href="https://www.hevs.ch/fr/rad-instituts/institut-systemes-industriels/collaborateurs/professeure-hes/mudry-1640">Prof.
       Pierre-André Mudry</a>
     </p>
-    <p v-if="contactTitle==='St-Léonard'">
-      Pour plus d'information, vous pouvez contacter pour la commune de St-léonard M. Jean-Marc Morard, responsable des travaux
+    <p v-if="contactTitle==='Saviese'">
+      Pour plus d'information, vous pouvez contacter pour la commune de Saviese M. XXXX, responsable des travaux
       publics et pour la Haute école d'Ingénierie, <a
       href="https://www.hevs.ch/fr/rad-instituts/institut-systemes-industriels/collaborateurs/professeure-hes/mudry-1640">Prof.
       Pierre-André Mudry</a>
