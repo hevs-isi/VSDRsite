@@ -15,15 +15,15 @@
           
           <div class="container">
           <div class="row justify-content-md-center" v-if="valveState === 0">
-            <button type="button" class="btn btn-success" v-on:click="toggleValve">Ouvrir</button>
+            <l-button type="button" class="btn btn-success" outline="" v-on:click="toggleValve">Ouvrir</l-button>
           </div>
           
           <div class="row justify-content-md-center" v-if="valveState === 1">
-            <button type="button" class="btn btn-danger" v-on:click="toggleValve">Fermer</button>
+            <l-button type="button" class="btn btn-danger" outline="" v-on:click="toggleValve">Fermer</l-button>
           </div>
 
           <div class="row justify-content-md-center" v-if="valveState === 2">
-            <button type="button" class="btn btn-light"  disabled = "disabled">En transition</button>
+            <l-button type="button" class="btn btn-light" outline="" disabled = "disabled">En transition</l-button>
           </div>
 
           </div>
@@ -49,7 +49,7 @@
     ,
     data() {
       return {
-        valveState :0,
+        valveState :1,
         hovered: false,
         info:false
       }
