@@ -30,9 +30,9 @@
            <!--Additionnal informations-->
           <div v-if="info" class="animate__animated animate__fadeInDown" transition="zoomInOut">
             <br>
-            <h5>Le système de communication que nous utilisons ne permet pas d'envoyer des ordres d'ouvertures ou de fermeture en tout temps. 
+            <h5 align="justify">Le système de communication que nous utilisons ne permet pas d'envoyer des ordres d'ouvertures ou de fermeture en tout temps. 
               <br><br>
-             L'état <i>"en transition"</i> survient durant le temps d'attente de réception de la vanne. En principe, ce temps est de 10 minutes.</h5>
+             L'état <i><b>"en transition"</b></i> survient durant le temps d'attente de réception de la vanne. En principe, ce temps est de 10 minutes.</h5>
           </div> 
         </b-card>
   </div>
