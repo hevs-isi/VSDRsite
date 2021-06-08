@@ -64,13 +64,15 @@
       </div>
     </card>
 
-   
+     <button type="button" class="btn btn-light" v-on:click="test">testJson</button>
+
   </div>
 </template>
 
 <script>
 
 import FountainsValveCard from '../../components/FountainsValveCard.vue'
+import axios from "axios"
 
   export default {
     components: {FountainsValveCard},
@@ -86,6 +88,7 @@ import FountainsValveCard from '../../components/FountainsValveCard.vue'
         stopTime : 0,
         newStartTime : "",
         newStopTime : "",
+        vsdrSensorJson : this.$SENSORSLISTJSON
 
 
       }
@@ -119,6 +122,36 @@ import FountainsValveCard from '../../components/FountainsValveCard.vue'
 
 
     methods: {
+
+      test : function(){
+        let location = this.locationName
+        //check the right object into the JSON array
+        for(let i = 0; i< this.vsdrSensorJson.length; i++){
+          if(this.vsdrSensorJson[i].project.toLowerCase() === this.$PROJECT.toLowerCase()){
+            if(this.vsdrSensorJson[i].location.toLowerCase() === this.locationName.toLowerCase()){
+              this.vsdrSensorJson[i].startTime = "20:00:00"
+              this.vsdrSensorJson[i].stopTime = "12:11:11"
+            }
+          }
+
+        }
+        
+        //formate the json array
+        const formData = new FormData()
+        formData.append("file", new Blob([
+        JSON.stringify(this.vsdrSensorJson),
+        ], {type : 'application/json'}), 'vsdr_sensorList.json');  //
+
+        //axios request to rewrite the JSON file
+        axios.post(this.$SERVERURL + 'vsdr_sensorList', formData)
+          .then(res =>{
+            console.log(res)
+          })
+          .catch(err =>{
+            console.log("error axios : " + err)
+          })
+
+      }
 
 
      
