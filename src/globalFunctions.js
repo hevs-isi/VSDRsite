@@ -41,16 +41,9 @@ export default {
     Vue.prototype.$SENSORSLISTJSON=[];
     Vue.prototype.$GATEWAYLISTJSON=[];
     Vue.prototype.$SERVERURL = 'https://snow-server.watermon.ch:443/';
+    
 
-    /**
-     * Function that save into JSON the new operating time of the fountains valve
-     * @param {*} start : start time
-     * @param {*} stop  : stop time
-     */
-    Vue.prototype.$SaveNewValveTime = function(start, stop){
-      console.log(start)
-      console.log(stop)
-    } 
+
 
     
 

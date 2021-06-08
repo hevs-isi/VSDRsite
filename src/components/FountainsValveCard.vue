@@ -1,6 +1,6 @@
 <template>
   <div>
-      <b-card>
+      <b-card :border-variant="myBorder">
           
           <h4 class="card.title">Etat de la vanne {{location}}
             <i v-bind:class="[hovered ? 'fa fa-info-circle text-muted animate__animated animate__rubberBand' : 'fa fa-info-circle text-muted']"
@@ -8,7 +8,7 @@
           </i>
         </h4>
           
-          <h5>Horaire de fonctionnement : {{startTime}}-{{stopTime}} </h5>
+          <h5>Horaire de fonctionnement : {{startTime}}->{{stopTime}} </h5>
           <h5 v-if="valveState===0">Etat actuel : fermée  <img src="../assets/sensorNotOk.png" align="center"> </h5>
           <h5 v-if="valveState===1">Etat actuel : ouverte  <img src="../assets/sensorOk.png" align="center"> </h5>
           <h5 v-if="valveState===2">Etat actuel : en transition  <img src="../assets/sensorTransition.png" align="center"> </h5>
@@ -49,13 +49,16 @@
     ,
     data() {
       return {
-        valveState :1,
+        valveState :0,
         hovered: false,
+        myBorder : "danger",
         info:false
       }
     },
     mounted() {
       //console.log("Date", this.timeStamp)
+     
+
     },
     methods:{
          /**
@@ -65,9 +68,11 @@
         if(this.valveState === 1){
           console.log("close Valve")
           this.valveState = 2
+          this.myBorder="danger"
         }else{
           console.log("open valve")
           this.valveState = 2
+          this.myBorder="success"
         }
       },
     }
