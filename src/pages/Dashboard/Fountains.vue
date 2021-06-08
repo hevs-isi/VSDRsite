@@ -38,9 +38,9 @@
             <div>
                <label for="example-input">Heure d'activation</label>
                 <b-input-group class="mb-3">
-                  <b-form-input id="example-input" v-model="newStartTime" type="text" placeholder="HH:mm:ss"></b-form-input>
+                  <b-form-input id="example-input" type="time" v-model="newStartTime" placeholder="HH:mm:ss"></b-form-input>
                   <b-input-group-append>
-                    <b-form-timepicker button-only right disabled></b-form-timepicker>
+                    <b-form-timepicker button-only right disabled ></b-form-timepicker>
                   </b-input-group-append>
                 </b-input-group>
             </div>
@@ -48,7 +48,7 @@
               <div>
                <label for="example-input">Heure de désactivation</label>
                 <b-input-group class="mb-3">
-                  <b-form-input id="example-input" v-model="newStopTime" type="text" placeholder="HH:mm:ss"></b-form-input>
+                  <b-form-input id="example-input" type="time" v-model="newStopTime"  placeholder="HH:mm:ss"></b-form-input>
                   <b-input-group-append>
                     <b-form-timepicker button-only right disabled></b-form-timepicker>
                   </b-input-group-append>
@@ -56,7 +56,7 @@
             </div>
             <br>
             <div class="col-lg-2">
-                <button type="button" class="btn btn-light" v-on:click="$SaveNewValveTime(newStartTime, newStopTime)">Enregistrer</button>
+                <button type="button" class="btn btn-light" v-on:click="saveNewValveTime">Enregistrer</button>
             </div>
             <br>
           </el-collapse-item>
@@ -64,7 +64,6 @@
       </div>
     </card>
 
-     <button type="button" class="btn btn-light" v-on:click="test">testJson</button>
 
   </div>
 </template>
@@ -123,14 +122,16 @@ import axios from "axios"
 
     methods: {
 
-      test : function(){
+      saveNewValveTime : function(){
         let location = this.locationName
         //check the right object into the JSON array
         for(let i = 0; i< this.vsdrSensorJson.length; i++){
           if(this.vsdrSensorJson[i].project.toLowerCase() === this.$PROJECT.toLowerCase()){
             if(this.vsdrSensorJson[i].location.toLowerCase() === this.locationName.toLowerCase()){
-              this.vsdrSensorJson[i].startTime = "20:00:00"
-              this.vsdrSensorJson[i].stopTime = "12:11:11"
+              this.vsdrSensorJson[i].startTime = this.newStartTime
+              this.vsdrSensorJson[i].stopTime = this.newStopTime
+              this.startTime= this.newStartTime
+              this.stopTime = this.newStopTime
             }
           }
 
