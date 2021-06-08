@@ -1,5 +1,5 @@
 <template>
-<!--    <span style="color: black">Bienvenue sur <b>Ayent Snow</b> - Un projet de monitoring de l'état des routes à Ayent.</span>-->
+<!--    <span style="color: black">Bienvenue sur <b>VSDR</b> - Un projet de monitoring de l'état des routes à Ayent.</span>-->
 </template>
 <script>
   export default {
