@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.2.3",
+    "@chirpstack/chirpstack-api": "^3.10.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.22",
     "@fortawesome/free-solid-svg-icons": "^5.10.2",
     "@fortawesome/vue-fontawesome": "^0.1.7",
