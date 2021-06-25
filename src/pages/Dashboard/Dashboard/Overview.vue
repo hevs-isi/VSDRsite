@@ -19,6 +19,10 @@
 <script>
 import FountainsValveCard from '../../../components/FountainsValveCard.vue'
 import TemperatureChart from '../../../components/TemperatureChart.vue'
+
+import axios from 'axios'
+
+
    export default {
   components: { FountainsValveCard, TemperatureChart },
     name: "Overview",
@@ -35,6 +39,25 @@ import TemperatureChart from '../../../components/TemperatureChart.vue'
       }
     },
     mounted() {
+      let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiNDE1ZGQ1ZDEtNjViNS00M2Y1LWIzYTAtOTk2OGU3MGI5MmNiIiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTYyNDYxMTA0OSwic3ViIjoiYXBpX2tleSJ9.KvrVEaXADcJmg7EtbH0pA7JTwlEbbfgYzCzyJcv38hk'
+      let req = 'api/devices/'
+      let devId = 'a84041a6b1827b7f'
+
+
+
+      axios.get('https://lora.pignat.org/api/applications', {headers : {
+        'Accept': 'application/json',
+        'Grpc-Metadata-Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiNDE1ZGQ1ZDEtNjViNS00M2Y1LWIzYTAtOTk2OGU3MGI5MmNiIiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTYyNDYxMTA0OSwic3ViIjoiYXBpX2tleSJ9.KvrVEaXADcJmg7EtbH0pA7JTwlEbbfgYzCzyJcv38hk',
+      }})      
+        .then(res => {
+          console.log(res)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+
+
+
     },
     watch: {
       '$route.route': {                               //watch if the route has changed (this is how i now that i've changed page)

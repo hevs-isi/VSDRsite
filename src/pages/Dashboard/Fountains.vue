@@ -73,9 +73,8 @@
 import FountainsValveCard from '../../components/FountainsValveCard.vue'
 import axios from "axios"
 
-/**
-  test chirpstack
- */
+
+
 
 
   export default {

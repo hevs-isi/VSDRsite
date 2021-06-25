@@ -24,7 +24,7 @@ export default {
       // Do not rename the following, it is updated
       // automatically by the build script located
       // in packages.json
-      version: 'de301b0b-25.06.21'
+      version: '6fc1c265-25.06.21'
     }
   },
 }
