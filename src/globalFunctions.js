@@ -2,11 +2,17 @@ import credInflux from './constants/influx'
 import moment from "moment";
 import db_req from "./constants/influx_requests.json"
 import {latLng} from "leaflet/dist/leaflet-src.esm"
-import axios from "axios";
 import L from "leaflet";
 import NProgress from "nprogress";
 import {toFront} from "leaflet/src/dom/DomUtil";
 import fr from "element-ui/src/locale/lang/fr";
+
+
+//VSDR imports
+import chirpstackCredentials from './constants/chirpstack.json'      //credentials for chirpstack server
+import axios from 'axios'
+
+
 const Influx = require('influx')
 
 /**
@@ -43,6 +49,22 @@ export default {
     Vue.prototype.$SERVERURL = 'https://snow-server.watermon.ch:443/';
     
 
+    /**
+     * get values from chirpstack
+     * 
+     */
+    Vue.prototype.$getFromChirpStack = function (target, eui) {
+
+      //request for device 'devices/DEVEUI' (a84041a6b1827b7f)
+      //resquest for gateways 'gateways/GWEUI' ('a840411ec7cc4150')
+      axios.get(chirpstackCredentials.url+ target + '/' + eui, {headers : {
+        'Accept': 'application/json',
+        'Grpc-Metadata-Authorization' : 'Bearer ' + chirpstackCredentials.token,
+      }})   
+        .then(res => {
+          console.log(res.data)
+        })
+    }
 
 
     

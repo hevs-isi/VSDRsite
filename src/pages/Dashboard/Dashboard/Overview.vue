@@ -19,7 +19,7 @@
 <script>
 import FountainsValveCard from '../../../components/FountainsValveCard.vue'
 import TemperatureChart from '../../../components/TemperatureChart.vue'
-
+import chirpstackCredentials from '../../../constants/chirpstack.json'
 import axios from 'axios'
 
 
@@ -39,24 +39,7 @@ import axios from 'axios'
       }
     },
     mounted() {
-      let token = ''
-      let req = 'api/devices/'
-      let devId = 'a84041a6b1827b7f'
-
-
-
-      axios.get('https://lora.pignat.org/api/applications', {headers : {
-        'Accept': 'application/json',
-        'Grpc-Metadata-Authorization' : 'Bearer ',
-      }})      
-        .then(res => {
-          console.log(res)
-        })
-        .catch(error => {
-          console.log(error)
-        })
-
-
+      this.$getFromChirpStack('gateways','a840411ec7cc4150')
 
     },
     watch: {
