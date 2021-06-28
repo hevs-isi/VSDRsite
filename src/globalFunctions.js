@@ -50,13 +50,11 @@ export default {
     
 
     /**
-     * get values from chirpstack
-     * 
-     */
+     * Function that make the request on the chirpstack server
+     * @param {} target ex1 : devices ,          ex2: gateways 
+     * @param {*} eui   ex1 : a84041a6b1827b7f , ex2 : a840411ec7cc4150
+     */ 
     Vue.prototype.$getFromChirpStack = function (target, eui) {
-
-      //request for device 'devices/DEVEUI' (a84041a6b1827b7f)
-      //resquest for gateways 'gateways/GWEUI' ('a840411ec7cc4150')
       axios.get(chirpstackCredentials.url+ target + '/' + eui, {headers : {
         'Accept': 'application/json',
         'Grpc-Metadata-Authorization' : 'Bearer ' + chirpstackCredentials.token,

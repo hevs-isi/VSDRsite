@@ -39,7 +39,6 @@ import axios from 'axios'
       }
     },
     mounted() {
-      this.$getFromChirpStack('gateways','a840411ec7cc4150')
 
     },
     watch: {
