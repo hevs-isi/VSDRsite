@@ -39,7 +39,7 @@ import axios from 'axios'
       }
     },
     mounted() {
-      let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiNDE1ZGQ1ZDEtNjViNS00M2Y1LWIzYTAtOTk2OGU3MGI5MmNiIiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTYyNDYxMTA0OSwic3ViIjoiYXBpX2tleSJ9.KvrVEaXADcJmg7EtbH0pA7JTwlEbbfgYzCzyJcv38hk'
+      let token = ''
       let req = 'api/devices/'
       let devId = 'a84041a6b1827b7f'
 
@@ -47,7 +47,7 @@ import axios from 'axios'
 
       axios.get('https://lora.pignat.org/api/applications', {headers : {
         'Accept': 'application/json',
-        'Grpc-Metadata-Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiNDE1ZGQ1ZDEtNjViNS00M2Y1LWIzYTAtOTk2OGU3MGI5MmNiIiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTYyNDYxMTA0OSwic3ViIjoiYXBpX2tleSJ9.KvrVEaXADcJmg7EtbH0pA7JTwlEbbfgYzCzyJcv38hk',
+        'Grpc-Metadata-Authorization' : 'Bearer ',
       }})      
         .then(res => {
           console.log(res)
