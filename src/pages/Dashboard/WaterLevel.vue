@@ -19,10 +19,26 @@
               <h1 align="center"> mm</h1>
           </b-card>        
         </div>           
-      </div>  
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4 offset-md-2">
+          <b-card>
+            <h4 class="card.title">Hauteur minimale</h4>
+              <h1 align="center"> mm</h1>
+          </b-card>        
+        </div>
+        <div class="col-lg-4 offset-md-1">
+          <b-card>
+            <h4 class="card.title">Hauteur maximale</h4>
+              <h1 align="center"> mm</h1>
+          </b-card>        
+        </div>
+      </div>
+
       
 <!--chart-->      
-      <div class="col-lg-4">
+      <div class="col-lg-12">
         <b-card>
             <h4 class="card.title">WaterHeight chart </h4>
             
