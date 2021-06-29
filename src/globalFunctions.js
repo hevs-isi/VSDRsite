@@ -66,19 +66,22 @@ export default {
 
 
     /**
-     * Not yet tested : make a downlink message 
+     * Make a downlink message, for lht65 : "devices", "a84041a6b1827b7f"
      * @param {*} target 
      * @param {*} eui 
      */
     Vue.prototype.$postDownlinkChirpStack = function (target, eui) {
+
+      // data : data to send
+      //jsonObject : data to send if a codecs as been configured
+
       var postData = {
         "deviceQueueItem": {
-          "confirmed": true,
-          "data": "string",
+          "confirmed": false,
+          "data": "0100012C",
           "devEUI": eui,
           "fCnt": 0,
-          "fPort": 0,
-          "jsonObject": "string"
+          "fPort": 1
         }
       }
 
@@ -89,7 +92,7 @@ export default {
         }
       };
 
-      axios.post(chirpstackCredentials.url+ target + '/' + eui, postData, axiosConfig)
+      axios.post(chirpstackCredentials.url+ target + '/' + eui + '/queue', postData, axiosConfig)
       .then((res) => {
         console.log("RESPONSE RECEIVED: ", res);
       })
