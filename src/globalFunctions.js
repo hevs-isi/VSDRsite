@@ -65,6 +65,41 @@ export default {
     }
 
 
+    /**
+     * Not yet tested : make a downlink message 
+     * @param {*} target 
+     * @param {*} eui 
+     */
+    Vue.prototype.$postDownlinkChirpStack = function (target, eui) {
+      var postData = {
+        "deviceQueueItem": {
+          "confirmed": true,
+          "data": "string",
+          "devEUI": eui,
+          "fCnt": 0,
+          "fPort": 0,
+          "jsonObject": "string"
+        }
+      }
+
+      let axiosConfig = {
+        headers: {
+          'Accept': 'application/json',
+          'Grpc-Metadata-Authorization' : 'Bearer ' + chirpstackCredentials.token,
+        }
+      };
+
+      axios.post(chirpstackCredentials.url+ target + '/' + eui, postData, axiosConfig)
+      .then((res) => {
+        console.log("RESPONSE RECEIVED: ", res);
+      })
+      .catch((err) => {
+        console.log("AXIOS ERROR: ", err);
+      })
+    }
+
+
+
     
 
     }
