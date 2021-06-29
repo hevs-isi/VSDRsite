@@ -45,9 +45,6 @@ import axios from 'axios'
       '$route.route': {                               //watch if the route has changed (this is how i now that i've changed page)
         handler: function () {                        //if the route changed, reload data
           this.locationName = this.$route.name
-          
-         
-          
         },
         deep: true,
         immediate: true

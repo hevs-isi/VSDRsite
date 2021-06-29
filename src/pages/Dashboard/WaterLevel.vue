@@ -1,6 +1,34 @@
 <template>
   <div>
-   <h1>{{locationName}}</h1>
+      <div class="row">
+        <div class="col-lg-4">
+          <b-card>
+            <h4 class="card.title">Il y à 3 heures</h4>
+              <h1 align="center"> mm</h1>
+          </b-card>        
+        </div>
+        <div class="col-lg-4">
+          <b-card>
+            <h4 class="card.title">Il y à 1 heure </h4>
+              <h1 align="center"> mm</h1>
+          </b-card>        
+        </div>
+        <div class="col-lg-4">
+          <b-card>
+            <h4 class="card.title">Actuellement </h4>
+              <h1 align="center"> mm</h1>
+          </b-card>        
+        </div>           
+      </div>  
+      
+<!--chart-->      
+      <div class="col-lg-4">
+        <b-card>
+            <h4 class="card.title">WaterHeight chart </h4>
+            
+        </b-card>        
+      </div>           
+
   </div>
 </template>
 
