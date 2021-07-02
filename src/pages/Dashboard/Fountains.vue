@@ -156,10 +156,35 @@ import axios from "axios"
             console.log("error axios : " + err)
           })
 
+
+          this.downlinkValveTime(this.startTime, this.stopTime)
       },
 
+    /**
+     * send new start/stop automatic time to valve, refer to strega manual p77
+     * @param {*} start 
+     * @param {*} stop 
+     */
+      downlinkValveTime : function(start, stop){
+        console.log("startTime : " + start)
+        console.log("stopTime : " + stop)
 
-      downlinkValveTime : function(){
+        let startHourDozen = start[0]
+        let startHourUnit = start[1]
+        let startMinuteDozen = start[3]
+        let startMinuteUnit = start[4]
+
+        let stopHourDozen = stop[0]
+        let stoptHourUnit = stop[1]
+        let stopMinuteDozen = stop[3]
+        let stopMinuteUnit = stop[4]
+
+        let startHex = 0b1000 | startHourDozen.toString(16)
+
+        console.log('255'.toString(16) + startHex.toString(16) + startHourUnit.toString(16))
+        
+        
+
 
       }
 
