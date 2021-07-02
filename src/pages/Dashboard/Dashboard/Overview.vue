@@ -54,7 +54,7 @@ import axios from 'axios'
 
     methods: {
 
-
+      
      
     }
 

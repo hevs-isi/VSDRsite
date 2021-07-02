@@ -58,7 +58,6 @@
     },
     mounted() {
       //console.log("Date", this.timeStamp)
-     
 
     },
     methods:{
@@ -66,6 +65,7 @@
        * Function that toggle the valve and send a message to the sensor
        */
       toggleValve : function (){
+        
         if(this.valveState === 1){
           console.log("close Valve " + this.location)
           this.valveState = 2
@@ -76,6 +76,11 @@
           this.myBorder="success"
         }
       },
+
+
+ 
+        
+      
     }
   }
 </script>
