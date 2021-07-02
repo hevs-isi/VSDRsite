@@ -69,8 +69,9 @@ export default {
      * Make a downlink message, for lht65 : "devices", "a84041a6b1827b7f"
      * @param {*} target 
      * @param {*} eui 
+     * @param {*} data
      */
-    Vue.prototype.$postDownlinkChirpStack = function (target, eui) {
+    Vue.prototype.$postDownlinkChirpStack = function (target, eui, data) {
 
       // data : data to send
       //jsonObject : data to send if a codecs as been configured
@@ -78,7 +79,7 @@ export default {
       var postData = {
         "deviceQueueItem": {
           "confirmed": false,
-          "data": "0100012C",
+          "data": data,
           "devEUI": eui,
           "fCnt": 0,
           "fPort": 1

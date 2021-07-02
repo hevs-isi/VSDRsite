@@ -156,6 +156,11 @@ import axios from "axios"
             console.log("error axios : " + err)
           })
 
+      },
+
+
+      downlinkValveTime : function(){
+
       }
 
 
