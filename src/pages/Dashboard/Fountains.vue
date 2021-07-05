@@ -160,8 +160,16 @@ import axios from "axios"
 
           /**
            * TODO: axios post on chirpstack in device queue with this data
+           * !!! send it for all port !!!
            */
-          this.encodeDownlinkValveTime(this.startTime, this.stopTime)
+
+          /*for(let port = 14; port<21; port++){
+            this.encodeDownlinkValveTime(this.startTime, this.stopTime)
+            //call $postDownlinkChirpStack
+          }*/
+
+          
+          
       },
 
     /**
@@ -187,10 +195,11 @@ import axios from "axios"
         let stopMinuteUnit = stop[4].toString(16)
 
         
-        
-        
-        let finalFrame = ("FF" + startHex + startHourUnit +startMinuteDozen + startMinuteUnit + "FF" + stopHourDozen + stoptHourUnit + stopMinuteDozen + stopMinuteUnit + "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF")
-        console.log("time frame to send : " + finalFrame)
+               
+        let finalFrame = ("FF" + startHex + startHourUnit +startMinuteDozen + startMinuteUnit + "FF" +
+                           stopHourDozen + stoptHourUnit + stopMinuteDozen + stopMinuteUnit + 
+                           "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF")
+        console.log("Time frame to send : " + finalFrame)
 
         return finalFrame
       }

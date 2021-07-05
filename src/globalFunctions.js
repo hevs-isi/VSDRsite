@@ -49,6 +49,8 @@ export default {
     Vue.prototype.$SERVERURL = 'https://snow-server.watermon.ch:443/';
     
 
+//------------------------------------------------------------------------------------------------------------------------------
+    
     /**
      * Function that make the request on the chirpstack server
      * @param {} target ex1 : devices ,          ex2: gateways 
@@ -71,18 +73,18 @@ export default {
      * @param {*} eui 
      * @param {*} data
      */
-    Vue.prototype.$postDownlinkChirpStack = function (target, eui, data) {
+    Vue.prototype.$postDownlinkChirpStack = function (target, eui, data, port, confirmed) {
 
       // data : data to send
       //jsonObject : data to send if a codecs as been configured
 
       var postData = {
         "deviceQueueItem": {
-          "confirmed": false,
+          "confirmed": confirmed,
           "data": data,
           "devEUI": eui,
           "fCnt": 0,
-          "fPort": 1
+          "fPort": port
         }
       }
 
