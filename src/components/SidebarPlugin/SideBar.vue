@@ -8,8 +8,8 @@
     <div class="sidebar-wrapper" ref="sidebarScrollArea">
       <div class="logo">
         <a class="logo-mini">
-          <div class="logo-img">
-            <img :src="logo" alt="logo">
+          <div class="logo-img" >
+            <img :src="logo" alt="logo" style="padding-right:3px ">
           </div>
         </a>
         <a href="" class="simple-text logo-normal">
@@ -71,7 +71,7 @@
     props: {
       title: {
         type: String,
-        default: 'Ayent Snow'
+        default: 'VSDR'
       },
       backgroundColor: {
         type: String,
@@ -95,7 +95,7 @@
       },
       logo: {
         type: String,
-        default: 'static/img/logo.png'
+        default: 'static/img/vsdr_logo.png'
       },
       sidebarLinks: {
         type: Array,

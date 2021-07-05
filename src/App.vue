@@ -9,15 +9,15 @@
       /**
        * Launched at startup functions
        */
-      // this.$notify(
-      //   {
-      //     component: NotificationSample,
-      //     icon: 'fa fa-snowflake-o',
-      //     topCenter: false,
-      //     horizontalAlign: 'center',
-      //     verticalAlign: 'center',
-      //     type: 'info'
-      //   })
+      /* this.$notify(
+         {
+           component: NotificationSample,
+           icon: 'fa fa-snowflake-o',
+           topCenter: false,
+           horizontalAlign: 'center',
+           verticalAlign: 'center',
+           type: 'info'
+         })*/
       console.log("This is runned at startup, file src/App.vue L.21")
     }
   }
