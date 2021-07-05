@@ -63,7 +63,7 @@
     },
 
     created(){
-      this.timer()
+      this.timerValveState()
     },
 
     beforeDestroy(){
@@ -86,12 +86,20 @@
         }
       },
 
-      timer : function(){
+
+      /**
+       * timer to check the valve state and change the button color and state
+       */
+      timerValveState : function(){
         this.timerReload = setInterval(()=>{
           console.log("hello this is the timer from fountain component from : " + this.location)
+          //call update_Button here
         },5000)
       }
 
+/**
+ * Ajouter message envoyé à 
+ */
 
 /*
     //run each 1min
