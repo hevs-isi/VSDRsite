@@ -53,12 +53,21 @@
         valveState :0,
         hovered: false,
         myBorder : "danger",
-        info:false
+        info:false,
+        timerReload : null,
       }
     },
     mounted() {
       //console.log("Date", this.timeStamp)
 
+    },
+
+    created(){
+      this.timer()
+    },
+
+    beforeDestroy(){
+      clearInterval(this.timerReload)
     },
     methods:{
          /**
@@ -77,27 +86,33 @@
         }
       },
 
+      timer : function(){
+        this.timerReload = setInterval(()=>{
+          console.log("hello this is the timer from fountain component from : " + this.location)
+        },5000)
+      }
+
 
 /*
-//run each 1min
-update_button(){
-	//Read into json
-	db.state = db.get()
-	if(json.actState == IDLE){
-		if(db.state == open){
-			button = green
-		}if(db.state == close){
-			button =close
-		}
-	}else if (json.actState == open || json.actState == close){
-		if(db.state == open){
-			button = open
-		}if(db.state== close){
-			button = close
-		}
+    //run each 1min
+    update_button(){
+      //Read into json
+      db.state = db.get()
+      if(json.actState == IDLE){
+        if(db.state == open){
+          button = green
+        }if(db.state == close){
+          button =close
+        }
+      }else if (json.actState == open || json.actState == close){
+        if(db.state == open){
+          button = open
+        }if(db.state== close){
+          button = close
+        }
 
-	}
-}
+      }
+    }
 
 */
 
