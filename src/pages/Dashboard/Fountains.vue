@@ -150,14 +150,18 @@ import axios from "axios"
         //axios request to rewrite the JSON file
         axios.post(this.$SERVERURL + 'vsdr_sensorList', formData)
           .then(res =>{
+            console.log("save time to json response : ")
             console.log(res)
           })
           .catch(err =>{
+            console.log("save time to json response : ")
             console.log("error axios : " + err)
           })
 
-
-          this.downlinkValveTime(this.startTime, this.stopTime)
+          /**
+           * TODO: axios post on chirpstack in device queue with this data
+           */
+          this.encodeDownlinkValveTime(this.startTime, this.stopTime)
       },
 
     /**
@@ -165,27 +169,30 @@ import axios from "axios"
      * @param {*} start 
      * @param {*} stop 
      */
-      downlinkValveTime : function(start, stop){
-        console.log("startTime : " + start)
-        console.log("stopTime : " + stop)
+      encodeDownlinkValveTime : function(start, stop){
+        //console.log("startTime : " + start)
+        //console.log("stopTime : " + stop)
 
+        //Convert all values in Hex
         let startHourDozen = start[0]
-        let startHourUnit = start[1]
-        let startMinuteDozen = start[3]
-        let startMinuteUnit = start[4]
+        let startHex = (0b1000 | startHourDozen.toString(16)).toString(16) //encode the open valve
 
-        let stopHourDozen = stop[0]
-        let stoptHourUnit = stop[1]
-        let stopMinuteDozen = stop[3]
-        let stopMinuteUnit = stop[4]
+        let startHourUnit = start[1].toString(16)
+        let startMinuteDozen = start[3].toString(16)
+        let startMinuteUnit = start[4].toString(16)
 
-        let startHex = 0b1000 | startHourDozen.toString(16)
+        let stopHourDozen = stop[0].toString(16)
+        let stoptHourUnit = stop[1].toString(16)
+        let stopMinuteDozen = stop[3].toString(16)
+        let stopMinuteUnit = stop[4].toString(16)
 
-        console.log('255'.toString(16) + startHex.toString(16) + startHourUnit.toString(16))
         
         
+        
+        let finalFrame = ("FF" + startHex + startHourUnit +startMinuteDozen + startMinuteUnit + "FF" + stopHourDozen + stoptHourUnit + stopMinuteDozen + stopMinuteUnit + "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF")
+        console.log("time frame to send : " + finalFrame)
 
-
+        return finalFrame
       }
 
 
