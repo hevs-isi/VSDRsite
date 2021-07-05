@@ -78,6 +78,29 @@
       },
 
 
+/*
+//run each 1min
+update_button(){
+	//Read into json
+	db.state = db.get()
+	if(json.actState == IDLE){
+		if(db.state == open){
+			button = green
+		}if(db.state == close){
+			button =close
+		}
+	}else if (json.actState == open || json.actState == close){
+		if(db.state == open){
+			button = open
+		}if(db.state== close){
+			button = close
+		}
+
+	}
+}
+
+*/
+
  
         
       
