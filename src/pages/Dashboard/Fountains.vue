@@ -150,11 +150,9 @@ import axios from "axios"
         //axios request to rewrite the JSON file
         axios.post(this.$SERVERURL + 'vsdr_sensorList', formData)
           .then(res =>{
-            console.log("save time to json response : ")
             console.log(res)
           })
           .catch(err =>{
-            console.log("save time to json response : ")
             console.log("error axios : " + err)
           })
 

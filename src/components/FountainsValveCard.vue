@@ -21,19 +21,19 @@
             </div>
 
             <div class="col-lg-4">
-            <div class="container">
-            <div class="row justify-content-md-center" v-if="valveState === 0">
-              <l-button type="button" class="btn btn-success" outline="" v-on:click="toggleValve">Ouvrir</l-button>
-            </div>
-            
-            <div class="row justify-content-md-center" v-if="valveState === 1">
-              <l-button type="button" class="btn btn-danger" outline="" v-on:click="toggleValve">Fermer</l-button>
-            </div>
+              <div class="container">
+                <div class="row justify-content-md-center" v-if="valveState === 0">
+                  <l-button type="button" class="btn btn-success" outline="" v-on:click="toggleValve">Ouvrir</l-button>
+                </div>
+                
+                <div class="row justify-content-md-center" v-if="valveState === 1">
+                  <l-button type="button" class="btn btn-danger" outline="" v-on:click="toggleValve">Fermer</l-button>
+                </div>
 
-            <div class="row justify-content-md-center" v-if="valveState === 2">
-                <l-button type="button" class="btn btn-light" outline="" disabled = "disabled">En transition</l-button>
-            </div>
-            </div>
+                <div class="row justify-content-md-center" v-if="valveState === 2">
+                    <l-button type="button" class="btn btn-light" outline="" disabled = "disabled">En transition</l-button>
+                </div>
+              </div>
             </div>
 
             <div class="col-lg-4" align="right">
@@ -54,6 +54,9 @@
 </template>
 
 <script>
+import axios from "axios"
+
+
   export default {
     name: "FountainsValveCard",
     props: {
@@ -70,19 +73,35 @@
         info:false,
         timerReload : null,
         sendTime : "", 
+        vsdrSensorJson : this.$SENSORSLISTJSON
       }
     },
     mounted() {
-      //console.log("Date", this.timeStamp)
+      //get valveState
+      for(let i = 0; i< this.vsdrSensorJson.length; i++){
+          if(this.vsdrSensorJson[i].project.toLowerCase() === this.$PROJECT.toLowerCase()){
+            if(this.vsdrSensorJson[i].location.toLowerCase() === this.location.toLowerCase()){
+              this.valveState = this.vsdrSensorJson[i].state
+              if(this.valveState == 0){
+                this.myBorder = "danger"
+              }else if(this.valveState ==1){
+                this.myBorder = "success"
+              }
+            }
+          }
+        }
+
+
+
 
     },
 
     created(){
-      //this.timerValveState()
+      
     },
 
     beforeDestroy(){
-      //clearInterval(this.timerReload)
+      clearInterval(this.timerReload)
     },
     methods:{
          /**
@@ -97,13 +116,18 @@
         
         if(this.valveState === 1){
           console.log("close Valve " + this.location)
-          this.valveState = 2
+          this.valveState = 0
           this.myBorder="danger"
         }else{
           console.log("open valve "  + this.location)
-          this.valveState = 2
+          this.valveState = 1
           this.myBorder="success"
+          
+          //call here the timerValve, so it start when the button has been clicked
+          this.timerValveState()
         }
+        this.saveValveState(this.valveState)
+
       },
 
 
@@ -114,8 +138,8 @@
         this.timerReload = setInterval(()=>{
           console.log("hello this is the timer from fountain component from : " + this.location)
           //call update_Button here
-        },5000)
-      }
+        },5000) //in millis
+      },
 
 /**
  * Ajouter message envoyé à 
@@ -145,6 +169,42 @@
 */
 
  
+
+//-----------------------------------------
+    /**
+    * Save new valve state into the JSON File
+     */
+    saveValveState : function (state){
+       console.log("save")
+        //check the right object into the JSON array
+        for(let i = 0; i< this.vsdrSensorJson.length; i++){
+          if(this.vsdrSensorJson[i].project.toLowerCase() === this.$PROJECT.toLowerCase()){
+            if(this.vsdrSensorJson[i].location.toLowerCase() === this.location.toLowerCase()){
+              this.vsdrSensorJson[i].state = state
+            }
+          }
+        }
+        
+        //formate the json array
+        const formData = new FormData()
+        formData.append("file", new Blob([
+        JSON.stringify(this.vsdrSensorJson),
+        ], {type : 'application/json'}), 'vsdr_sensorList.json');  //
+
+        //axios request to rewrite the JSON file
+        axios.post(this.$SERVERURL + 'vsdr_sensorList', formData)
+          .then(res =>{
+            console.log("save time to json response : ")
+            console.log(res)
+          })
+          .catch(err =>{
+            console.log("save time to json response : ")
+            console.log("error axios : " + err)
+          })
+    },
+
+   
+
         
       
     }
