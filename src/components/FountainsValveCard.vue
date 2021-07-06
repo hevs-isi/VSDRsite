@@ -73,11 +73,12 @@ import axios from "axios"
         info:false,
         timerReload : null,
         sendTime : "", 
-        vsdrSensorJson : this.$SENSORSLISTJSON
+        vsdrSensorJson : this.$SENSORSLISTJSON //A SUPPRIMER SI ON VEUT QUE PRENDRE LETAT DE LA VANNE DANS LA DB
       }
     },
     mounted() {
       //get valveState
+      //A SUPPRIMER SI ON VEUT QUE PRENDRE LETAT DE LA VANNE DANS LA DB
       for(let i = 0; i< this.vsdrSensorJson.length; i++){
           if(this.vsdrSensorJson[i].project.toLowerCase() === this.$PROJECT.toLowerCase()){
             if(this.vsdrSensorJson[i].location.toLowerCase() === this.location.toLowerCase()){
@@ -126,6 +127,8 @@ import axios from "axios"
           //call here the timerValve, so it start when the button has been clicked
           this.timerValveState()
         }
+
+        //A SUPPRIMER SI ON VEUT QUE PRENDRE LETAT DE LA VANNE DANS LA DB
         this.saveValveState(this.valveState)
 
       },
@@ -170,7 +173,7 @@ import axios from "axios"
 
  
 
-//-----------------------------------------
+//-----------------------------------------A SUPPRIMER SI ON VEUT QUE PRENDRE LETAT DE LA VANNE DANS LA DB
     /**
     * Save new valve state into the JSON File
      */
