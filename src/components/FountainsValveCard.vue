@@ -13,18 +13,32 @@
           <h5 v-if="valveState===1">Etat actuel : ouverte  <img src="../assets/sensorOk.png" align="center"> </h5>
           <h5 v-if="valveState===2">Etat actuel : en transition  <img src="../assets/sensorTransition.png" align="center"> </h5>
           
-          <div class="container">
-          <div class="row justify-content-md-center" v-if="valveState === 0">
-            <l-button type="button" class="btn btn-success" outline="" v-on:click="toggleValve">Ouvrir</l-button>
-          </div>
-          
-          <div class="row justify-content-md-center" v-if="valveState === 1">
-            <l-button type="button" class="btn btn-danger" outline="" v-on:click="toggleValve">Fermer</l-button>
-          </div>
+          <div class="row">
+            <div class="col-lg-4">
+              <div v-if="valveState === 2">
+                <h5>Envoyé à : <br> {{sendTime}}</h5>
+              </div>
+            </div>
 
-          <div class="row justify-content-md-center" v-if="valveState === 2">
-            <l-button type="button" class="btn btn-light" outline="" disabled = "disabled">En transition</l-button>
-          </div>
+            <div class="col-lg-4">
+            <div class="container">
+            <div class="row justify-content-md-center" v-if="valveState === 0">
+              <l-button type="button" class="btn btn-success" outline="" v-on:click="toggleValve">Ouvrir</l-button>
+            </div>
+            
+            <div class="row justify-content-md-center" v-if="valveState === 1">
+              <l-button type="button" class="btn btn-danger" outline="" v-on:click="toggleValve">Fermer</l-button>
+            </div>
+
+            <div class="row justify-content-md-center" v-if="valveState === 2">
+                <l-button type="button" class="btn btn-light" outline="" disabled = "disabled">En transition</l-button>
+            </div>
+            </div>
+            </div>
+
+            <div class="col-lg-4" align="right">
+              <h5>xx°C</h5>
+            </div>
 
           </div>
            <!--Additionnal informations-->
@@ -55,6 +69,7 @@
         myBorder : "danger",
         info:false,
         timerReload : null,
+        sendTime : "", 
       }
     },
     mounted() {
@@ -63,17 +78,22 @@
     },
 
     created(){
-      this.timerValveState()
+      //this.timerValveState()
     },
 
     beforeDestroy(){
-      clearInterval(this.timerReload)
+      //clearInterval(this.timerReload)
     },
     methods:{
          /**
        * Function that toggle the valve and send a message to the sensor
        */
       toggleValve : function (){
+        var date = new Date
+        var hours = date.getHours()
+        var minutes = date.getMinutes()
+        
+        this.sendTime = hours + "h" + minutes
         
         if(this.valveState === 1){
           console.log("close Valve " + this.location)
