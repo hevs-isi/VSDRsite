@@ -53,8 +53,8 @@ export default {
     
     /**
      * Function that make the request on the chirpstack server
-     * @param {} target ex1 : devices ,          ex2: gateways 
-     * @param {*} eui   ex1 : a84041a6b1827b7f , ex2 : a840411ec7cc4150
+     * @param {} target ex: gateways 
+     * @param {*} eui   ex : 3436323828003400
      */ 
     Vue.prototype.$getFromChirpStack = function (target, eui) {
       axios.get(chirpstackCredentials.url+ target + '/' + eui, {headers : {

@@ -39,7 +39,7 @@ import axios from 'axios'
       }
     },
     mounted() {
-
+      this.$getFromChirpStack("gateways","3436323828003400")
     },
     watch: {
       '$route.route': {                               //watch if the route has changed (this is how i now that i've changed page)
