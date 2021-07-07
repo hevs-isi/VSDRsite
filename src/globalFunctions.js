@@ -68,7 +68,7 @@ export default {
 
 
     /**
-     * Make a downlink message, for lht65 : "devices", "a84041a6b1827b7f"
+     * 
      * @param {*} target 
      * @param {*} eui 
      * @param {*} data

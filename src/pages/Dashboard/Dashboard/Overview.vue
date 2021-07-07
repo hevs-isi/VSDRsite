@@ -39,7 +39,8 @@ import axios from 'axios'
       }
     },
     mounted() {
-      this.$getFromChirpStack("gateways","3436323828003400")
+//      this.$getFromChirpStack("gateways","3436323828003400")
+        console.log(this.$SENSORSLISTJSON)
     },
     watch: {
       '$route.route': {                               //watch if the route has changed (this is how i now that i've changed page)

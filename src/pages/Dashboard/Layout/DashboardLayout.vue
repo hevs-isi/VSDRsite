@@ -10,7 +10,9 @@
         <sidebar-item :link="{name: 'Fontaines', icon: 'fa fa-thermometer-half'}" >
 
           <!----------------------------------------------------------------------------------------------------------->
-          <sidebar-item v-for="loc in sensorListJson.filter(s=>s.type==='Fontaine')" :key="loc.location" :link="{name: loc.realName, path: '/Fontaines/'+loc.location }"></sidebar-item>
+          
+          <sidebar-item  v-for="loc in sensorListJson.filter(s=>s.type==='Fontaine')" :key="loc.location" :link="{name: loc.realName, path: '/Fontaines/'+loc.location }"></sidebar-item>
+          
         </sidebar-item>
 
         <sidebar-item :link="{name: 'Hauteur des lacs', icon: 'fa fa-snowflake-o'}">
@@ -68,10 +70,11 @@
               if(element.project.toLowerCase() === this.sideBarTitle) {
                 //this.sensorListJson[i]=element;
                 this.sensorListJson.push(element)
+          }
                 this.$SENSORSLISTJSON.push(element)
                 i++
               }
-            }
+//            }
           )
           //console.log(this.sensorListJson)
         })
