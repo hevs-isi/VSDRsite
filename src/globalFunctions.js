@@ -125,6 +125,7 @@ export default {
 
      Vue.prototype.$initStregaSensorArray = function (){
 
+
       for(let i = 0 ; i< this.$SENSORSLISTJSON.length; i++){
         if(this.$SENSORSLISTJSON[i].project.toLowerCase() === this.$PROJECT){
           if(this.$SENSORSLISTJSON[i].type === "Fontaine"){
@@ -144,47 +145,6 @@ export default {
           }
         }
       }
-
-      
-
-
-     }
-
-     Vue.prototype.$getLastStregaValveState = function(devEui, location){
-      this.$lastValueGlobalSensors = []
-
-      let queryValveState = `SELECT last(*)
-             FROM
-                  "device_frmpayload_data_Valve"
-             WHERE
-                    "dev_eui" = '$dev_eui'
-              `;
-      
-      queryValveState = queryValveState.replace("$dev_eui", devEui)        
-      
-      Promise.all([
-        influxClient.query(queryValveState)
-      ]).then(resValveState => {
-        let strega = {
-          "eui" : devEui,
-          "location" : location,
-          "valveState" : resValveState[0][0].last_value,
-          "temperature" :null,
-          "flow_now" : null,
-          "flow_year" : null,
-          "flow_without_strega": null,
-          "flow_serie": null
-        }
-
-        if(!this.$stregaValveValues.includes(devEui)){
-          this.$stregaValveValues.push(strega)
-        }
-
-
-      })
-    
-      
-      
 
 
      }

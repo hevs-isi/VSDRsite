@@ -39,11 +39,13 @@ import axios from 'axios'
 
       }
     },
+
+
     mounted() {
-      this.$initStregaSensorArray(this.mySensorList)
+      console.log(this.$SENSORSLISTJSON)
+      this.$initStregaSensorArray()
       console.log(this.$stregaValveValues)
-     //this.$getLastStregaValveState("0004a30b00f7da1c", "Trontze")
-     //console.log(this.$stregaValveValues)
+
 
 
     },
