@@ -1,6 +1,12 @@
 <template>
   <div>
-   <h1>Technical page</h1>
+   <h2>Status des antennes</h2>
+    <!-- This has been optimized a bit   -->
+    <b-card-group columns>
+      <div v-for="(antenna, index) in this.gateway">
+        <antenna-card :time = antenna.timeStamp :location=antenna.position_name :timeStamp=antenna.timestamp :eui=antenna.eui :status="antenna.isUp? 'up':'down'" :pending="pending ? true : false"></antenna-card>
+      </div>
+    </b-card-group>
   </div>
 </template>
 
@@ -8,11 +14,12 @@
 
 import axios from 'axios'
 import chirpstackCredentials from '../../constants/chirpstack.json'      //credentials for chirpstack server
+import AntennaCard from "../../components/AntennaCard";
 
 
    export default {
-  components: {  },
-    name: "Technical",
+  components: { AntennaCard },
+  name: "Technical",
     
     
         
@@ -20,6 +27,7 @@ import chirpstackCredentials from '../../constants/chirpstack.json'      //crede
       return {
         gateway : [],
         sensor : [],
+        pending : false, 
 
 
 
@@ -73,8 +81,27 @@ import chirpstackCredentials from '../../constants/chirpstack.json'      //crede
        Promise.all(promises)
         .then((res) => {
           for (let i = 0; i < res.length; i++) {
-            console.log(res[i].data)
             //TODO : get gw info and check if online or not
+            for(let i = 0; i<this.gateway.length; i++){
+              if(this.gateway[i].position_name.toLowerCase() === res[i].data.gateway.name.split("_")[1]){
+                //console.log(res[i].data.updatedAt)
+                this.gateway[i].lastSeen = res[i].data.updatedAt
+                
+                let timestamp = new Date(res[i].data.updatedAt)
+                this.gateway[i].timeStamp = timestamp.toLocaleString('fr-CH', {dateStyle: 'short'}) + ' à ' + timestamp.toLocaleString('fr-CH', {timeStyle: 'short'}) 
+
+                let now = new Date()
+
+                if(this.$secondBetweenDate (now,timestamp) < 300){
+                  this.gateway[i].isUp = true
+                }else{
+                  this.gateway[i].isUp = false
+                }
+                
+              }
+
+            }
+            
           }
         })
         .finally(x => {

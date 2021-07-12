@@ -106,7 +106,15 @@ export default {
 //------------------------------------------------------------------------------------------------------------------------------
 
 
-    
+     /**
+     * find time between two dates, used to check the antennas
+     * @param date1
+     * @param date2
+     * @returns {number}
+     */
+      Vue.prototype.$secondBetweenDate = function (date1, date2) {
+        return Math.ceil(Math.abs(date1 - date2) / 1000);
+      }
 
     }
   }

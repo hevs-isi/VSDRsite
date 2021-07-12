@@ -13,7 +13,7 @@
             <b-card-text>
               <div v-if="status === 'up'"><b>Etat</b> : En ligne</div>
               <div v-if="status === 'down'"><b>Etat</b> : Hors ligne</div>
-              <div><b>Dernier status</b> : {{timeStamp}}</div>
+              <div><b>Dernier status</b> : {{time}}</div>
             </b-card-text>
           </b-card-body>
         </b-media>
@@ -30,9 +30,9 @@
       eui: String,
       status: String,
       timeStamp: String,
-      pending: Boolean
-    }
-    ,
+      pending: Boolean,
+      time : String
+    },
     data() {
       return {}
     },
