@@ -1,14 +1,19 @@
 {
-  "data_table": "mqtt_consumer",
-  "field_rssi": "metadata_gateways_0_rssi",
-  "field_snr":  "metadata_gateways_0_snr",
-  "field_battery": "payload_fields_battery_voltage_value",
-  "topic_header": "hes_ayent-snow/devices",
-  "data_fields": [
-    "payload_fields_temperature_head_value",
-    "payload_fields_temperature_target_value",
-    "metadata_gateways_0_rf_chain",
-    "metadata_gateways_0_timestamp",
-    "metadata_airtime"
-  ]
+  "fountain" : {
+    "data_table" : [
+      "device_frmpayload_data_Battery",
+      "device_frmpayload_data_Cable",
+      "device_frmpayload_data_Counter",
+      "device_frmpayload_data_Hygrometry",
+      "device_frmpayload_data_Temperature",
+      "device_frmpayload_data_Valve",
+      "device_uplink"
+    ],
+    "field" : [
+
+    ]
+    
+
+  },
+  "water" : {}
 }
