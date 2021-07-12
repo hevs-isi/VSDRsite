@@ -40,15 +40,40 @@ import axios from 'axios'
       }
     },
 
-
     mounted() {
-      console.log(this.$SENSORSLISTJSON)
-      this.$initStregaSensorArray()
-      console.log(this.$stregaValveValues)
+      
+
+    axios.get('https://snow-server.watermon.ch:443/vsdr_sensorList') 
+        .then(res => {
+          let tempVar=[]
+          tempVar.push(res.data)
+          var i = 0;
+          if(this.$SENSORSLISTJSON.length === 0){
+            tempVar[0].forEach(element => {
+                  //  console.log(element)
+                  this.$SENSORSLISTJSON.push(element)
+                  i++
+                },
+            )
+          this.$initStregaSensorArray()
+          console.log(this.$stregaValveValues)
+
+          //make request devices here
+
+
+          }
+ 
+          
+        })
+        .catch(error => {
+          console.log(error)
+        })
+
 
 
 
     },
+
     watch: {
       '$route.route': {                               //watch if the route has changed (this is how i now that i've changed page)
         handler: function () {                        //if the route changed, reload data

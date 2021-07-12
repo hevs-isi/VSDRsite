@@ -125,7 +125,6 @@ export default {
 
      Vue.prototype.$initStregaSensorArray = function (){
 
-
       for(let i = 0 ; i< this.$SENSORSLISTJSON.length; i++){
         if(this.$SENSORSLISTJSON[i].project.toLowerCase() === this.$PROJECT){
           if(this.$SENSORSLISTJSON[i].type === "Fontaine"){

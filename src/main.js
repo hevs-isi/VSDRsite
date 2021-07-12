@@ -133,6 +133,11 @@ import {FormGroupInput as FgInput} from 'src/components'
 Vue.component(FgInput)
 
 
+
+
+
+
+
 new Vue({
   el: '#app',
   render: h => h(App),
