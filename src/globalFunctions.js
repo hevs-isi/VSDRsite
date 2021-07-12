@@ -1,6 +1,4 @@
-import credInflux from './constants/influx'
 import moment from "moment";
-import db_req from "./constants/influx_requests.json"
 import {latLng} from "leaflet/dist/leaflet-src.esm"
 import L from "leaflet";
 import NProgress from "nprogress";
@@ -10,32 +8,14 @@ import fr from "element-ui/src/locale/lang/fr";
 
 //VSDR imports
 import chirpstackCredentials from './constants/chirpstack.json'      //credentials for chirpstack server
+import credInflux from './constants/influx'
+import db_req from "./constants/influx_requests.json"
+
 import axios from 'axios'
 
 
 const Influx = require('influx')
 
-/**
- * The fields to build the queries with, taken from constants file
- */
-const field_rssi = db_req.field_rssi // RSSI storage topic in InfluxDB
-const field_snr = db_req.field_snr   // SNR storage topic in InfluxDB
-const field_battery = db_req.field_battery // Battery storage topic in InfluxDB
-const data_table = db_req.data_table // Which database to request in InfluxDB
-const topic_header = db_req.topic_header
-const data_fields = [
-  "payload_fields_temperature_head_value",
-  "payload_fields_temperature_target_value",
-  "metadata_gateways_0_rf_chain",
-  "metadata_gateways_0_timestamp",
-  "metadata_airtime",
-  field_snr,
-  field_rssi,
-  field_battery, //battery decentlab
-  "payload_fields_WaterHeightMm",
-  "payload_fields_BatteryV", //battery hei
-  "payload_fields_HumiditySHT30"
-]
 
 
 export default {
@@ -49,6 +29,8 @@ export default {
     Vue.prototype.$SERVERURL = 'https://snow-server.watermon.ch:443/';
     
 
+//------------------------------------------------------------------------------------------------------------------------------
+// Querry On chirpstack API
 //------------------------------------------------------------------------------------------------------------------------------
     
     /**
@@ -115,6 +97,99 @@ export default {
       Vue.prototype.$secondBetweenDate = function (date1, date2) {
         return Math.ceil(Math.abs(date1 - date2) / 1000);
       }
+
+
+
+//------------------------------------------------------------------------------------------------------------------------------
+//Query on influxDB
+//------------------------------------------------------------------------------------------------------------------------------
+      /**
+     * The singleton instance of influxClient, which should be used everywhere
+     * @type {InfluxDB}
+     */
+    const influxClient = new Influx.InfluxDB({
+      database: credInflux.database,
+      host: credInflux.host,
+      port: credInflux.port,
+      protocol: credInflux.protocol,
+      username: credInflux.username,
+      password: credInflux.password
+    });
+    Vue.prototype.$influxClient = influxClient
+
+    /**
+     *Sensors Array
+     * @type {*[]}
+     */
+     Vue.prototype.$stregaValveValues = []
+
+     Vue.prototype.$initStregaSensorArray = function (){
+
+      for(let i = 0 ; i< this.$SENSORSLISTJSON.length; i++){
+        if(this.$SENSORSLISTJSON[i].project.toLowerCase() === this.$PROJECT){
+          if(this.$SENSORSLISTJSON[i].type === "Fontaine"){
+            let strega = {
+              "eui" : this.$SENSORSLISTJSON[i].dev_eui,
+              "location" : this.$SENSORSLISTJSON[i].location,
+              "coordinates" : this.$SENSORSLISTJSON[i].coordinates,
+              "valveState" : null,
+              "temperature" :null,
+              "flow_now" : null,
+              "flow_year" : null,
+              "flow_without_strega": null,
+              "flow_serie": null
+            }
+            this.$stregaValveValues.push(strega)
+
+          }
+        }
+      }
+
+      
+
+
+     }
+
+     Vue.prototype.$getLastStregaValveState = function(devEui, location){
+      this.$lastValueGlobalSensors = []
+
+      let queryValveState = `SELECT last(*)
+             FROM
+                  "device_frmpayload_data_Valve"
+             WHERE
+                    "dev_eui" = '$dev_eui'
+              `;
+      
+      queryValveState = queryValveState.replace("$dev_eui", devEui)        
+      
+      Promise.all([
+        influxClient.query(queryValveState)
+      ]).then(resValveState => {
+        let strega = {
+          "eui" : devEui,
+          "location" : location,
+          "valveState" : resValveState[0][0].last_value,
+          "temperature" :null,
+          "flow_now" : null,
+          "flow_year" : null,
+          "flow_without_strega": null,
+          "flow_serie": null
+        }
+
+        if(!this.$stregaValveValues.includes(devEui)){
+          this.$stregaValveValues.push(strega)
+        }
+
+
+      })
+    
+      
+      
+
+
+     }
+
+
 
     }
   }

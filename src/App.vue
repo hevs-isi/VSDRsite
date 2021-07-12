@@ -18,7 +18,7 @@
            verticalAlign: 'center',
            type: 'info'
          })*/
-      console.log("This is runned at startup, file src/App.vue L.21")
+      //console.log("This is runned at startup, file src/App.vue L.21")
     }
   }
 </script>

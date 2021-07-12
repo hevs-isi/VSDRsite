@@ -1,8 +1,8 @@
 {
-  "database": "ayent",
+  "database": "vsdr",
   "host": "influx.watermon.ch",
   "port": "443",
   "protocol": "https",
-  "username": "ayent_ro",
-  "password": "Kie8ouje"
+  "username": "ayent",
+  "password": "eed1kuCh"
 }

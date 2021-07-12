@@ -12,6 +12,7 @@
             <!--waterlevel chart-->
       </b-card>           
     </div>
+    {{$stregaValveValues[0]}}
   </div>
 </template>
 
@@ -39,7 +40,11 @@ import axios from 'axios'
       }
     },
     mounted() {
-//      this.$getFromChirpStack("gateways","3436323828003400")
+      this.$initStregaSensorArray(this.mySensorList)
+      console.log(this.$stregaValveValues)
+     //this.$getLastStregaValveState("0004a30b00f7da1c", "Trontze")
+     //console.log(this.$stregaValveValues)
+
 
     },
     watch: {

@@ -2,9 +2,7 @@
   "fountain" : {
     "data_table" : [
       "device_frmpayload_data_Battery",
-      "device_frmpayload_data_Cable",
       "device_frmpayload_data_Counter",
-      "device_frmpayload_data_Hygrometry",
       "device_frmpayload_data_Temperature",
       "device_frmpayload_data_Valve",
       "device_uplink"
