@@ -39,6 +39,8 @@
             <div class="col-lg-4" align="right">
               <h5>xx°C</h5>
             </div>
+ <!--                   {{$stregaValveValues[0]}}-->
+
 
           </div>
            <!--Additionnal informations-->

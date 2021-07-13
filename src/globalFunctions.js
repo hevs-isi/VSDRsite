@@ -101,7 +101,7 @@ export default {
 
 
 //------------------------------------------------------------------------------------------------------------------------------
-//Query on influxDB
+//Query on influxDB : strega Valve
 //------------------------------------------------------------------------------------------------------------------------------
       /**
      * The singleton instance of influxClient, which should be used everywhere
@@ -123,6 +123,9 @@ export default {
      */
      Vue.prototype.$stregaValveValues = []
 
+     /**
+      * Init a sensor array for stregaValve
+      */
      Vue.prototype.$initStregaSensorArray = function (){
 
       for(let i = 0 ; i< this.$SENSORSLISTJSON.length; i++){
@@ -132,23 +135,101 @@ export default {
               "eui" : this.$SENSORSLISTJSON[i].dev_eui,
               "location" : this.$SENSORSLISTJSON[i].location,
               "coordinates" : this.$SENSORSLISTJSON[i].coordinates,
+              "battery" : null,
               "valveState" : null,
               "temperature" :null,
+              "counter": null,
               "flow_now" : null,
               "flow_year" : null,
               "flow_without_strega": null,
               "flow_serie": null
             }
             this.$stregaValveValues.push(strega)
-
           }
         }
       }
-
-
      }
 
+     /**
+      * TODO: initDraginoSensorArray
+      */
+
+
+     /**
+      * get last values without flow calculation
+      * @param {*} eui 
+      */
+     Vue.prototype.$getStregaLastValues = function(eui){
+      let queryBat = `SELECT last("value")
+      FROM
+          "device_frmpayload_data_Battery" 
+      WHERE
+          ("dev_eui" = '$dEUI')  
+      `;
+
+      let queryTemp = `SELECT last("value")
+      FROM
+          "device_frmpayload_data_Temperature" 
+      WHERE
+          ("dev_eui" = '$dEUI')  
+      `;
+
+      let queryCounter = `SELECT last("value")
+      FROM
+          "device_frmpayload_data_Counter" 
+      WHERE
+          ("dev_eui" = '$dEUI')  
+      `;
+      
+      let queryValve = `SELECT last("value")
+      FROM
+          "device_frmpayload_data_Valve" 
+      WHERE
+          ("dev_eui" = '$dEUI')  
+      `;
+
+      queryBat = queryBat.replace("$dEUI", eui)
+      queryTemp = queryTemp.replace("$dEUI", eui)
+      queryCounter = queryCounter.replace("$dEUI", eui)
+      queryValve = queryValve.replace("$dEUI", eui)
+
+
+      Promise.all([
+        influxClient.query(queryBat)
+      ]).then(resBat => {
+        Promise.all([
+          influxClient.query(queryTemp)
+        ]).then(resTemp => {
+          Promise.all([
+            influxClient.query(queryCounter)
+          ]).then(resCounter => {
+            Promise.all([
+              influxClient.query(queryValve)
+            ]).then(resValve => {
+              for(let i = 0; i<this.$stregaValveValues.length; i++){
+                if(this.$stregaValveValues[i].eui === eui){
+                  this.$stregaValveValues[i].battery = resBat[0][0].last
+                  this.$stregaValveValues[i].temperature = resTemp[0][0].last
+                  this.$stregaValveValues[i].counter = resCounter[0][0].last
+                  this.$stregaValveValues[i].valveState = resValve[0][0].last                  
+                }
+              }
+            }).catch(error => console.log(error))
+          }).catch(error => console.log(error))
+        }).catch(error => console.log(error))
+      }).catch(error => console.log(error))
+      
+     }
+
+    /**
+     * Calcule the flow with counte
+     * @param {} eui 
+     */
+    Vue.prototype.$calculateFlow = function(eui){
+
+    }
 
 
     }
   }
+

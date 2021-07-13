@@ -12,7 +12,8 @@
             <!--waterlevel chart-->
       </b-card>           
     </div>
-    {{$stregaValveValues[0]}}
+            {{$stregaValveValues[0]}}
+
   </div>
 </template>
 
@@ -56,9 +57,11 @@ import axios from 'axios'
                 },
             )
           this.$initStregaSensorArray()
-          console.log(this.$stregaValveValues)
+         // console.log(this.$stregaValveValues)
 
           //make request devices here
+          this.$getStregaLastValues("0004a30b00f7da1c")
+          console.log(this.$stregaValveValues)         
 
 
           }
