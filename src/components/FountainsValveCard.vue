@@ -37,7 +37,7 @@
             </div>
 
             <div class="col-lg-4" align="right" v-for="valve in this.$stregaValveValues.filter(s=> (s.location.toLowerCase() === location.toLowerCase()))">
-              <h5>{{valve}} °C</h5>
+              <h5> °C</h5>
             </div>
 
           </div>
@@ -92,7 +92,6 @@ import axios from "axios"
           }
         }
 
-      console.log(this.$stregaValveValues)
 
     },
 
