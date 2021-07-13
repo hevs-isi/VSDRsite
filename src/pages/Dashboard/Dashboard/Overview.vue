@@ -12,7 +12,6 @@
             <!--waterlevel chart-->
       </b-card>           
     </div>
-            {{$stregaValveValues[0]}}
 
   </div>
 </template>
@@ -70,7 +69,7 @@ import axios from 'axios'
             }
           }
           
-          console.log(this.$stregaValveValues)         
+          //console.log(this.$stregaValveValues)         
 
 
           }
