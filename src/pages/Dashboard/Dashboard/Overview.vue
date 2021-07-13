@@ -60,7 +60,16 @@ import axios from 'axios'
          // console.log(this.$stregaValveValues)
 
           //make request devices here
-          this.$getStregaLastValues("0004a30b00f7da1c")
+          for(let i = 0 ; i<this.$SENSORSLISTJSON.length;i++){
+            if(this.$SENSORSLISTJSON[i].project.toLowerCase() === this.$PROJECT){
+              if(this.$SENSORSLISTJSON[i].type.toLowerCase() === "fontaine"){
+                this.$getStregaLastValues(this.$SENSORSLISTJSON[i].dev_eui)
+              }else if(this.$SENSORSLISTJSON[i].type.toLowerCase() === "hauteur d'eau"){
+
+              }
+            }
+          }
+          
           console.log(this.$stregaValveValues)         
 
 

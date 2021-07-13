@@ -18,7 +18,7 @@
         </card>
       </div>
       <div class="col-lg-4">
-        <card title="Consommation annuelle">
+        <card title="Consommation totale">
           <h1 align="center">XXX L</h1>
         </card>
       </div>
@@ -97,6 +97,7 @@ import axios from "axios"
       }
     },
     mounted() {
+      console.log(this.$stregaValveValues)  
     },
     watch: {
       '$route.route': {                               //watch if the route has changed (this is how i now that i've changed page)
