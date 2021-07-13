@@ -28,8 +28,8 @@ let fountainsMenu ={
       component: Fountains
     },
     {
-      path: 'Sonvillez',
-      name: 'Sonvillez',
+      path: 'Sonvillaz',
+      name: 'Sonvillaz',
       component: Fountains
     },
     {
