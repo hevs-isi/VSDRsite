@@ -68,7 +68,7 @@ import axios from 'axios'
               }
             }
           }
-          //console.log(this.$stregaValveValues)         
+          console.log(this.$stregaValveValues)         
 
 
           }

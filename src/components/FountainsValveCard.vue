@@ -36,8 +36,8 @@
               </div>
             </div>
 
-            <div class="col-lg-4" align="right" v-for="valve in this.$stregaValveValues.filter(s=> (s.location.toLowerCase() === location.toLowerCase()))">
-              <h5> °C</h5>
+            <div class="col-lg-4" align="right" v-for="valve in this.sensors.filter(s=> (s.location.toLowerCase() === location.toLowerCase()))">
+              <h5>{{valve.temperature}} °C</h5>
             </div>
 
           </div>
@@ -67,6 +67,7 @@ import axios from "axios"
     ,
     data() {
       return {
+        sensors : [],
         valveState :0,
         hovered: false,
         myBorder : "danger",
@@ -91,7 +92,7 @@ import axios from "axios"
             }
           }
         }
-
+      this.sensors = this.$stregaValveValues    
 
     },
 
