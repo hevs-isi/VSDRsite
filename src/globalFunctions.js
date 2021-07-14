@@ -247,19 +247,22 @@ export default {
       Promise.all([
         influxClient.query(queryCounter30min)
       ]).then(resCounter30min => {
-        for(let i = 0; i<this.$stregaValveValues.length; i++){
-          if(this.$stregaValveValues[i].eui === eui){
-            let counterDifference = this.$stregaValveValues[i].counter - resCounter30min[0][0].last
-            this.$stregaValveValues[i].flow_now = counterDifference
-            this.$stregaValveValues[i].flow_total = this.$stregaValveValues[i].counter 
+        if (resCounter30min[0][0] != undefined){
+          for(let i = 0; i<this.$stregaValveValues.length; i++){
+            if(this.$stregaValveValues[i].eui === eui){
+              let counterDifference = this.$stregaValveValues[i].counter - resCounter30min[0][0].last
+              this.$stregaValveValues[i].flow_now = counterDifference
+              this.$stregaValveValues[i].flow_total = this.$stregaValveValues[i].counter 
 
-            //calculate conso without system
-            let timeOn = parseInt(this.$stregaValveValues[i].stopTime) - parseInt(this.$stregaValveValues[i].startTime)
-            this.$stregaValveValues[i].flow_without_strega = (this.$stregaValveValues[i].flow_total * 2400 / timeOn).toFixed(1)
-            
+              //calculate conso without system
+              let timeOn = parseInt(this.$stregaValveValues[i].stopTime) - parseInt(this.$stregaValveValues[i].startTime)
+              this.$stregaValveValues[i].flow_without_strega = (this.$stregaValveValues[i].flow_total * 2400 / timeOn).toFixed(1)
+              
 
+            }
           }
         }
+        
       }).catch(error => console.log(error))
 
 
