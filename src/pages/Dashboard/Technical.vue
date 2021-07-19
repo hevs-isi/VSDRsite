@@ -8,8 +8,16 @@
       </div>
     </b-card-group>
 
+    <h2>Status des capteur</h2>
+    <div class="row">
+      <div class="col-lg-6">
+        <h2>Fontaine</h2>
+      </div>
 
-    <h2>Status des capteurs</h2>
+      <div class="col-lg-6">
+          <h2>Hauteur d'eau</h2>
+      </div>
+    </div>
   </div>
 </template>
 
