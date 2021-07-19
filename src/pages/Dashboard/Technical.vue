@@ -10,7 +10,6 @@
 
 
     <h2>Status des capteurs</h2>
-
   </div>
 </template>
 
@@ -30,7 +29,8 @@ import AntennaCard from "../../components/AntennaCard";
     data() {
       return {
         gateway : [],
-        sensors : [],
+        sensorsDragino : [],
+        sensorsStrega : [],
         pending : false, 
 
 
@@ -39,6 +39,8 @@ import AntennaCard from "../../components/AntennaCard";
       }
     },
     mounted() {
+      this.sensorsStrega.push(this.$stregaValveValues)
+
       for(let i = 0; i< this.$SENSORSLISTJSON.length; i++){
         if(this.$SENSORSLISTJSON[i].project.toLowerCase() === this.$PROJECT){
           if(this.$SENSORSLISTJSON[i].type === 'gateway'){
@@ -105,7 +107,6 @@ import AntennaCard from "../../components/AntennaCard";
           }, 500
         )
         })
-
 
 
       

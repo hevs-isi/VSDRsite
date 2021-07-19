@@ -56,7 +56,7 @@ import axios from 'axios'
                 },
             )
           this.$initStregaSensorArray()
-         // console.log(this.$stregaValveValues)
+          this.$initDraginoSensorArray()
 
           //make request devices here
           for(let i = 0 ; i<this.$SENSORSLISTJSON.length;i++){

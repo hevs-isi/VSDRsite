@@ -24,7 +24,7 @@ export default {
       // Do not rename the following, it is updated
       // automatically by the build script located
       // in packages.json
-      version: 'cad09927-19.07.21'
+      version: 'ad46a65a-19.07.21'
     }
   },
 }

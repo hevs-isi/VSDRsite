@@ -322,7 +322,38 @@ export default {
 //Query on influxDB : dragino waterheight sensor
 //------------------------------------------------------------------------------------------------------------------------------
 
+/**
+     *Sensors Array
+     * @type {*[]}
+     */
+     Vue.prototype.$draginoValues = []
 
+     /**
+      * Init a sensor array for stregaValve
+      */
+     Vue.prototype.$initDraginoSensorArray = function (){
+
+      for(let i = 0 ; i< this.$SENSORSLISTJSON.length; i++){
+        if(this.$SENSORSLISTJSON[i].project.toLowerCase() === this.$PROJECT){
+          if(this.$SENSORSLISTJSON[i].type === "Hauteur d'eau"){
+            let strega = {
+              "eui" : this.$SENSORSLISTJSON[i].dev_eui,
+              "location" : this.$SENSORSLISTJSON[i].location,
+              "coordinates" : this.$SENSORSLISTJSON[i].coordinates,
+              "battery" : null,
+              "waterHeight":null,
+              "rssi":null,
+              "rssiIcone":null,
+              "snr":null,
+              "snrIcone": null,
+              "batteryIcone":null
+            }
+            this.$draginoValues.push(strega)
+          }
+        }
+      }
+
+     }
 
 //------------------------------------------------------------------------------------------------------------------------------
 //Divers
