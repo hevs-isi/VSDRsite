@@ -15,7 +15,7 @@
           
           <div class="row">
             <div class="col-lg-4">
-              <div v-if="valveState === 2">
+              <div v-if="downlinkSend === true">
                 <h5>Envoyé à : <br> {{sendTime}}</h5>
               </div>
             </div>
@@ -74,7 +74,9 @@ import axios from "axios"
         info:false,
         timerReload : null,
         sendTime : "", 
+        downlinkSend : false, 
         vsdrSensorJson : this.$SENSORSLISTJSON //A SUPPRIMER SI ON VEUT QUE PRENDRE LETAT DE LA VANNE DANS LA DB
+        
       }
     },
     mounted() {
@@ -113,52 +115,35 @@ import axios from "axios"
         var minutes = date.getMinutes()
         
         this.sendTime = hours + "h" + minutes
+        this.downlinkSend = true
         
         if(this.valveState === 1){
-          //console.log("close Valve " + this.location)
           this.valveState = 0
-          this.myBorder="danger"
-
+          this.myBorder="danger"        
+          //send the downlink to the right device to close the valve
           for(let i = 0; i< this.$stregaValveValues.length;i++){
             if(this.$stregaValveValues[i].location.toLowerCase() === this.location.toLowerCase()){
               this.$postDownlinkChirpStack("devices", this.$stregaValveValues[i].eui, "MA==", 1, true)
-
             }
           }
-
-          //this.$postDownlinkChirpStack("devices", eui, data, port, confirmed)
-
         }else{
-          //console.log("open valve "  + this.location)
           this.valveState = 1
           this.myBorder="success"
-
+          //send the downlink to the right device to open the valve
           for(let i = 0; i< this.$stregaValveValues.length;i++){
             if(this.$stregaValveValues[i].location.toLowerCase() === this.location.toLowerCase()){
               this.$postDownlinkChirpStack("devices", this.$stregaValveValues[i].eui, "MQ==", 1, true)
-
+              
             }
           }
-          
-          //call here the timerValve, so it start when the button has been clicked
-      //    this.timerValveState()
         }
-
         //A SUPPRIMER SI ON VEUT QUE PRENDRE LETAT DE LA VANNE DANS LA DB
         this.saveValveState(this.valveState)
 
       },
 
 
-      /**
-       * timer to check the valve state and change the button color and state
-       */
-      timerValveState : function(){
-        this.timerReload = setInterval(()=>{
-          console.log("hello this is the timer from fountain component from : " + this.location)
-          //call update_Button here
-        },5000) //in millis
-      },
+
 
 /**
  * Ajouter message envoyé à 
@@ -194,7 +179,6 @@ import axios from "axios"
     * Save new valve state into the JSON File
      */
     saveValveState : function (state){
-       console.log("save")
         //check the right object into the JSON array
         for(let i = 0; i< this.vsdrSensorJson.length; i++){
           if(this.vsdrSensorJson[i].project.toLowerCase() === this.$PROJECT.toLowerCase()){

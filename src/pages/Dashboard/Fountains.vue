@@ -22,14 +22,12 @@
       </div>
       <div class="col-lg-4">
         <card title="Consommation totale">
-           <h1 v-if="valve.valveState === '1'" align="center">{{valve.flow_total}} L</h1>
-           <h1 v-if="valve.valveState === '0'" align="center">Vanne fermée</h1>
+           <h1  align="center">{{valve.flow_total}} L</h1>
         </card>        
       </div>
       <div class="col-lg-4">
         <card title="Consommation sans le système">
-          <h1 v-if="valve.valveState === '1'" align="center">{{valve.flow_without_strega}} L</h1>
-          <h1 v-if="valve.valveState === '0'" align="center">Vanne fermée</h1>
+          <h1 align="center">{{valve.flow_without_strega}} L</h1>
         </card>
       </div>
     </div>

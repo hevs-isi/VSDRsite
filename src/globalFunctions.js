@@ -80,9 +80,11 @@ export default {
       axios.post(chirpstackCredentials.url+ target + '/' + eui + '/queue', postData, axiosConfig)
       .then((res) => {
         console.log("RESPONSE RECEIVED: ", res);
+        return true
       })
       .catch((err) => {
         console.log("AXIOS ERROR: ", err);
+        return false
       })
     }
 //------------------------------------------------------------------------------------------------------------------------------
@@ -232,7 +234,7 @@ export default {
      * @param {} eui 
      */
     Vue.prototype.$calculateFlow = function(eui){
-      let queryCounter30min = `SELECT last("value")
+      let queryCounter30min = `SELECT ("value")
       FROM
           "device_frmpayload_data_Counter" 
       WHERE
@@ -248,11 +250,13 @@ export default {
       Promise.all([
         influxClient.query(queryCounter30min)
       ]).then(resCounter30min => {
-        if (resCounter30min[0][0] != undefined){
+       // if (resCounter30min[0][0] != undefined){
           for(let i = 0; i<this.$stregaValveValues.length; i++){
             if(this.$stregaValveValues[i].eui === eui){
-              let counterDifference = this.$stregaValveValues[i].counter - resCounter30min[0][0].last
+              if (resCounter30min[0][0] != undefined){
+              let counterDifference = this.$stregaValveValues[i].counter - resCounter30min[0][0].value
               this.$stregaValveValues[i].flow_now = counterDifference
+              }
               this.$stregaValveValues[i].flow_total = this.$stregaValveValues[i].counter 
 
               //calculate conso without system
@@ -260,7 +264,7 @@ export default {
               this.$stregaValveValues[i].flow_without_strega = (this.$stregaValveValues[i].flow_total * 2400 / timeOn).toFixed(1)
               
 
-            }
+            //}
           }
         }
         
