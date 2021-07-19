@@ -192,6 +192,7 @@ export default {
           ("dev_eui" = '$dEUI')  
       `;
 
+
       queryBat = queryBat.replace("$dEUI", eui.toLowerCase())
       queryTemp = queryTemp.replace("$dEUI", eui.toLowerCase())
       queryCounter = queryCounter.replace("$dEUI", eui.toLowerCase())
@@ -232,6 +233,8 @@ export default {
     /**
      * Calcule the flow with counter : 1 pulse = 1 liter
      * @param {} eui 
+     * select (value) from device_frmpayload_data_Counter where "dev_eui"='0004a30b00f73bd2' and time>=now()-365d and time<=now()
+     * faire : arr[arr.lentgh-1] - arr[0]
      */
     Vue.prototype.$calculateFlow = function(eui){
       let queryCounter30min = `SELECT ("value")
@@ -245,36 +248,36 @@ export default {
           time asc limit 1    
       `;
 
+
+
       queryCounter30min = queryCounter30min.replace("$dEUI", eui.toLowerCase())
       
       Promise.all([
         influxClient.query(queryCounter30min)
       ]).then(resCounter30min => {
-       // if (resCounter30min[0][0] != undefined){
+     
           for(let i = 0; i<this.$stregaValveValues.length; i++){
             if(this.$stregaValveValues[i].eui === eui){
               if (resCounter30min[0][0] != undefined){
-              let counterDifference = this.$stregaValveValues[i].counter - resCounter30min[0][0].value
-              this.$stregaValveValues[i].flow_now = counterDifference
+                let counterDifference = this.$stregaValveValues[i].counter - resCounter30min[0][0].value
+                this.$stregaValveValues[i].flow_now = counterDifference
               }
+
               this.$stregaValveValues[i].flow_total = this.$stregaValveValues[i].counter 
 
               //calculate conso without system
-              let timeOn = parseInt(this.$stregaValveValues[i].stopTime) - parseInt(this.$stregaValveValues[i].startTime)
-              this.$stregaValveValues[i].flow_without_strega = (this.$stregaValveValues[i].flow_total * 2400 / timeOn).toFixed(1)
-              
+              let stop = this.$stregaValveValues[i].stopTime.split(":")[0] + this.$stregaValveValues[i].stopTime.split(":")[1]  
+              let start = this.$stregaValveValues[i].startTime.split(":")[0] + this.$stregaValveValues[i].startTime.split(":")[1]
 
-            //}
+              let timeOn = parseInt(stop) - parseInt(start)
+              this.$stregaValveValues[i].flow_without_strega = (this.$stregaValveValues[i].flow_total * 2400 / timeOn).toFixed(1)
+
+            
           }
         }
-        
       }).catch(error => console.log(error))
-
-
-
     }
 
-// SELECT ("value") FROM "device_frmpayload_data_Battery" WHERE ("dev_eui" = '0004a30b00f7da1c') AND time>now()-30m order by time asc limit 1
 
     }
   }
