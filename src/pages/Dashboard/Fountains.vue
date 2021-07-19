@@ -10,24 +10,32 @@
             </fountains-valve-card>
       </div>
     </div>
+
+
     <!--Information about water consumption-->
-    <div class="row">
+    <div class="row" v-for="valve in this.sensors.filter(s=> (s.location.toLowerCase() === this.locationName.toLowerCase()))">
       <div class="col-lg-4">
         <card title="Débit actuel">
-          <h1 align="center">XXX L/h</h1>
+          <h1 v-if="valve.valveState === '1'" align="center">{{valve.flow_now}} L/h</h1>
+          <h1 v-if="valve.valveState === '0'" align="center">Vanne fermée</h1>
         </card>
       </div>
       <div class="col-lg-4">
         <card title="Consommation totale">
-          <h1 align="center">XXX L</h1>
-        </card>
+           <h1 v-if="valve.valveState === '1'" align="center">{{valve.flow_total}} L</h1>
+           <h1 v-if="valve.valveState === '0'" align="center">Vanne fermée</h1>
+        </card>        
       </div>
       <div class="col-lg-4">
         <card title="Consommation sans le système">
-          <h1 align="center">XXX L</h1>
+          <h1 v-if="valve.valveState === '1'" align="center">{{valve.flow_without_strega}} L</h1>
+          <h1 v-if="valve.valveState === '0'" align="center">Vanne fermée</h1>
         </card>
       </div>
     </div>
+         
+      
+
 
   <!--Change auto activation time-->
    <card>
@@ -86,6 +94,7 @@ import axios from "axios"
     data() {
       return {
         locationName: this.$route.name,             //route of the page
+        sensors : [],
         valveState : 0,                             //state of the valve, toggled by the button and the function toggleValve 0-close, 1 open, 2 in transition
         startTime : 0,
         stopTime : 0,
@@ -97,7 +106,8 @@ import axios from "axios"
       }
     },
     mounted() {
-      console.log(this.$stregaValveValues)  
+      //console.log(this.$stregaValveValues)  
+      this.sensors = this.$stregaValveValues 
     },
     watch: {
       '$route.route': {                               //watch if the route has changed (this is how i now that i've changed page)
