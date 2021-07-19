@@ -115,16 +115,33 @@ import axios from "axios"
         this.sendTime = hours + "h" + minutes
         
         if(this.valveState === 1){
-          console.log("close Valve " + this.location)
+          //console.log("close Valve " + this.location)
           this.valveState = 0
           this.myBorder="danger"
+
+          for(let i = 0; i< this.$stregaValveValues.length;i++){
+            if(this.$stregaValveValues[i].location.toLowerCase() === this.location.toLowerCase()){
+              this.$postDownlinkChirpStack("devices", this.$stregaValveValues[i].eui, "MA==", 1, true)
+
+            }
+          }
+
+          //this.$postDownlinkChirpStack("devices", eui, data, port, confirmed)
+
         }else{
-          console.log("open valve "  + this.location)
+          //console.log("open valve "  + this.location)
           this.valveState = 1
           this.myBorder="success"
+
+          for(let i = 0; i< this.$stregaValveValues.length;i++){
+            if(this.$stregaValveValues[i].location.toLowerCase() === this.location.toLowerCase()){
+              this.$postDownlinkChirpStack("devices", this.$stregaValveValues[i].eui, "MQ==", 1, true)
+
+            }
+          }
           
           //call here the timerValve, so it start when the button has been clicked
-          this.timerValveState()
+      //    this.timerValveState()
         }
 
         //A SUPPRIMER SI ON VEUT QUE PRENDRE LETAT DE LA VANNE DANS LA DB
