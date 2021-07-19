@@ -148,7 +148,10 @@ export default {
               "flow_without_strega": null,
               "flow_serie": null,
               "rssi":null,
+              "rssiIcone":null,
               "snr":null,
+              "snrIcone": null,
+              "batteryIcone":null
             }
             this.$stregaValveValues.push(strega)
           }
@@ -246,6 +249,11 @@ export default {
                     this.$stregaValveValues[i].rssi = resRSSI[0][0].last
                     this.$stregaValveValues[i].snr = resSNR[0][0].last
 
+                    this.$stregaValveValues[i].rssiIcone = getRssiIcone(resRSSI[0][0].last)
+                    this.$stregaValveValues[i].snrIcone = getSnrIcone(resSNR[0][0].last)
+                    this.$stregaValveValues[i].batteryIcone = getBatteryIcone(resBat[0][0].last)
+                    
+                    
                     //calcule flow
                     this.$calculateFlow(eui)
                   }
@@ -282,8 +290,6 @@ export default {
           time asc limit 1    
       `;
 
-
-
       queryCounter30min = queryCounter30min.replace("$dEUI", eui.toLowerCase())
       
       Promise.all([
@@ -312,6 +318,55 @@ export default {
       }).catch(error => console.log(error))
     }
 
+//------------------------------------------------------------------------------------------------------------------------------
+//Query on influxDB : dragino waterheight sensor
+//------------------------------------------------------------------------------------------------------------------------------
+
+
+
+//------------------------------------------------------------------------------------------------------------------------------
+//Divers
+//------------------------------------------------------------------------------------------------------------------------------
+
+      function getRssiIcone(val){
+        let icon = undefined
+        if (val > -100) {
+          icon = 'static/img/technical/Network_full.png'
+        } else if (val > -110 && val <= -100) {
+          icon = 'static/img/technical/Network_good.png'
+        } else if (val > -120 && val <= -110) {
+          icon = 'static/img/technical/Network_bad.png'
+        } else if (val < -120) {
+          icon = 'static/img/technical/Network_nothing.png'
+        }
+        return icon
+      }
+
+      function getSnrIcone(val){
+        if (val > -7.5) {
+          return 'static/img/technical/Network_full.png'
+        } else if (val - 12.5 && val <= -7.5) {
+          return 'static/img/technical/Network_good.png'
+        } else if (val > -17.5 && val <= -12.5) {
+          return 'static/img/technical/Network_bad.png'
+        } else if (val < -17.5) {
+          return 'static/img/technical/Network_nothing.png'
+        }
+      }
+
+      function getBatteryIcone(val){
+        if (val >= 2.79) {
+          return 'static/img/technical/battery/Battery_full.png';
+        } else if (val < 2.79 && val >= 2.54) {
+          return 'static/img/technical/battery/Battery_good.png';
+        } else if (val < 2.54 && val >= 2.42) {
+          return 'static/img/technical/battery/Battery_medium.png';
+        } else if (val < 2.42 && val >= 2.34) {
+          return 'static/img/technical/Battery_middleBad.png';
+        } else if (val < 2.18) {
+          return 'static/img/technical/battery/Battery_bad.png';
+        }
+      }
 
 
     }
