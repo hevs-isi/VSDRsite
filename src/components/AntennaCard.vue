@@ -18,8 +18,6 @@
           </b-card-body>
         </b-media>
       </b-card>
-        {{$stregaValveValues[0]}}
-
     </b-overlay>
 
   </div>

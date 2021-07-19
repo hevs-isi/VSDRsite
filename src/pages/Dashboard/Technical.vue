@@ -7,6 +7,10 @@
         <antenna-card :time = antenna.timeStamp :location=antenna.position_name :timeStamp=antenna.timestamp :eui=antenna.eui :status="antenna.isUp? 'up':'down'" :pending="pending ? true : false"></antenna-card>
       </div>
     </b-card-group>
+
+
+    <h2>Status des capteurs</h2>
+
   </div>
 </template>
 
@@ -26,7 +30,7 @@ import AntennaCard from "../../components/AntennaCard";
     data() {
       return {
         gateway : [],
-        sensor : [],
+        sensors : [],
         pending : false, 
 
 
@@ -48,15 +52,6 @@ import AntennaCard from "../../components/AntennaCard";
             }
             this.gateway.push(gw)
 
-          }else if(this.$SENSORSLISTJSON[i].type === 'Fontaine' || this.$SENSORSLISTJSON[i].type === "Hauteur d'eau"){
-            var sen = {
-              position_name: this.$SENSORSLISTJSON[i].location,
-              position: this.$SENSORSLISTJSON[i].coordinates, 
-              isUp : null,
-              rssi : null,
-              snr : null
-            }
-            this.sensor.push(sen)
           }
         }
       }
@@ -110,6 +105,9 @@ import AntennaCard from "../../components/AntennaCard";
           }, 500
         )
         })
+
+
+
       
 
     },

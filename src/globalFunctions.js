@@ -146,7 +146,9 @@ export default {
               "flow_now" : null,
               "flow_total" : null,
               "flow_without_strega": null,
-              "flow_serie": null
+              "flow_serie": null,
+              "rssi":null,
+              "snr":null,
             }
             this.$stregaValveValues.push(strega)
           }
@@ -199,6 +201,23 @@ export default {
       queryValve = queryValve.replace("$dEUI", eui.toLowerCase())
 
       
+      let queryRSSI = `SELECT last(rssi)
+      FROM
+          "device_uplink" 
+      WHERE
+          ("dev_eui" = '$dEUI')  
+      `;
+
+      let querySNR = `SELECT last(snr)
+      FROM
+          "device_uplink" 
+      WHERE
+          ("dev_eui" = '$dEUI')  
+      `;
+      queryRSSI = queryRSSI.replace("$dEUI", eui.toLowerCase())
+      querySNR = querySNR.replace("$dEUI", eui.toLowerCase())
+
+
       Promise.all([
         influxClient.query(queryBat)
       ]).then(resBat => {
@@ -211,22 +230,37 @@ export default {
             Promise.all([
               influxClient.query(queryValve)
             ]).then(resValve => {
+              Promise.all([
+                influxClient.query(queryRSSI)
+              ]).then(resRSSI => {
+                Promise.all([
+                  influxClient.query(querySNR)
+                ]).then(resSNR => {
                 for(let i = 0; i<this.$stregaValveValues.length; i++){
                   if(this.$stregaValveValues[i].eui === eui){
                     this.$stregaValveValues[i].battery = resBat[0][0].last.toFixed(1)
                     this.$stregaValveValues[i].temperature = resTemp[0][0].last.toFixed(1)
                     this.$stregaValveValues[i].counter = resCounter[0][0].last
                     this.$stregaValveValues[i].valveState = resValve[0][0].last
-                    
+
+                    this.$stregaValveValues[i].rssi = resRSSI[0][0].last
+                    this.$stregaValveValues[i].snr = resSNR[0][0].last
+
                     //calcule flow
                     this.$calculateFlow(eui)
                   }
                 }
-              
+              }).catch(error => console.log(error))
+            }).catch(error => console.log(error))
             }).catch(error => console.log(error))
           }).catch(error => console.log(error))
         }).catch(error => console.log(error))
       }).catch(error => console.log(error))
+
+
+  
+
+
       
      }
 
@@ -277,6 +311,7 @@ export default {
         }
       }).catch(error => console.log(error))
     }
+
 
 
     }
