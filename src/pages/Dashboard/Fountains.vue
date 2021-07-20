@@ -174,7 +174,7 @@ import axios from "axios"
                 let time = this.encodeDownlinkValveTime(this.startTime, this.stopTime)
                 //encode time to base64!!
 
-                //this.$postDownlinkChirpStack ("devices", this.sensors[i].eui, time, port, true) 
+                this.$postDownlinkChirpStack ("devices", this.sensors[i].eui, time, port, true) 
               }             
             }
           }
@@ -212,22 +212,15 @@ import axios from "axios"
                            "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF")
         console.log("Time frame to send : " + finalFrame)
 
+        //encode to base64 for chirpstack
+        let finalFrameB64 = (btoa(finalFrame.match(/\w{2}/g).map(function(a){return String.fromCharCode(parseInt(a, 16));} ).join("")) )
 
         //--------------------------
 
-        return finalFrame
+        return finalFrameB64
       },
 
-       ConvertStringToHex:function(str) {
-              var arr = [];
-              for (var i = 0; i < str.length; i++) {
-                     arr[i] = (str.charCodeAt(i).toString(16)).slice(-4);
-              }
-              return arr;
-       }
-
-
-
+    
      
     }
 
