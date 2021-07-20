@@ -166,17 +166,21 @@ import axios from "axios"
           })
 
           /**
-           * TODO: axios post on chirpstack in device queue with this data
-           * !!! send it for all port !!!
+           * Send on all day ports the new time start and stop
            */
+          for(let i = 0; i<this.sensors.length; i++){
+            if(this.sensors[i].location.toLowerCase() === this.locationName.toLowerCase()){
+              for(let port = 14; port<21; port++){
+                let time = this.encodeDownlinkValveTime(this.startTime, this.stopTime)
+                //encode time to base64!!
 
-          /*for(let port = 14; port<21; port++){
-            this.encodeDownlinkValveTime(this.startTime, this.stopTime)
-            //call $postDownlinkChirpStack
-          }*/
+                //this.$postDownlinkChirpStack ("devices", this.sensors[i].eui, time, port, true) 
+              }             
+            }
+          }
 
-          
-          
+
+         
       },
 
     /**
@@ -208,8 +212,20 @@ import axios from "axios"
                            "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF")
         console.log("Time frame to send : " + finalFrame)
 
+
+        //--------------------------
+
         return finalFrame
-      }
+      },
+
+       ConvertStringToHex:function(str) {
+              var arr = [];
+              for (var i = 0; i < str.length; i++) {
+                     arr[i] = (str.charCodeAt(i).toString(16)).slice(-4);
+              }
+              return arr;
+       }
+
 
 
      
