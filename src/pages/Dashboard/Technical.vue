@@ -12,10 +12,108 @@
     <div class="row">
       <div class="col-lg-6">
         <h2>Fontaine</h2>
+        <card>
+          <vue-tabs value="Description">
+            <v-tab v-for="valve in this.sensorsStrega" :title=valve.location :key=valve.location>
+              <div class="row">
+                <div class="col-lg-12">
+                  <br>
+                  <h5>Valeur lue le <b>{{new Date(valve.when).toLocaleString('fr-CH')}}</b>
+                    <div v-if="(new Date() - new Date(valve.when)<=1200000 )">Etat du capteur : en ligne
+                      <img src="../../assets/sensorOk.png" align="center">
+                    </div>
+                    <div v-else>Etat du capteur : hors ligne
+                      <img src="../../assets/sensorNotOk.png" align="center">
+                    </div>
+                  </h5>
+
+                  <card title="RSSI">
+                   <h2 align="center">{{valve.rssi}}
+                    <img v-if="valve.rssi!='no data' " :src="valve.rssiIcone" align="center">
+                   </h2>
+                  <p align="center">[dBm]</p>
+                  </card>
+
+                  <card title="SNR">
+                     <h2 align="center">{{valve.snr}}
+                      <img v-if="valve.snr !='no data' " :src="valve.snrIcone" align="center">
+                    </h2>
+                    <p align="center">[dB]</p>
+                  </card>
+
+                  <card title="Batterie">
+                    <div v-if="valve.battery != undefined ">
+                      <h2 align="center">{{valve.battery}}
+                      <img v-if="valve.battery !='no data' " :src="valve.batteryIcone" align="center" width="70"
+                         height="40">
+                      </h2>
+                      <p align="center">[%]</p>
+                    </div>
+                    <div v-else>
+                      <h2 align="center">No Data</h2>
+                      <p align="center">[%]</p>
+                    </div>
+                  </card>
+
+                </div>
+              </div>
+            </v-tab>  
+          </vue-tabs>
+        </card>
       </div>
 
       <div class="col-lg-6">
           <h2>Hauteur d'eau</h2>
+          <card>
+          <vue-tabs value="Description">
+            <v-tab v-for="valve in this.sensorsDragino" :title=valve.location :key=valve.location>
+              <div class="row">
+                <div class="col-lg-12">
+                  <br>
+                  <h5>Valeur lue le <b>{{new Date(valve.when).toLocaleString('fr-CH')}}</b>
+                    <div v-if="(new Date() - new Date(valve.when)<=1200000 )">Etat du capteur : en ligne
+                      <img src="../../assets/sensorOk.png" align="center">
+                    </div>
+                    <div v-else>Etat du capteur : hors ligne
+                      <img src="../../assets/sensorNotOk.png" align="center">
+                    </div>
+                  </h5>
+
+                  <card title="RSSI">
+                   <h2 align="center">{{valve.rssi}}
+                    <img v-if="valve.rssi!='no data' " :src="valve.rssiIcone" align="center">
+                   </h2>
+                  <p align="center">[dBm]</p>
+                  </card>
+
+                  <card title="SNR">
+                     <h2 align="center">{{valve.snr}}
+                      <img v-if="valve.snr !='no data' " :src="valve.snrIcone" align="center">
+                    </h2>
+                    <p align="center">[dB]</p>
+                  </card>
+
+                  <card title="Batterie">
+                    <div v-if="valve.battery != undefined ">
+                      <h2 align="center">{{valve.battery}}
+                      <img v-if="valve.battery !='no data' " :src="valve.batteryIcone" align="center" width="70"
+                         height="40">
+                      </h2>
+                      <p align="center">[%]</p>
+                    </div>
+                    <div v-else>
+                      <h2 align="center">No Data</h2>
+                      <p align="center">[%]</p>
+                    </div>
+                  </card>
+
+                </div>
+              </div>
+            </v-tab>  
+          </vue-tabs>
+        </card>
+
+
       </div>
     </div>
   </div>
@@ -47,8 +145,8 @@ import AntennaCard from "../../components/AntennaCard";
       }
     },
     mounted() {
-      this.sensorsStrega.push(this.$stregaValveValues)
-
+      this.sensorsStrega = this.$stregaValveValues
+      this.sensorsDragino = this.$draginoValues
       for(let i = 0; i< this.$SENSORSLISTJSON.length; i++){
         if(this.$SENSORSLISTJSON[i].project.toLowerCase() === this.$PROJECT){
           if(this.$SENSORSLISTJSON[i].type === 'gateway'){

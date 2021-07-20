@@ -135,6 +135,7 @@ export default {
           if(this.$SENSORSLISTJSON[i].type === "Fontaine"){
             let strega = {
               "eui" : this.$SENSORSLISTJSON[i].dev_eui,
+              "when" : null,
               "location" : this.$SENSORSLISTJSON[i].location,
               "coordinates" : this.$SENSORSLISTJSON[i].coordinates,
               "startTime" : this.$SENSORSLISTJSON[i].startTime,
@@ -241,6 +242,7 @@ export default {
                 ]).then(resSNR => {
                 for(let i = 0; i<this.$stregaValveValues.length; i++){
                   if(this.$stregaValveValues[i].eui === eui){
+                    this.$stregaValveValues[i].when = resBat[0][0].time
                     this.$stregaValveValues[i].battery = resBat[0][0].last.toFixed(1)
                     this.$stregaValveValues[i].temperature = resTemp[0][0].last.toFixed(1)
                     this.$stregaValveValues[i].counter = resCounter[0][0].last
@@ -386,15 +388,15 @@ export default {
       }
 
       function getBatteryIcone(val){
-        if (val >= 2.79) {
+        if (val >= 20) {
           return 'static/img/technical/battery/Battery_full.png';
-        } else if (val < 2.79 && val >= 2.54) {
+        } else if (val < 20 && val >= 40) {
           return 'static/img/technical/battery/Battery_good.png';
-        } else if (val < 2.54 && val >= 2.42) {
+        } else if (val < 40 && val >= 60) {
           return 'static/img/technical/battery/Battery_medium.png';
-        } else if (val < 2.42 && val >= 2.34) {
+        } else if (val < 60 && val >= 80) {
           return 'static/img/technical/Battery_middleBad.png';
-        } else if (val < 2.18) {
+        } else if (val < 80) {
           return 'static/img/technical/battery/Battery_bad.png';
         }
       }
