@@ -165,7 +165,6 @@ const Influx = require('influx')
             }
           }
         }
-        //A SUPPRIMER SI ON VEUT QUE PRENDRE LETAT DE LA VANNE DANS LA DB
         this.saveValveState(this.valveState)
 
       },
@@ -176,7 +175,6 @@ const Influx = require('influx')
 
  
 
-//-----------------------------------------A SUPPRIMER SI ON VEUT QUE PRENDRE LETAT DE LA VANNE DANS LA DB
     /**
     * Save new valve state into the JSON File
      */
@@ -209,18 +207,6 @@ const Influx = require('influx')
     },
 
     setVavleState : function (){
-     /* for(let i = 0; i< this.vsdrSensorJson.length; i++){
-          if(this.vsdrSensorJson[i].project.toLowerCase() === this.$PROJECT.toLowerCase()){
-            if(this.vsdrSensorJson[i].location.toLowerCase() === this.location.toLowerCase()){
-              this.valveState = this.vsdrSensorJson[i].state
-              if(this.valveState == 0){
-                this.myBorder = "danger"
-              }else if(this.valveState ==1){
-                this.myBorder = "success"
-              }
-            }
-          }
-        }*/
 
       let queryValve = `SELECT last("value")
       FROM
@@ -242,7 +228,7 @@ const Influx = require('influx')
                 if(this.vsdrSensorJson[i].location.toLowerCase() === this.location.toLowerCase()){
                   let dbVal = parseInt(resValve[0][0].last)
                   let jsonVal = this.vsdrSensorJson[i].state
-                  console.log (this.vsdrSensorJson[i].location +" json : " + jsonVal + " db " + dbVal)
+                  //console.log (this.vsdrSensorJson[i].location +" json : " + jsonVal + " db " + dbVal)
                   if(jsonVal === 0 && dbVal === 0){
                     this.myBorder = "danger"
                     this.valveState = 0
