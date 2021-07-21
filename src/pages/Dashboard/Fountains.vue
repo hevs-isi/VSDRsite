@@ -99,12 +99,10 @@ import axios from "axios"
         newStartTime : "",
         newStopTime : "",
         vsdrSensorJson : this.$SENSORSLISTJSON
-
-
       }
     },
+
     mounted() {
-      //console.log(this.$stregaValveValues)  
       this.sensors = this.$stregaValveValues 
     },
     watch: {
@@ -120,12 +118,7 @@ import axios from "axios"
               this.startTime = this.$SENSORSLISTJSON[i].startTime
               this.stopTime = this.$SENSORSLISTJSON[i].stopTime
             }
-          }
-
-
-
-         
-          
+          }          
         },
         deep: true,
         immediate: true

@@ -8,10 +8,10 @@
       </div>
     </b-card-group>
 
-    <h2>Status des capteur</h2>
+    <h2>Status des capteurs</h2>
     <div class="row">
       <div class="col-lg-6">
-        <h2>Fontaine</h2>
+        <h3>Fontaine</h3>
         <card>
           <vue-tabs value="Description">
             <v-tab v-for="valve in this.sensorsStrega" :title=valve.location :key=valve.location>
@@ -63,7 +63,7 @@
       </div>
 
       <div class="col-lg-6">
-          <h2>Hauteur d'eau</h2>
+          <h3>Hauteur d'eau</h3>
           <card>
           <vue-tabs value="Description">
             <v-tab v-for="valve in this.sensorsDragino" :title=valve.location :key=valve.location>
@@ -163,7 +163,6 @@ import AntennaCard from "../../components/AntennaCard";
           }
         }
       }
-
        
       var promises = []
 

@@ -9,12 +9,13 @@ import fr from "element-ui/src/locale/lang/fr";
 //VSDR imports
 import chirpstackCredentials from './constants/chirpstack.json'      //credentials for chirpstack server
 import credInflux from './constants/influx'
+const Influx = require('influx')
+
 import db_req from "./constants/influx_requests.json"
 
 import axios from 'axios'
 
 
-const Influx = require('influx')
 
 
 
@@ -258,6 +259,7 @@ export default {
                     
                     //calcule flow
                     this.$calculateFlow(eui)
+
                   }
                 }
               }).catch(error => console.log(error))

@@ -45,9 +45,7 @@
           <div v-if="info" class="animate__animated animate__fadeInDown" transition="zoomInOut">
             <br>
             <h5 align="justify">Le système de communication que nous utilisons ne permet pas d'envoyer des ordres d'ouvertures ou de fermeture en tout temps,
-              cependant, la demande est mise en attente. 
-              <br><br>
-             L'état <i><b>"en transition"</b></i> survient durant le temps d'attente de réception de la vanne. En principe, ce temps est de 10 minutes.</h5>
+              cependant, la demande est mise en attente. Un seul click suffit.</h5>
           </div> 
         </b-card>
   </div>
@@ -56,6 +54,18 @@
 <script>
 import axios from "axios"
 
+import credInflux from '../constants/influx'
+const Influx = require('influx')
+
+    const influxClient = new Influx.InfluxDB({
+      database: credInflux.database,
+      host: credInflux.host,
+      port: credInflux.port,
+      protocol: credInflux.protocol,
+      username: credInflux.username,
+      password: credInflux.password
+    });
+    let infClient = influxClient
 
   export default {
     name: "FountainsValveCard",
@@ -79,27 +89,46 @@ import axios from "axios"
         
       }
     },
+
     mounted() {
-      //get valveState
-      //A SUPPRIMER SI ON VEUT QUE PRENDRE LETAT DE LA VANNE DANS LA DB
-      for(let i = 0; i< this.vsdrSensorJson.length; i++){
-          if(this.vsdrSensorJson[i].project.toLowerCase() === this.$PROJECT.toLowerCase()){
-            if(this.vsdrSensorJson[i].location.toLowerCase() === this.location.toLowerCase()){
-              this.valveState = this.vsdrSensorJson[i].state
-              if(this.valveState == 0){
+      this.sensors = this.$stregaValveValues    
+      this.setVavleState()
+
+
+ /*     let queryValve = `SELECT last("value")
+      FROM
+          "device_frmpayload_data_Valve" 
+      WHERE
+          ("dev_eui" = '$dEUI')  
+      `;
+
+
+      for(let i = 0; i<this.sensors.length; i++){
+        if(this.sensors[i].location.toLowerCase() === this.location.toLowerCase()){
+          queryValve = queryValve.replace("$dEUI", this.sensors[i].eui.toLowerCase())
+          Promise.all([
+            infClient.query(queryValve)
+          ]).then(resValve => {
+            console.log(resValve[0][0].last)
+            this.valveState = parseInt(resValve[0][0].last)
+            if(this.valveState == 0){
                 this.myBorder = "danger"
               }else if(this.valveState ==1){
                 this.myBorder = "success"
               }
-            }
-          }
+          }).catch(error => console.log(error))
         }
-      this.sensors = this.$stregaValveValues    
+      }
+
+      */
+
+
+
 
     },
 
     created(){
-      
+
     },
 
     beforeDestroy(){
@@ -110,11 +139,10 @@ import axios from "axios"
        * Function that toggle the valve and send a message to the sensor
        */
       toggleValve : function (){
-        var date = new Date
-        var hours = date.getHours()
-        var minutes = date.getMinutes()
+        var date = new Date()
+
         
-        this.sendTime = hours + "h" + minutes
+        this.sendTime =  date.toLocaleString('fr-CH', {timeStyle: 'short'})
         this.downlinkSend = true
         
         if(this.valveState === 1){
@@ -145,32 +173,6 @@ import axios from "axios"
 
 
 
-/**
- * Ajouter message envoyé à 
- */
-
-/*
-    //run each 1min
-    update_button(){
-      //Read into json
-      db.state = db.get()
-      if(json.actState == IDLE){
-        if(db.state == open){
-          button = green
-        }if(db.state == close){
-          button =close
-        }
-      }else if (json.actState == open || json.actState == close){
-        if(db.state == open){
-          button = open
-        }if(db.state== close){
-          button = close
-        }
-
-      }
-    }
-
-*/
 
  
 
@@ -206,11 +208,78 @@ import axios from "axios"
           })
     },
 
+    setVavleState : function (){
+     /* for(let i = 0; i< this.vsdrSensorJson.length; i++){
+          if(this.vsdrSensorJson[i].project.toLowerCase() === this.$PROJECT.toLowerCase()){
+            if(this.vsdrSensorJson[i].location.toLowerCase() === this.location.toLowerCase()){
+              this.valveState = this.vsdrSensorJson[i].state
+              if(this.valveState == 0){
+                this.myBorder = "danger"
+              }else if(this.valveState ==1){
+                this.myBorder = "success"
+              }
+            }
+          }
+        }*/
+
+      let queryValve = `SELECT last("value")
+      FROM
+          "device_frmpayload_data_Valve" 
+      WHERE
+          ("dev_eui" = '$dEUI')  
+      `;
+
+
+      for(let i = 0; i<this.sensors.length; i++){
+        if(this.sensors[i].location.toLowerCase() === this.location.toLowerCase()){
+          queryValve = queryValve.replace("$dEUI", this.sensors[i].eui.toLowerCase())
+          Promise.all([
+            infClient.query(queryValve)
+          ]).then(resValve => {
+            //console.log(resValve[0][0].last)
+            for(let i = 0; i< this.vsdrSensorJson.length; i++){
+              if(this.vsdrSensorJson[i].project.toLowerCase() === this.$PROJECT.toLowerCase()){
+                if(this.vsdrSensorJson[i].location.toLowerCase() === this.location.toLowerCase()){
+                  let dbVal = parseInt(resValve[0][0].last)
+                  let jsonVal = this.vsdrSensorJson[i].state
+                  console.log (this.vsdrSensorJson[i].location +" json : " + jsonVal + " db " + dbVal)
+                  if(jsonVal === 0 && dbVal === 0){
+                    this.myBorder = "danger"
+                    this.valveState = 0
+
+                  }else if(jsonVal === 1 && dbVal === 0){
+                    this.myBorder = "success"
+                    this.valveState = 1
+                  }else if(jsonVal === 1 && dbVal === 1){
+                     this.myBorder = "success"
+                    this.valveState = 1                   
+                  }else if(jsonVal === 0 && dbVal === 1){
+                    this.myBorder = "success"
+                    this.valveState = 1                  
+                  }
+                }
+              }
+            }
+          }).catch(error => console.log(error))
+        }
+      }
+
+    }
    
 
         
       
-    }
+    },
+
+        watch: {
+      '$route.route': {                               //watch if the route has changed (this is how i now that i've changed page)
+        handler: function () {                        //if the route changed, reload data
+          this.setVavleState()
+        },
+        deep: true,
+        immediate: true
+      }
+    },
   }
 </script>
 

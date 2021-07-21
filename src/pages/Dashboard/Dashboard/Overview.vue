@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div class="col-lg-4"  v-for="sensor in mySensorList.filter(s=> (s.project.toLowerCase() === project.toLowerCase() && s.type === 'Fontaine'))">
-        <fountains-valve-card :location="sensor.location" :startTime="sensor.startTime" :stopTime="sensor.stopTime"></fountains-valve-card>   
+        <fountains-valve-card :location="sensor.location" :startTime="sensor.startTime" :stopTime="sensor.stopTime" ></fountains-valve-card>   
       </div>
     </div>
     <div class="col-lg-12"  v-for="sensor in mySensorList.filter(s=> (s.project.toLowerCase() === project.toLowerCase() && s.type === 'Hauteur d\'eau'))">
@@ -55,25 +55,20 @@ import axios from 'axios'
                   i++
                 },
             )
-          this.$initStregaSensorArray()
-          this.$initDraginoSensorArray()
+            this.$initStregaSensorArray()
+            this.$initDraginoSensorArray()
+            //make request devices here
+            for(let i = 0 ; i<this.$SENSORSLISTJSON.length;i++){
+              if(this.$SENSORSLISTJSON[i].project.toLowerCase() === this.$PROJECT){
+                if(this.$SENSORSLISTJSON[i].type.toLowerCase() === "fontaine"){
+                  this.$getStregaLastValues(this.$SENSORSLISTJSON[i].dev_eui)
+                }else if(this.$SENSORSLISTJSON[i].type.toLowerCase() === "hauteur d'eau"){
 
-          //make request devices here
-          for(let i = 0 ; i<this.$SENSORSLISTJSON.length;i++){
-            if(this.$SENSORSLISTJSON[i].project.toLowerCase() === this.$PROJECT){
-              if(this.$SENSORSLISTJSON[i].type.toLowerCase() === "fontaine"){
-                this.$getStregaLastValues(this.$SENSORSLISTJSON[i].dev_eui)
-              }else if(this.$SENSORSLISTJSON[i].type.toLowerCase() === "hauteur d'eau"){
-
+                }
               }
             }
-          }
-          console.log(this.$stregaValveValues)         
 
-
-          }
- 
-          
+          }          
         })
         .catch(error => {
           console.log(error)
