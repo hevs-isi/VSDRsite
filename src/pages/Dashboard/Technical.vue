@@ -124,6 +124,7 @@
 import axios from 'axios'
 import chirpstackCredentials from '../../constants/chirpstack.json'      //credentials for chirpstack server
 import AntennaCard from "../../components/AntennaCard";
+import { min } from 'd3';
 
 
    export default {
@@ -214,17 +215,32 @@ import AntennaCard from "../../components/AntennaCard";
         })
 
 
-      
+      //test rtc synch
+      this.encodeDateForRtc(new Date())
 
     },
 
 
 
     methods: {
+      encodeDateForRtc : function(date){
+        console.log(date)
+        let hours = date.getHours().toString()
+        let minutes = (date.getMinutes()<10?'0':'') + date.getMinutes().toString()
+        let seconds = date.getSeconds().toString()
+        let weekday = date.getDay().toString()
+        let day = date.getDate().toString()
+        let month = date.getMonth().toString()
+        let year  = date.getFullYear().toString().substr(-2)
 
+        let res = hours + minutes + seconds + weekday + day + month + year
+
+        let resB64 = (btoa(res.match(/\w{2}/g).map(function(a){return String.fromCharCode(parseInt(a, 16));} ).join("")) )
+        console.log(resB64)
+      },
       
-     
-    }
+   
+    },
 
 
    }
