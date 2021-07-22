@@ -54,7 +54,9 @@
                       <p align="center">[%]</p>
                     </div>
                   </card>
-
+                <div class="row justify-content-md-center" >
+                  <l-button type="button" class="btn btn-danger" outline="" v-on:click="loadNewRtcValue(valve.eui)">Synchroniser RTC</l-button>
+                </div>
                 </div>
               </div>
             </v-tab>  
@@ -106,6 +108,8 @@
                       <p align="center">[%]</p>
                     </div>
                   </card>
+                  <br><br>
+
 
                 </div>
               </div>
@@ -139,6 +143,7 @@ import { min } from 'd3';
         sensorsDragino : [],
         sensorsStrega : [],
         pending : false, 
+        myBorder : "danger",
 
 
 
@@ -216,27 +221,44 @@ import { min } from 'd3';
 
 
       //test rtc synch
-      this.encodeDateForRtc(new Date())
+      this.loadNewRtcValue(new Date())
 
     },
 
 
 
     methods: {
-      encodeDateForRtc : function(date){
-        console.log(date)
-        let hours = date.getHours().toString()
-        let minutes = (date.getMinutes()<10?'0':'') + date.getMinutes().toString()
-        let seconds = date.getSeconds().toString()
-        let weekday = date.getDay().toString()
-        let day = date.getDate().toString()
-        let month = date.getMonth().toString()
-        let year  = date.getFullYear().toString().substr(-2)
+      loadNewRtcValue : function(eui){
+        this.myBorder="success"
+        let date = new Date()
+        let hours = ((date.getHours()<15?'0':'') + date.getHours().toString(16)) 
+        let minutes = (date.getMinutes()<10?'0':'') + date.getMinutes().toString(16)
+        let seconds = ((date.getSeconds()<10?'0':'') + date.getSeconds().toString(16))
+        let weekday = '0'+ date.getDay().toString(16)
+        let day = ((date.getDate()<10?'0':'') + date.getDate().toString(16))
+        let month = ((date.getMonth()<10?'0':'') + date.getMonth().toString(16))
+        let year  = date.getFullYear().toString().substr(-2).toString(16)
 
         let res = hours + minutes + seconds + weekday + day + month + year
+     /*   console.log(hours)
+        console.log(minutes)
+        console.log(seconds)
+        console.log(weekday)
+        console.log(day)
+        console.log(month)
+        console.log(year)
+        console.log(res)*/
 
         let resB64 = (btoa(res.match(/\w{2}/g).map(function(a){return String.fromCharCode(parseInt(a, 16));} ).join("")) )
+        let port = 12
         console.log(resB64)
+
+        
+//        this.$postDownlinkChirpStack ("devices", eui, resB64, port, true)
+        
+
+
+
       },
       
    

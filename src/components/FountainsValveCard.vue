@@ -95,36 +95,6 @@ const Influx = require('influx')
       this.setVavleState()
 
 
- /*     let queryValve = `SELECT last("value")
-      FROM
-          "device_frmpayload_data_Valve" 
-      WHERE
-          ("dev_eui" = '$dEUI')  
-      `;
-
-
-      for(let i = 0; i<this.sensors.length; i++){
-        if(this.sensors[i].location.toLowerCase() === this.location.toLowerCase()){
-          queryValve = queryValve.replace("$dEUI", this.sensors[i].eui.toLowerCase())
-          Promise.all([
-            infClient.query(queryValve)
-          ]).then(resValve => {
-            console.log(resValve[0][0].last)
-            this.valveState = parseInt(resValve[0][0].last)
-            if(this.valveState == 0){
-                this.myBorder = "danger"
-              }else if(this.valveState ==1){
-                this.myBorder = "success"
-              }
-          }).catch(error => console.log(error))
-        }
-      }
-
-      */
-
-
-
-
     },
 
     created(){
