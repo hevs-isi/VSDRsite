@@ -54,9 +54,14 @@
                       <p align="center">[%]</p>
                     </div>
                   </card>
-                <div class="row justify-content-md-center" >
+                <div class="row justify-content-md-center" v-if="synchroRtc === 0">
                   <l-button type="button" class="btn btn-danger" outline="" v-on:click="loadNewRtcValue(valve.eui)">Synchroniser RTC</l-button>
                 </div>
+                <div class="row justify-content-md-center" v-if="synchroRtc === 1">
+                  <l-button type="button" class="btn btn-success" outline="" v-on:click="loadNewRtcValue(valve.eui)">Synchroniser RTC</l-button>
+                </div>
+
+
                 </div>
               </div>
             </v-tab>  
@@ -143,7 +148,8 @@ import { min } from 'd3';
         sensorsDragino : [],
         sensorsStrega : [],
         pending : false, 
-        myBorder : "danger",
+        synchroRtc : 0,
+        myBorder : "success",
 
 
 
@@ -221,7 +227,7 @@ import { min } from 'd3';
 
 
       //test rtc synch
-      this.loadNewRtcValue(new Date())
+      //this.loadNewRtcValue(new Date())
 
     },
 
@@ -230,6 +236,7 @@ import { min } from 'd3';
     methods: {
       loadNewRtcValue : function(eui){
         this.myBorder="success"
+        this.synchroRtc = 1
         let date = new Date()
         let hours = ((date.getHours()<15?'0':'') + date.getHours().toString(16)) 
         let minutes = (date.getMinutes()<10?'0':'') + date.getMinutes().toString(16)
@@ -246,8 +253,8 @@ import { min } from 'd3';
         console.log(weekday)
         console.log(day)
         console.log(month)
-        console.log(year)
-        console.log(res)*/
+        console.log(year)*/
+        console.log(res)
 
         let resB64 = (btoa(res.match(/\w{2}/g).map(function(a){return String.fromCharCode(parseInt(a, 16));} ).join("")) )
         let port = 12
