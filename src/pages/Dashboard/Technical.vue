@@ -54,12 +54,12 @@
                       <p align="center">[%]</p>
                     </div>
                   </card>
-                <div class="row justify-content-md-center" v-if="synchroRtc === 0">
+  <!--              <div class="row justify-content-md-center" v-if="synchroRtc === 0">
                   <l-button type="button" class="btn btn-danger" outline="" v-on:click="loadNewRtcValue(valve.eui)">Synchroniser RTC</l-button>
                 </div>
                 <div class="row justify-content-md-center" v-if="synchroRtc === 1">
                   <l-button type="button" class="btn btn-success" outline="" v-on:click="loadNewRtcValue(valve.eui)">Synchroniser RTC</l-button>
-                </div>
+                </div>-->
 
 
                 </div>
@@ -113,8 +113,6 @@
                       <p align="center">[%]</p>
                     </div>
                   </card>
-                  <br><br>
-
 
                 </div>
               </div>
@@ -238,30 +236,51 @@ import { min } from 'd3';
         this.myBorder="success"
         this.synchroRtc = 1
         let date = new Date()
-        let hours = ((date.getHours()<15?'0':'') + date.getHours().toString(16)) 
-        let minutes = (date.getMinutes()<10?'0':'') + date.getMinutes().toString(16)
-        let seconds = ((date.getSeconds()<10?'0':'') + date.getSeconds().toString(16))
-        let weekday = '0'+ date.getDay().toString(16)
-        let day = ((date.getDate()<10?'0':'') + date.getDate().toString(16))
-        let month = ((date.getMonth()<10?'0':'') + date.getMonth().toString(16))
-        let year  = date.getFullYear().toString().substr(-2).toString(16)
+        //let hours = ((date.getHours()<10?'0':'') + date.getHours().toString(16))
+        //let minutes = (date.getMinutes()<10?'0':'') + date.getMinutes().toString(16)
+        //let seconds = ((date.getSeconds()<10?'0':'') + date.getSeconds().toString(16))
+        //let weekday = '0'+ date.getDay().toString(16)
+        //let day = ((date.getDate()<10?'0':'') + date.getDate().toString(16))
+        //let month = ((date.getMonth()<10?'0':'') + date.getMonth().toString(16))
+        //let year  = date.getFullYear().toString().substr(-2).toString(16)
+
+
+        let hours = ((date.getHours()<10?'0':'') + date.getHours().toString())
+        let minutes = (date.getMinutes()<10?'0':'') + date.getMinutes().toString()
+        let seconds = ((date.getSeconds()<10?'0':'') + date.getSeconds().toString())
+        let weekday = '0'+ date.getDay().toString()
+        let day = ((date.getDate()<10?'0':'') + date.getDate().toString())
+        let month = ((date.getMonth()<10?'0':'') + date.getMonth().toString())
+        let year  = date.getFullYear().toString().substr(-2).toString()
+
+        //BCD encoding        
+        hours = hours[0].toString(16) + hours[1].toString(16)
+        hours = 16
+        hours = hours.toString(16)
+        seconds = seconds[0].toString(16) + seconds[1].toString(16)
+        weekday = weekday[0].toString(16) + weekday[1].toString(16)
+        day = day[0].toString(16) + day[1].toString(16)
+        month = month[0].toString(16) + month[1].toString(16)
+        year = year[0].toString(16) + year[1].toString(16)
+        
+        //console.log(date.getMinutes().toString()[1])
 
         let res = hours + minutes + seconds + weekday + day + month + year
-     /*   console.log(hours)
+        console.log(hours)
         console.log(minutes)
         console.log(seconds)
         console.log(weekday)
         console.log(day)
         console.log(month)
-        console.log(year)*/
+        console.log(year)
         console.log(res)
 
         let resB64 = (btoa(res.match(/\w{2}/g).map(function(a){return String.fromCharCode(parseInt(a, 16));} ).join("")) )
         let port = 12
         console.log(resB64)
-
-        
-//        this.$postDownlinkChirpStack ("devices", eui, resB64, port, true)
+        let typeSynchroPort = 13  
+ //       this.$postDownlinkChirpStack ("devices", eui, 'MQ==', typeSynchroPort, true)
+ //       this.$postDownlinkChirpStack ("devices", eui, resB64, port, true)
         
 
 
