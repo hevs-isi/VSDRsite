@@ -2,7 +2,7 @@
   <div>
       <b-card :border-variant="myBorder">
           
-          <h4 class="card.title">Etat de la vanne {{location}}
+          <h4 class="card.title" >Etat de la vanne {{location}}
             <i v-bind:class="[hovered ? 'fa fa-info-circle text-muted animate__animated animate__rubberBand' : 'fa fa-info-circle text-muted']"
           v-on:mouseover="hovered=true" v-on:mouseout="hovered=false" @click="info = !info">
           </i>

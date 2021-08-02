@@ -37,4 +37,25 @@
   *{
     font-family: Roboto;
   }
+  h1{
+    font-family: Roboto;
+
+  }
+  h2{
+    font-family: Roboto;
+
+  }
+  h3{
+    font-family: Roboto;
+
+  }
+  h4{
+    font-family: Roboto;
+  }
+  h5{
+    font-family: Roboto;
+  }
+  p{
+    font-family: Roboto;
+  }
 </style>
