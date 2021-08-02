@@ -15,7 +15,7 @@
                         //text : "Hauteur de neige"
                     },
                   time:{
-                    timezoneOffset : -60
+                    timezoneOffset : -120
                   },
                     chart:{
                         style:{
@@ -82,6 +82,9 @@
                         ]
                     },
                     series: this.dataWaterChart,
+                    series :{
+                        id:"toto"
+                    },
 
                     legend :{
                         enabled : true,

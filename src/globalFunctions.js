@@ -343,8 +343,10 @@ export default {
             let drag = {
               "eui" : this.$SENSORSLISTJSON[i].dev_eui,
               "when":null,
+              "project": this.$SENSORSLISTJSON[i].project,
               "location" : this.$SENSORSLISTJSON[i].location,
               "coordinates" : this.$SENSORSLISTJSON[i].coordinates,
+              "offset" : this.$SENSORSLISTJSON[i].offset,
               "battery" : null,
               "waterHeight6h":null,
               "waterHeight3h":null,
@@ -482,11 +484,23 @@ export default {
                               this.$draginoValues[i].waterHeight6h = res6h[0][0].first
                               this.$draginoValues[i].waterHeight3h =res3h[0][0].first
                               this.$draginoValues[i].waterHeightNow = resNow[0][0].last
-                              this.$draginoValues[i].waterHeightSerie = resSerie[0][0].moving_average
                               this.$draginoValues[i].waterHeightMin = resMin[0][0].min
                               this.$draginoValues[i].waterHeightMax = resMax[0][0].max
                               this.$draginoValues[i].rssi = resRssi[0][0].last
                               this.$draginoValues[i].snr = resSnr[0][0].last    
+
+                              //treatment for serie for chart                              
+                              this.$draginoValues[i].waterHeightSerie = Object.assign({}, {
+                                name: "Hauteur d'eau", // name on the chart
+                                color: '#4285f4',
+                                lineWidth: 0.6,
+                                turboThreshold: 60000,
+                                data: resSerie[0].map(obj => Object.assign({}, {
+                                  x: (moment(obj.time).unix()) * 1000,
+                                  y: (obj['moving_average'] == null ? obj['moving_average'] : ((obj['moving_average']-this.$draginoValues[i].offset)))/10
+                                })),
+                              });
+
                             }
                           }
                         }).catch(error => console.log(error))
@@ -499,7 +513,7 @@ export default {
           }).catch(error => console.log(error))
         }).catch(error => console.log(error))
 
-
+        console.log(this.$draginoValues)
       }
 
 //------------------------------------------------------------------------------------------------------------------------------
