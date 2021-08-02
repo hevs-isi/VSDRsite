@@ -244,7 +244,7 @@ export default {
                 for(let i = 0; i<this.$stregaValveValues.length; i++){
                   if(this.$stregaValveValues[i].eui === eui){
                     this.$stregaValveValues[i].when = resBat[0][0].time
-                    this.$stregaValveValues[i].battery = resBat[0][0].last.toFixed(1)
+                    this.$stregaValveValues[i].battery = resBat[0][0].last.toFixed(0)
                     this.$stregaValveValues[i].temperature = resTemp[0][0].last.toFixed(1)
                     this.$stregaValveValues[i].counter = resCounter[0][0].last
                     this.$stregaValveValues[i].valveState = resValve[0][0].last
@@ -480,15 +480,18 @@ export default {
                           for(let i = 0; i<this.$draginoValues.length; i++){
                             if(this.$draginoValues[i].eui === eui){
                               this.$draginoValues[i].when = resBat[0][0].time
-                              this.$draginoValues[i].battery = resBat[0][0].last
-                              this.$draginoValues[i].waterHeight6h = res6h[0][0].first
-                              this.$draginoValues[i].waterHeight3h =res3h[0][0].first
-                              this.$draginoValues[i].waterHeightNow = resNow[0][0].last
-                              this.$draginoValues[i].waterHeightMin = resMin[0][0].min
-                              this.$draginoValues[i].waterHeightMax = resMax[0][0].max
+                              this.$draginoValues[i].battery = calcPercentBat(resBat[0][0].last)
+                              this.$draginoValues[i].waterHeight6h = res6h[0][0].first/10
+                              this.$draginoValues[i].waterHeight3h =res3h[0][0].first/10
+                              this.$draginoValues[i].waterHeightNow = resNow[0][0].last/10
+                              this.$draginoValues[i].waterHeightMin = resMin[0][0].min/10
+                              this.$draginoValues[i].waterHeightMax = resMax[0][0].max/10
                               this.$draginoValues[i].rssi = resRssi[0][0].last
                               this.$draginoValues[i].snr = resSnr[0][0].last    
-
+                              this.$draginoValues[i].rssiIcone = getRssiIcone(resRssi[0][0].last)
+                              this.$draginoValues[i].snrIcone = getSnrIcone(resSnr[0][0].last)
+                              this.$draginoValues[i].batteryIcone = getBatteryIcone(calcPercentBat(resBat[0][0].last))
+                                
                               //treatment for serie for chart                              
                               this.$draginoValues[i].waterHeightSerie = Object.assign({}, {
                                 name: "Hauteur d'eau", // name on the chart
@@ -546,6 +549,8 @@ export default {
         }
       }
 
+      
+
       function getBatteryIcone(val){
         if (val >= 20) {
           return 'static/img/technical/battery/Battery_full.png';
@@ -557,6 +562,22 @@ export default {
           return 'static/img/technical/Battery_middleBad.png';
         } else if (val < 80) {
           return 'static/img/technical/battery/Battery_bad.png';
+        }
+      }
+
+      function calcPercentBat(val){
+        if (val >= 3) {
+          return 95;
+        }else if (val <3 && val >= 2.79) {
+           return 80;
+        } else if (val < 2.79 && val >= 2.54) {
+          return 60;
+        } else if (val < 2.54 && val >= 2.42) {
+          return 40;
+        } else if (val < 2.42 && val >= 2.34) {
+          return 20;
+        } else if (val < 2.18) {
+          return 10;
         }
       }
 
