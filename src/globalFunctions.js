@@ -340,13 +340,14 @@ export default {
       for(let i = 0 ; i< this.$SENSORSLISTJSON.length; i++){
         if(this.$SENSORSLISTJSON[i].project.toLowerCase() === this.$PROJECT){
           if(this.$SENSORSLISTJSON[i].type === "Hauteur d'eau"){
-            let strega = {
+            let drag = {
               "eui" : this.$SENSORSLISTJSON[i].dev_eui,
+              "when":null,
               "location" : this.$SENSORSLISTJSON[i].location,
               "coordinates" : this.$SENSORSLISTJSON[i].coordinates,
               "battery" : null,
+              "waterHeight6h":null,
               "waterHeight3h":null,
-              "waterHeight1h":null,
               "waterHeightNow":null,
               "waterHeightMin":null,
               "waterHeightMax":null,
@@ -357,7 +358,7 @@ export default {
               "snrIcone": null,
               "batteryIcone":null
             }
-            this.$draginoValues.push(strega)
+            this.$draginoValues.push(drag)
           }
         }
       }
@@ -446,6 +447,59 @@ export default {
         queryMax = queryMax.replace("$dEUI", eui.toLowerCase())
         queryRSSI = queryRSSI.replace("$dEUI", eui.toLowerCase())
         querySNR = querySNR.replace("$dEUI", eui.toLowerCase())
+
+        Promise.all([
+          influxClient.query(queryBat)
+        ]).then(resBat => {
+          Promise.all([
+            influxClient.query(query6h)
+          ]).then(res6h => {
+            Promise.all([
+              influxClient.query(query3h)
+            ]).then(res3h => {
+              Promise.all([
+                influxClient.query(queryNow)
+              ]).then(resNow => {
+                Promise.all([
+                  influxClient.query(querySerie)
+                ]).then(resSerie => {
+                  Promise.all([
+                    influxClient.query(queryMin)
+                  ]).then(resMin => {
+                    Promise.all([
+                      influxClient.query(queryMax)
+                    ]).then(resMax => {
+                      Promise.all([
+                        influxClient.query(queryRSSI)
+                      ]).then(resRssi => {
+                        Promise.all([
+                          influxClient.query(querySNR)
+                        ]).then(resSnr => {
+                          for(let i = 0; i<this.$draginoValues.length; i++){
+                            if(this.$draginoValues[i].eui === eui){
+                              this.$draginoValues[i].when = resBat[0][0].time
+                              this.$draginoValues[i].battery = resBat[0][0].last
+                              this.$draginoValues[i].waterHeight6h = res6h[0][0].first
+                              this.$draginoValues[i].waterHeight3h =res3h[0][0].first
+                              this.$draginoValues[i].waterHeightNow = resNow[0][0].last
+                              this.$draginoValues[i].waterHeightSerie = resSerie[0][0].moving_average
+                              this.$draginoValues[i].waterHeightMin = resMin[0][0].min
+                              this.$draginoValues[i].waterHeightMax = resMax[0][0].max
+                              this.$draginoValues[i].rssi = resRssi[0][0].last
+                              this.$draginoValues[i].snr = resSnr[0][0].last    
+                            }
+                          }
+                        }).catch(error => console.log(error))
+                      }).catch(error => console.log(error))
+                    }).catch(error => console.log(error))
+                  }).catch(error => console.log(error))
+                }).catch(error => console.log(error))
+              }).catch(error => console.log(error))
+            }).catch(error => console.log(error))
+          }).catch(error => console.log(error))
+        }).catch(error => console.log(error))
+
+
       }
 
 //------------------------------------------------------------------------------------------------------------------------------

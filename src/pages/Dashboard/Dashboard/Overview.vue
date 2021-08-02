@@ -62,8 +62,10 @@ import axios from 'axios'
               if(this.$SENSORSLISTJSON[i].project.toLowerCase() === this.$PROJECT){
                 if(this.$SENSORSLISTJSON[i].type.toLowerCase() === "fontaine"){
                   this.$getStregaLastValues(this.$SENSORSLISTJSON[i].dev_eui)
+                  //console.log(this.$SENSORSLISTJSON[i].dev_eui)
                 }else if(this.$SENSORSLISTJSON[i].type.toLowerCase() === "hauteur d'eau"){
-
+                  //console.log(this.$SENSORSLISTJSON[i].dev_eui)
+                  this.$getDraginoLastValues(this.$SENSORSLISTJSON[i].dev_eui)
                 }
               }
             }
