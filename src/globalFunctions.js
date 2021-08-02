@@ -345,7 +345,12 @@ export default {
               "location" : this.$SENSORSLISTJSON[i].location,
               "coordinates" : this.$SENSORSLISTJSON[i].coordinates,
               "battery" : null,
-              "waterHeight":null,
+              "waterHeight3h":null,
+              "waterHeight1h":null,
+              "waterHeightNow":null,
+              "waterHeightMin":null,
+              "waterHeightMax":null,
+              "waterHeightSerie":null,
               "rssi":null,
               "rssiIcone":null,
               "snr":null,
@@ -358,6 +363,90 @@ export default {
       }
 
      }
+
+          /**
+      * get last values without flow calculation
+      * @param {*} eui 
+      */
+      Vue.prototype.$getDraginoLastValues = function(eui){
+        let queryBat = `SELECT last("value")
+                        FROM
+                            "device_frmpayload_data_Bat" 
+                        WHERE
+                            ("dev_eui" = '$dEUI')  
+                        `;
+        let query6h = `SELECT first("value")
+                        FROM
+                            "device_frmpayload_data_Dist" 
+                        WHERE
+                            ("dev_eui" = '$dEUI')  
+                        AND
+                            time>now()-6h order by time asc limit 1
+                        `;
+
+        let query3h = `SELECT first("value")
+                      FROM
+                          "device_frmpayload_data_Dist" 
+                      WHERE
+                          ("dev_eui" = '$dEUI')  
+                      AND
+                          time>now()-3h order by time asc limit 1
+                      `;
+
+        let queryNow = `SELECT last("value")
+                      FROM
+                          "device_frmpayload_data_Dist" 
+                      WHERE
+                          ("dev_eui" = '$dEUI')  
+                      `;
+
+        let querySerie = `SELECT moving_average("value",10)
+                      FROM
+                          "device_frmpayload_data_Dist" 
+                      WHERE
+                          ("dev_eui" = '$dEUI')  
+                      AND
+                          time>now()-7d
+                      `;
+                      
+        let queryMin = `SELECT min("value")
+                      FROM
+                          "device_frmpayload_data_Dist" 
+                      WHERE
+                          ("dev_eui" = '$dEUI')  
+                      `;
+
+        let queryMax = `SELECT max("value")
+                        FROM
+                            "device_frmpayload_data_Dist" 
+                        WHERE
+                            ("dev_eui" = '$dEUI')  
+                        `;
+
+        let queryRSSI = `SELECT last("rssi")
+                      FROM
+                          "device_uplink" 
+                      WHERE
+                          ("dev_eui" = '$dEUI')  
+                      `;
+
+        let querySNR = `SELECT last("snr")
+                      FROM
+                          "device_uplink" 
+                      WHERE
+                          ("dev_eui" = '$dEUI')  
+                      `;
+         
+        queryBat = queryBat.replace("$dEUI", eui.toLowerCase())
+        query6h = query6h.replace("$dEUI", eui.toLowerCase())             
+        query3h = query3h.replace("$dEUI", eui.toLowerCase())
+        querySerie = querySerie.replace("$dEUI", eui.toLowerCase())
+        queryNow = queryNow.replace("$dEUI", eui.toLowerCase())   
+        queryMin = queryMin.replace("$dEUI", eui.toLowerCase()) 
+        queryMax = queryMax.replace("$dEUI", eui.toLowerCase())
+        queryRSSI = queryRSSI.replace("$dEUI", eui.toLowerCase())
+        querySNR = querySNR.replace("$dEUI", eui.toLowerCase())
+      }
 
 //------------------------------------------------------------------------------------------------------------------------------
 //Divers
