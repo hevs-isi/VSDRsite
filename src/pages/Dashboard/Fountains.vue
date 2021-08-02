@@ -18,16 +18,29 @@
         <card title="Débit actuel">
           <h1 v-if="valve.valveState === '1'" align="center">{{valve.flow_now}} L/h</h1>
           <h1 v-if="valve.valveState === '0'" align="center">Vanne fermée</h1>
+          <br>
         </card>
       </div>
       <div class="col-lg-4">
         <card title="Consommation totale">
            <h1  align="center">{{valve.flow_total}} L</h1>
+           <br>
         </card>        
       </div>
       <div class="col-lg-4">
-        <card title="Consommation sans le système">
-          <h1 align="center">{{valve.flow_without_strega}} L</h1>
+        <card title="Consommation sans le système"> 
+          
+          <h1 align="center">{{valve.flow_without_strega}} L </h1>
+          <i style="float:right" v-bind:class="[hovered ? 'fa fa-info-circle text-muted animate__animated animate__rubberBand' : 'fa fa-info-circle text-muted']"
+          v-on:mouseover="hovered=true" v-on:mouseout="hovered=false" @click="info = !info">
+          </i>
+          <br>
+          <div v-if="info" class="animate__animated animate__fadeInDown" transition="zoomInOut">
+            <br>
+            <h5 align="justify">Consommation si la vanne connectée n'était pas installée. Cette valeur est calculée sur la base du temps d'écoulement journalier
+              de la fontaine.
+            </h5>
+          </div> 
         </card>
       </div>
     </div>
@@ -91,6 +104,8 @@ import axios from "axios"
         
     data() {
       return {
+        hovered: false,
+        info:false,
         locationName: this.$route.name,             //route of the page
         sensors : [],
         valveState : 0,                             //state of the valve, toggled by the button and the function toggleValve 0-close, 1 open, 2 in transition
