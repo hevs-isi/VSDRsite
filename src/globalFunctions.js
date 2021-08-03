@@ -243,20 +243,28 @@ export default {
                 ]).then(resSNR => {
                 for(let i = 0; i<this.$stregaValveValues.length; i++){
                   if(this.$stregaValveValues[i].eui === eui){
-                    this.$stregaValveValues[i].when = resBat[0][0].time
-                    this.$stregaValveValues[i].battery = resBat[0][0].last.toFixed(0)
-                    this.$stregaValveValues[i].temperature = resTemp[0][0].last.toFixed(1)
-                    this.$stregaValveValues[i].counter = resCounter[0][0].last
+                    if(resBat[0][0] != undefined){
+                      this.$stregaValveValues[i].when = resBat[0][0].time
+                      this.$stregaValveValues[i].battery = resBat[0][0].last.toFixed(0)
+                      this.$stregaValveValues[i].batteryIcone = getBatteryIcone(resBat[0][0].last)
+                    }
+                    if(resTemp[0][0] != undefined){
+                      this.$stregaValveValues[i].temperature = resTemp[0][0].last.toFixed(1)
+                    }
+                    if(resCounter[0][0] != undefined){
+                      this.$stregaValveValues[i].counter = resCounter[0][0].last
+                    }
+                    if(resValve[0][0] != undefined){
                     this.$stregaValveValues[i].valveState = resValve[0][0].last
-
-                    this.$stregaValveValues[i].rssi = resRSSI[0][0].last
-                    this.$stregaValveValues[i].snr = resSNR[0][0].last
-
-                    this.$stregaValveValues[i].rssiIcone = getRssiIcone(resRSSI[0][0].last)
-                    this.$stregaValveValues[i].snrIcone = getSnrIcone(resSNR[0][0].last)
-                    this.$stregaValveValues[i].batteryIcone = getBatteryIcone(resBat[0][0].last)
-                    
-                    
+                    }
+                    if(resRSSI[0][0] != undefined){
+                      this.$stregaValveValues[i].rssi = resRSSI[0][0].last
+                      this.$stregaValveValues[i].rssiIcone = getRssiIcone(resRSSI[0][0].last)
+                    }
+                    if(resSNR[0][0] != undefined){
+                      this.$stregaValveValues[i].snr = resSNR[0][0].last
+                      this.$stregaValveValues[i].snrIcone = getSnrIcone(resSNR[0][0].last)
+                    }
                     //calcule flow
                     this.$calculateFlow(eui)
 
@@ -479,30 +487,49 @@ export default {
                         ]).then(resSnr => {
                           for(let i = 0; i<this.$draginoValues.length; i++){
                             if(this.$draginoValues[i].eui === eui){
+                              if(resBat[0][0] != undefined){
                               this.$draginoValues[i].when = resBat[0][0].time
-                              this.$draginoValues[i].battery = calcPercentBat(resBat[0][0].last)
-                              this.$draginoValues[i].waterHeight6h = res6h[0][0].first/10
-                              this.$draginoValues[i].waterHeight3h =res3h[0][0].first/10
-                              this.$draginoValues[i].waterHeightNow = resNow[0][0].last/10
-                              this.$draginoValues[i].waterHeightMin = resMin[0][0].min/10
-                              this.$draginoValues[i].waterHeightMax = resMax[0][0].max/10
-                              this.$draginoValues[i].rssi = resRssi[0][0].last
-                              this.$draginoValues[i].snr = resSnr[0][0].last    
-                              this.$draginoValues[i].rssiIcone = getRssiIcone(resRssi[0][0].last)
-                              this.$draginoValues[i].snrIcone = getSnrIcone(resSnr[0][0].last)
                               this.$draginoValues[i].batteryIcone = getBatteryIcone(calcPercentBat(resBat[0][0].last))
-                                
-                              //treatment for serie for chart                              
-                              this.$draginoValues[i].waterHeightSerie = Object.assign({}, {
-                                name: "Hauteur d'eau", // name on the chart
-                                color: '#4285f4',
-                                lineWidth: 0.6,
-                                turboThreshold: 60000,
-                                data: resSerie[0].map(obj => Object.assign({}, {
-                                  x: (moment(obj.time).unix()) * 1000,
-                                  y: (obj['moving_average'] == null ? obj['moving_average'] : ((obj['moving_average']-this.$draginoValues[i].offset)))/10
-                                })),
-                              });
+                              this.$draginoValues[i].battery = calcPercentBat(resBat[0][0].last)
+                              }
+                              if(res6h[0][0] != undefined){
+                                this.$draginoValues[i].waterHeight6h = res6h[0][0].first/10
+                              }
+                              if(res3h[0][0] != undefined){
+                                this.$draginoValues[i].waterHeight3h =res3h[0][0].first/10
+                              }
+                              if(resNow[0][0] != undefined){
+                                this.$draginoValues[i].waterHeightNow = resNow[0][0].last/10
+                              }
+                              if(resMin[0][0] != undefined){
+                                this.$draginoValues[i].waterHeightMin = resMin[0][0].min/10
+                              }
+                              if(resMax[0][0] != undefined){
+                                this.$draginoValues[i].waterHeightMax = resMax[0][0].max/10                                  
+                              }
+                              if(resRssi[0][0] != undefined){
+                                this.$draginoValues[i].rssi = resRssi[0][0].last
+                                this.$draginoValues[i].rssiIcone = getRssiIcone(resRssi[0][0].last)
+                              }
+                              if(resSnr[0][0] != undefined){
+                                this.$draginoValues[i].snr = resSnr[0][0].last    
+                                this.$draginoValues[i].snrIcone = getSnrIcone(resSnr[0][0].last)                                
+                              }
+                         
+                              if(resSerie[0]!= undefined){
+                                //treatment for serie for chart                              
+                                this.$draginoValues[i].waterHeightSerie = Object.assign({}, {
+                                  name: "Hauteur d'eau", // name on the chart
+                                  color: '#4285f4',
+                                  lineWidth: 0.6,
+                                  turboThreshold: 60000,
+                                  data: resSerie[0].map(obj => Object.assign({}, {
+                                    x: (moment(obj.time).unix()) * 1000,
+                                    y: (obj['moving_average'] == null ? obj['moving_average'] : ((obj['moving_average']-this.$draginoValues[i].offset)))/10
+                                  })),
+                                });
+                              }
+
 
                             }
                           }
