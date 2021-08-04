@@ -408,7 +408,9 @@ export default {
                       FROM
                           "device_frmpayload_data_Dist" 
                       WHERE
-                          ("dev_eui" = '$dEUI')  
+                          ("dev_eui" = '$dEUI')
+                      AND
+                          time>now()-15m      
                       `;
 
         let querySerie = `SELECT moving_average("value",10)

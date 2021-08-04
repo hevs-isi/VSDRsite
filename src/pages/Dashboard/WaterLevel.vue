@@ -6,19 +6,19 @@
         <div class="col-lg-4">
           <b-card>
             <h4 class="card.title">Il y à 6 heures</h4>
-              <h1 align="center"> {{sensor.waterHeight6h}} cm</h1>
+              <h1 align="center" v-if="sensor.waterHeight6h != undefined"> {{sensor.waterHeight6h}} cm</h1>
           </b-card>        
         </div>
         <div class="col-lg-4">
           <b-card>
             <h4 class="card.title">Il y à 3 heure </h4>
-              <h1 align="center"> {{sensor.waterHeight3h}} cm</h1>
+              <h1 align="center" v-if="sensor.waterHeight3h != undefined"> {{sensor.waterHeight3h}} cm</h1>
           </b-card>        
         </div>
         <div class="col-lg-4">
           <b-card>
             <h4 class="card.title">Actuellement </h4>
-              <h1 align="center"> {{sensor.waterHeightNow}} cm</h1>
+              <h1 align="center" v-if="sensor.waterHeightNow != undefined"> {{sensor.waterHeightNow}} cm</h1>
           </b-card>        
         </div>           
       </div>
