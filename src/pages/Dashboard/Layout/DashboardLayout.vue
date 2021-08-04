@@ -7,7 +7,7 @@
         <hr class="mt-2 border-top">
         <sidebar-item :link="{name: 'Vue générale', icon: 'fa fa-home', path: '/admin/overview'}">
         </sidebar-item>
-        <sidebar-item :link="{name: 'Fontaines', icon: 'fa fa-thermometer-half'}" >
+        <sidebar-item :link="{name: 'Fontaines', icon: 'nc-icon nc-tap-01'}" >
 
           <!----------------------------------------------------------------------------------------------------------->
           
@@ -15,7 +15,7 @@
           
         </sidebar-item>
 
-        <sidebar-item :link="{name: 'Hauteur des lacs', icon: 'fa fa-snowflake-o'}">
+        <sidebar-item :link="{name: 'Hauteur des lacs', icon: 'nc-icon nc-chart-bar-32'}">
           <sidebar-item v-for="loc in sensorListJson.filter(s=>s.type==='Hauteur d\'eau')" :key="loc.location":link="{name: loc.realName, path: '/Hauteurdelac/'+loc.location} "></sidebar-item>
         </sidebar-item>
 
