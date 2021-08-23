@@ -404,16 +404,16 @@ export default {
                           time>now()-3h order by time asc limit 1
                       `;
 
-        let queryNow = `SELECT last("value")
+ /*       let queryNow = `SELECT last("value")
                       FROM
                           "device_frmpayload_data_Dist" 
                       WHERE
                           ("dev_eui" = '$dEUI')
                       AND
                           time>now()-15m      
-                      `;
+                      `;*/
 
-/*        let queryNow = `SELECT last(moving_average)
+        let queryNow = `SELECT last(moving_average)
                         FROM
                         (SELECT
                             moving_average(value, 30)
@@ -423,7 +423,7 @@ export default {
                             ("dev_eui" = '$dEUI') )      
                         `;
               
-*/
+
         let querySerie = `SELECT moving_average("value",40)
                       FROM
                           "device_frmpayload_data_Dist" 
@@ -516,7 +516,7 @@ export default {
                                 this.$draginoValues[i].waterHeight3h =res3h[0][0].first/10
                               }
                               if(resNow[0][0] != undefined){
-                                this.$draginoValues[i].waterHeightNow = resNow[0][0].last/10
+                                this.$draginoValues[i].waterHeightNow = (resNow[0][0].last/10).toFixed(1)
                               }
                               if(resMin[0][0] != undefined){
                                 this.$draginoValues[i].waterHeightMin = resMin[0][0].min/10
