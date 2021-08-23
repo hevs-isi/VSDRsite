@@ -49,7 +49,7 @@
 
                         opposite : true,
     //                  min : 0,
-                      softMax : 200
+                     // softMax : 200
 
                     }],
 

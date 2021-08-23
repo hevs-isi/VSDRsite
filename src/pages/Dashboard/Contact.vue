@@ -33,16 +33,16 @@
 
     <h3>Informations de contact</h3>
     <p v-if="contactTitle==='Grimisuat'">
-      Pour plus d'information, vous pouvez contacter pour la commune de Grimisuat M. XXXXXX, responsable des travaux
+      Pour plus d'information, vous pouvez contacter pour la commune de Grimisuat M. Mabillard David, responsable des travaux
       publics et pour la Haute école d'Ingénierie, <a
       href="https://www.hevs.ch/fr/rad-instituts/institut-systemes-industriels/collaborateurs/professeure-hes/mudry-1640">Prof.
       Pierre-André Mudry</a>
     </p>
     <p v-if="contactTitle==='Saviese'">
-      Pour plus d'information, vous pouvez contacter pour la commune de Saviese M. XXXX, responsable des travaux
+      Pour plus d'information, vous pouvez contacter pour la commune de Saviese M. Varone Patrick, responsable des travaux
       publics et pour la Haute école d'Ingénierie, <a
       href="https://www.hevs.ch/fr/rad-instituts/institut-systemes-industriels/collaborateurs/professeure-hes/mudry-1640">Prof.
-      Pierre-André Mudry</a>
+      Pierre-André Mudry</a>.
     </p>
 
     <br>
@@ -60,11 +60,11 @@
             img-height="600"
           >
             <b-carousel-slide
-              caption="Pralan"
-              :img-src="require('../../assets/installation/pralan1.jpeg')"
+              caption="Capteur de hauteur d'eau"
+              :img-src="require('../../assets/vsdr/besson.jpeg')"
             ></b-carousel-slide>
 
-            <b-carousel-slide
+      <!--      <b-carousel-slide
               caption="Pralan"
               :img-src="require('../../assets/installation/pralan2.jpeg')"
             ></b-carousel-slide>
@@ -82,31 +82,9 @@
             <b-carousel-slide
               caption="Pro de Savioz"
               :img-src="require('../../assets/installation/prodesavioz3.jpeg')"
-            ></b-carousel-slide>
-
-       <!--     <b-carousel-slide
-              caption="Le Rawyl"
-              text="Source: site web d'Ayent"
-              :img-src="require('../../assets/installation/pralan1.jpeg')"
-            ></b-carousel-slide>
-
-            <b-carousel-slide
-              caption="Lourantze"
-              text="Source: site web d'Ayent"
-              :img-src="require('../../assets/installation/pralan1.jpeg')"
-            ></b-carousel-slide>
-
-            <b-carousel-slide
-              caption="L'étang de Lombardon"
-              text="Source: site web d'Ayent"
-              :img-src="require('../../assets/installation/pralan1.jpeg')"
-            ></b-carousel-slide>
-
-            <b-carousel-slide
-              caption="La Lienne"
-              text="Source: site web d'Ayent"
-              :img-src="require('../../assets/installation/pralan1.jpeg')"
             ></b-carousel-slide>-->
+
+      
           </b-carousel>
     </b-container>
 
