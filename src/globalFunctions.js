@@ -386,22 +386,47 @@ export default {
                         WHERE
                             ("dev_eui" = '$dEUI')  
                         `;
-        let query6h = `SELECT first("value")
+ /*       let query6h = `SELECT first("value")
                         FROM
                             "device_frmpayload_data_Dist" 
                         WHERE
                             ("dev_eui" = '$dEUI')  
                         AND
                             time>now()-6h order by time asc limit 1
-                        `;
+                        `;*/
+        let query6h = `SELECT first(moving_average)
+                      FROM
+                      (SELECT
+                          moving_average(value, 10)
+                      FROM
+                          "device_frmpayload_data_Dist" 
+                      WHERE
+                          ("dev_eui" = '$dEUI') 
+                      AND
+                          time>now()-6h order by time asc limit 1    
+                          )      
+                      `;
 
-        let query3h = `SELECT first("value")
+
+/*        let query3h = `SELECT first("value")
                       FROM
                           "device_frmpayload_data_Dist" 
                       WHERE
                           ("dev_eui" = '$dEUI')  
                       AND
                           time>now()-3h order by time asc limit 1
+                      `;*/
+          let query3h = `SELECT first(moving_average)
+                      FROM
+                      (SELECT
+                          moving_average(value, 10)
+                      FROM
+                          "device_frmpayload_data_Dist" 
+                      WHERE
+                          ("dev_eui" = '$dEUI') 
+                      AND
+                          time>now()-3h order by time asc limit 1    
+                          )      
                       `;
 
  /*       let queryNow = `SELECT last("value")
@@ -430,7 +455,7 @@ export default {
                       WHERE
                           ("dev_eui" = '$dEUI')  
                       AND
-                          time>now()-7d
+                          time>now()-15d
                       `;
                       
         let queryMin = `SELECT min("value")
