@@ -413,6 +413,17 @@ export default {
                           time>now()-15m      
                       `;
 
+/*        let queryNow = `SELECT last(moving_average)
+                        FROM
+                        (SELECT
+                            moving_average(value, 30)
+                        FROM
+                            "device_frmpayload_data_Dist" 
+                        WHERE
+                            ("dev_eui" = '$dEUI') )      
+                        `;
+              
+*/
         let querySerie = `SELECT moving_average("value",40)
                       FROM
                           "device_frmpayload_data_Dist" 
