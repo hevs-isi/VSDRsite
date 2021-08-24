@@ -26,7 +26,7 @@
         </div>           
       </div>
 
-      <div class="row">
+   <!--   <div class="row">
         <div class="col-lg-4 offset-md-2">
           <b-card>
             <h4 class="card.title">Hauteur minimale</h4>
@@ -39,7 +39,27 @@
               <h1 align="center"> {{sensor.waterHeightMax}} cm</h1>
           </b-card>        
         </div>
+      </div>-->
+      <div class="row">
+        <div class="col-lg-4">
+          <b-card>
+            <h4 class="card.title">Hauteur minimale</h4>
+              <h1 align="center"> {{sensor.waterHeightMin}} cm</h1>
+          </b-card>        
+        </div>
+        <div class="col-lg-4">
+          <b-card>
+            <h4 class="card.title">Hauteur maximale</h4>
+              <h1 align="center"> {{sensor.waterHeightMax}} cm</h1>
+          </b-card>        
+        </div>
+        <div class="col-lg-4">
+          <b-card align="center">
+            <img alt="centered image" width="300" height="165" :src="require('../../assets/vsdr/'+sensor.location.toLowerCase()+'.jpeg')">
+          </b-card>        
+        </div>
       </div>
+
 
       
 <!--chart-->      

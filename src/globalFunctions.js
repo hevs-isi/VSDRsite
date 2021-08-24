@@ -535,10 +535,10 @@ export default {
                               this.$draginoValues[i].battery = calcPercentBat(resBat[0][0].last)
                               }
                               if(res6h[0][0] != undefined){
-                                this.$draginoValues[i].waterHeight6h = res6h[0][0].first/10
+                                this.$draginoValues[i].waterHeight6h = (res6h[0][0].first/10).toFixed(1)
                               }
                               if(res3h[0][0] != undefined){
-                                this.$draginoValues[i].waterHeight3h =res3h[0][0].first/10
+                                this.$draginoValues[i].waterHeight3h = (res3h[0][0].first/10).toFixed(1)
                               }
                               if(resNow[0][0] != undefined){
                                 this.$draginoValues[i].waterHeightNow = (resNow[0][0].last/10).toFixed(1)
