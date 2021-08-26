@@ -15,6 +15,13 @@
       d'Ingénierie</a> de la HES-SO Valais-Wallis.
     </p>
 
+    <p v-if="contactTitle==='Nax'" align="justify">
+      Bienvenue sur le site du projet <b>Valais Smart Dynamic Region {{this.contactTitle}}</b>, une collaboration entre la <a href="https://nax-region.ch/">commune
+      de {{this.contactTitle}}</a> et la <a href="https://www.hevs.ch/fr/hautes-ecoles/haute-ecole-d-ingenierie/">Haute école
+      d'Ingénierie</a> de la HES-SO Valais-Wallis.
+    </p>
+
+
     <h3>Objectifs du projet</h3>
     <p align="justify">
       L'objectif de ce projet est de mettre en place un système de surveillance de hauteur d'eau dans des lacs ainsi que de piloter à distance des 
@@ -44,6 +51,14 @@
       href="https://www.hevs.ch/fr/rad-instituts/institut-systemes-industriels/collaborateurs/professeure-hes/mudry-1640">Prof.
       Pierre-André Mudry</a>.
     </p>
+
+    <p v-if="contactTitle==='Saviese'">
+      Pour plus d'information, vous pouvez contacter pour la commune de Saviese M. Cervetti Marco, responsable des travaux
+      publics et pour la Haute école d'Ingénierie, <a
+      href="https://www.hevs.ch/fr/rad-instituts/institut-systemes-industriels/collaborateurs/professeure-hes/mudry-1640">Prof.
+      Pierre-André Mudry</a>.
+    </p>
+
 
     <br>
     <hr>
