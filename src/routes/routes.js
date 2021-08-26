@@ -74,6 +74,21 @@ let waterLevelMenu ={
       path: 'Rocher',
       name: 'Rocher',
       component: WaterLevel
+    },
+    {
+      path: 'Blocs',
+      name: 'Blocs',
+      component: WaterLevel
+    },
+    {
+      path: 'Erbioz',
+      name: 'Erbioz',
+      component: WaterLevel
+    },
+    {
+      path: 'Faran',
+      name: 'Faran',
+      component: WaterLevel
     }
   ]
 }
