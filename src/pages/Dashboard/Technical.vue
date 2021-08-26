@@ -1,6 +1,6 @@
 <template>
-  <div>
-   <h2>Status des antennes</h2>
+  <div >
+   <h2 v-if="this.$PROJECT != 'nax'">Status des antennes</h2>
     <!-- This has been optimized a bit   -->
     <b-card-group columns>
       <div v-for="(antenna, index) in this.gateway">
@@ -10,7 +10,7 @@
 
     <h2>Status des capteurs</h2>
     <div class="row">
-      <div class="col-lg-6">
+      <div class="col-lg-6" v-if="this.$PROJECT != 'nax'">
         <h3>Fontaine</h3>
         <card>
           <vue-tabs value="Description">
