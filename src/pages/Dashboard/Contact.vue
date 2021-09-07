@@ -52,7 +52,7 @@
       Pierre-André Mudry</a>.
     </p>
 
-    <p v-if="contactTitle==='Saviese'">
+    <p v-if="contactTitle==='Nax'">
       Pour plus d'information, vous pouvez contacter pour la commune de Saviese M. Cervetti Marco, responsable des travaux
       publics et pour la Haute école d'Ingénierie, <a
       href="https://www.hevs.ch/fr/rad-instituts/institut-systemes-industriels/collaborateurs/professeure-hes/mudry-1640">Prof.
@@ -79,10 +79,10 @@
               :img-src="require('../../assets/vsdr/besson.jpeg')"
             ></b-carousel-slide>
 
-      <!--      <b-carousel-slide
-              caption="Pralan"
-              :img-src="require('../../assets/installation/pralan2.jpeg')"
-            ></b-carousel-slide>
+            <b-carousel-slide
+              caption="Capteur de hauteur d'eau"
+              :img-src="require('../../assets/vsdr/erbioz1.jpeg')"
+            ></b-carousel-slide><!--
 
             <b-carousel-slide
               caption="Pro de Savioz"

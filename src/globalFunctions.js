@@ -159,11 +159,8 @@ export default {
           }
         }
       }
+      console.log(this.$stregaValveValues)
      }
-
-     /**
-      * TODO: initDraginoSensorArray
-      */
 
 
      /**
@@ -276,12 +273,6 @@ export default {
           }).catch(error => console.log(error))
         }).catch(error => console.log(error))
       }).catch(error => console.log(error))
-
-
-  
-
-
-      
      }
 
     /**
@@ -323,8 +314,6 @@ export default {
 
               let timeOn = parseInt(stop) - parseInt(start)
               this.$stregaValveValues[i].flow_without_strega = (this.$stregaValveValues[i].flow_total * 2400 / timeOn).toFixed(1)
-
-            
           }
         }
       }).catch(error => console.log(error))
@@ -375,8 +364,8 @@ export default {
 
      }
 
-          /**
-      * get last values without flow calculation
+      /**
+      * get last values
       * @param {*} eui 
       */
       Vue.prototype.$getDraginoLastValues = function(eui){
@@ -386,14 +375,7 @@ export default {
                         WHERE
                             ("dev_eui" = '$dEUI')  
                         `;
- /*       let query6h = `SELECT first("value")
-                        FROM
-                            "device_frmpayload_data_Dist" 
-                        WHERE
-                            ("dev_eui" = '$dEUI')  
-                        AND
-                            time>now()-6h order by time asc limit 1
-                        `;*/
+
         let query6h = `SELECT first(moving_average)
                       FROM
                       (SELECT
@@ -407,15 +389,6 @@ export default {
                           )      
                       `;
 
-
-/*        let query3h = `SELECT first("value")
-                      FROM
-                          "device_frmpayload_data_Dist" 
-                      WHERE
-                          ("dev_eui" = '$dEUI')  
-                      AND
-                          time>now()-3h order by time asc limit 1
-                      `;*/
           let query3h = `SELECT first(moving_average)
                       FROM
                       (SELECT
@@ -428,15 +401,6 @@ export default {
                           time>now()-3h order by time asc limit 1    
                           )      
                       `;
-
- /*       let queryNow = `SELECT last("value")
-                      FROM
-                          "device_frmpayload_data_Dist" 
-                      WHERE
-                          ("dev_eui" = '$dEUI')
-                      AND
-                          time>now()-15m      
-                      `;*/
 
         let queryNow = `SELECT last(moving_average)
                         FROM
@@ -585,13 +549,17 @@ export default {
           }).catch(error => console.log(error))
         }).catch(error => console.log(error))
 
-        console.log(this.$draginoValues)
+      //  console.log(this.$draginoValues)
       }
 
 //------------------------------------------------------------------------------------------------------------------------------
 //Divers
 //------------------------------------------------------------------------------------------------------------------------------
-
+      /**
+       * retun an icone for the rssi value
+       * @param {*} val 
+       * @returns 
+       */
       function getRssiIcone(val){
         let icon = undefined
         if (val > -100) {
@@ -606,6 +574,11 @@ export default {
         return icon
       }
 
+      /**
+       * return an incone for the snr value
+       * @param {*} val 
+       * @returns 
+       */
       function getSnrIcone(val){
         if (val > -7.5) {
           return 'static/img/technical/Network_full.png'
@@ -619,21 +592,30 @@ export default {
       }
 
       
-
-      function getBatteryIcone(val){
-        if (val >= 20) {
+      /**
+       * Return an icone for the battery value
+       * @param {*} val 
+       * @returns 
+       */
+      function getBatteryIcone(val){ 
+        if (val > 80) {
           return 'static/img/technical/battery/Battery_full.png';
-        } else if (val < 20 && val >= 40) {
+        } else if (val > 60 && val <= 80) {
           return 'static/img/technical/battery/Battery_good.png';
-        } else if (val < 40 && val >= 60) {
+        } else if (val > 40 && val <= 60) {
           return 'static/img/technical/battery/Battery_medium.png';
-        } else if (val < 60 && val >= 80) {
+        } else if (val > 20 && val <= 40) {
           return 'static/img/technical/Battery_middleBad.png';
-        } else if (val < 80) {
+        } else if (val <= 20) {
           return 'static/img/technical/battery/Battery_bad.png';
         }
       }
 
+      /**
+       * Calculate the battery value in percent
+       * @param {*} val 
+       * @returns 
+       */
       function calcPercentBat(val){
         if (val >= 3) {
           return 95;
