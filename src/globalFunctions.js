@@ -582,7 +582,7 @@ export default {
       function getSnrIcone(val){
         if (val > -7.5) {
           return 'static/img/technical/Network_full.png'
-        } else if (val - 12.5 && val <= -7.5) {
+        } else if (val >-12.5 && val <= -7.5) {
           return 'static/img/technical/Network_good.png'
         } else if (val > -17.5 && val <= -12.5) {
           return 'static/img/technical/Network_bad.png'
