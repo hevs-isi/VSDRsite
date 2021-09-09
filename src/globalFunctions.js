@@ -301,11 +301,10 @@ export default {
      
           for(let i = 0; i<this.$stregaValveValues.length; i++){
             if(this.$stregaValveValues[i].eui === eui){
-              if (resCounter30min[0][0] != undefined){
+              if (resCounter30min[0][0] != undefined ){
                 let counterDifference = this.$stregaValveValues[i].counter - resCounter30min[0][0].value
-                this.$stregaValveValues[i].flow_now = counterDifference
+                this.$stregaValveValues[i].flow_now = counterDifference*2
               }
-
               this.$stregaValveValues[i].flow_total = this.$stregaValveValues[i].counter 
 
               //calculate conso without system
@@ -582,7 +581,7 @@ export default {
       function getSnrIcone(val){
         if (val > -7.5) {
           return 'static/img/technical/Network_full.png'
-        } else if (val >-12.5 && val <= -7.5) {
+        } else if (val > -12.5 && val <= -7.5) {
           return 'static/img/technical/Network_good.png'
         } else if (val > -17.5 && val <= -12.5) {
           return 'static/img/technical/Network_bad.png'
