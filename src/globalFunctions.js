@@ -312,7 +312,7 @@ export default {
               let start = this.$stregaValveValues[i].startTime.split(":")[0] + this.$stregaValveValues[i].startTime.split(":")[1]
 
               let timeOn = parseInt(stop) - parseInt(start)
-              this.$stregaValveValues[i].flow_without_strega = (this.$stregaValveValues[i].flow_total * 2400 / timeOn).toFixed(1)
+              this.$stregaValveValues[i].flow_without_strega = (this.$stregaValveValues[i].flow_total * 2400 / timeOn).toFixed(0)- this.$stregaValveValues[i].flow_total
           }
         }
       }).catch(error => console.log(error))

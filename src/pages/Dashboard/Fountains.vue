@@ -28,7 +28,7 @@
         </card>        
       </div>
       <div class="col-lg-4">
-        <card title="Consommation sans le système"> 
+        <card title="Economie d'eau"> 
           
           <h1 align="center">{{valve.flow_without_strega}} L </h1>
           <i style="float:right" v-bind:class="[hovered ? 'fa fa-info-circle text-muted animate__animated animate__rubberBand' : 'fa fa-info-circle text-muted']"
