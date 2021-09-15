@@ -15,8 +15,8 @@
           
         </sidebar-item>
 
-        <sidebar-item :link="{name: 'Hauteur des lacs', icon: 'nc-icon nc-chart-bar-32'}">
-          <sidebar-item v-for="loc in sensorListJson.filter(s=>s.type==='Hauteur d\'eau')" :key="loc.location":link="{name: loc.realName, path: '/Hauteurdelac/'+loc.location} "></sidebar-item>
+        <sidebar-item :link="{name: 'Hauteur d\'eau', icon: 'nc-icon nc-chart-bar-32'}">
+          <sidebar-item v-for="loc in sensorListJson.filter(s=>s.type==='Hauteur d\'eau')" :key="loc.location":link="{name: loc.realName, path: '/Hauteurdeau/'+loc.location} "></sidebar-item>
         </sidebar-item>
 
 

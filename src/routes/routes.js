@@ -57,7 +57,7 @@ let fountainsMenu ={
 }
 
 let waterLevelMenu ={
-  path: '/Hauteurdelac',
+  path: '/Hauteurdeau',
   component: DashboardLayout,
   children: [
    {
