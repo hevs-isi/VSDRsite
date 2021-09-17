@@ -1,12 +1,13 @@
 <template>
   <div>
       <b-card :border-variant="myBorder">
-          
           <h4 class="card.title" >Etat de la vanne {{location}}
             <i v-bind:class="[hovered ? 'fa fa-info-circle text-muted animate__animated animate__rubberBand' : 'fa fa-info-circle text-muted']"
           v-on:mouseover="hovered=true" v-on:mouseout="hovered=false" @click="info = !info">
           </i>
         </h4>
+          <h5 v-if="installation != undefined">Installée le : {{installation}}</h5>
+          <h5 v-if="installation === undefined">Installée le : Pas encore installée</h5>
           
           <h5>Horaire de fonctionnement : {{startTime}}->{{stopTime}} </h5>
           <h5 v-if="valveState===0">Etat actuel : fermée  <img src="../assets/sensorNotOk.png" align="center"> </h5>
@@ -73,6 +74,8 @@ const Influx = require('influx')
       location: String,
       startTime : String,
       stopTime : String,
+      valveSt : String,
+      installation:String
     }
     ,
     data() {
@@ -85,7 +88,7 @@ const Influx = require('influx')
         timerReload : null,
         sendTime : "", 
         downlinkSend : false, 
-        vsdrSensorJson : this.$SENSORSLISTJSON //A SUPPRIMER SI ON VEUT QUE PRENDRE LETAT DE LA VANNE DANS LA DB
+        vsdrSensorJson : this.$SENSORSLISTJSON 
         
       }
     },
@@ -199,7 +202,7 @@ const Influx = require('influx')
                   let dbVal = parseInt(resValve[0][0].last)
                   let jsonVal = this.vsdrSensorJson[i].state
                   //console.log (this.vsdrSensorJson[i].location +" json : " + jsonVal + " db " + dbVal)
-                  if(jsonVal === 0 && dbVal === 0){
+                  /*if(jsonVal === 0 && dbVal === 0){
                     this.myBorder = "danger"
                     this.valveState = 0
 
@@ -212,6 +215,13 @@ const Influx = require('influx')
                   }else if(jsonVal === 0 && dbVal === 1){
                     this.myBorder = "success"
                     this.valveState = 1                  
+                  }*/
+                  if(dbVal === 0){
+                    this.myBorder="danger"
+                    this.valveState=0
+                  }else if(dbVal ===1){
+                    this.myBorder="success"
+                    this.valveState =1
                   }
                 }
               }

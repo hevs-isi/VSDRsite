@@ -6,7 +6,10 @@
             <fountains-valve-card 
               :location="this.$route.name" 
               :startTime="this.startTime.toString()" 
-              :stopTime="this.stopTime.toString()" >
+              :stopTime="this.stopTime.toString()"
+              :installation="this.installation_date.toString()" 
+              >
+              
             </fountains-valve-card>
       </div>
     </div>
@@ -37,7 +40,7 @@
           <br>
           <div v-if="info" class="animate__animated animate__fadeInDown" transition="zoomInOut">
             <br>
-            <h5 align="justify">Consommation si la vanne connectée n'était pas installée. Cette valeur est calculée sur la base du temps d'écoulement journalier
+            <h5 align="justify">Economie d'eau avec le système de vanne connectée. Cette valeur est calculée sur la base du temps d'écoulement journalier
               de la fontaine.
             </h5>
           </div> 
@@ -95,7 +98,6 @@ import axios from "axios"
 
 
 
-
   export default {
     components: {FountainsValveCard},
     name: "Fountains",
@@ -111,9 +113,12 @@ import axios from "axios"
         valveState : 0,                             //state of the valve, toggled by the button and the function toggleValve 0-close, 1 open, 2 in transition
         startTime : 0,
         stopTime : 0,
+        installation_date : '',
         newStartTime : "",
         newStopTime : "",
-        vsdrSensorJson : this.$SENSORSLISTJSON
+        vsdrSensorJson : this.$SENSORSLISTJSON,
+        flowOffset : 0,
+
       }
     },
 
@@ -132,12 +137,24 @@ import axios from "axios"
             if(this.$SENSORSLISTJSON[i].project.toLowerCase() === this.$PROJECT && this.$SENSORSLISTJSON[i].location === this.locationName){
               this.startTime = this.$SENSORSLISTJSON[i].startTime
               this.stopTime = this.$SENSORSLISTJSON[i].stopTime
+              this.valveState = this.$SENSORSLISTJSON[i].valveState
+              if(this.$SENSORSLISTJSON[i].installation_date != undefined){
+                this.installation_date = this.$SENSORSLISTJSON[i].installation_date
+              }else{
+                this.installation_date = "Pas encore installée"
+              }
+              //console.log(this.$SENSORSLISTJSON[i])
             }
-          }          
+          }
         },
         deep: true,
         immediate: true
+      
+        
+
       }
+
+      
     },
 
 
@@ -228,7 +245,10 @@ import axios from "axios"
         return finalFrameB64
       },
 
-    
+
+
+      
+
      
     }
 

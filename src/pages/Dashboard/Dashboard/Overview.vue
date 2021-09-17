@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div class="col-lg-4"  v-for="sensor in mySensorList.filter(s=> (s.project.toLowerCase() === project.toLowerCase() && s.type === 'Fontaine'))">
-        <fountains-valve-card :location="sensor.location" :startTime="sensor.startTime" :stopTime="sensor.stopTime" ></fountains-valve-card>   
+        <fountains-valve-card :location="sensor.location" :startTime="sensor.startTime" :stopTime="sensor.stopTime" :installation="sensor.installation_date"></fountains-valve-card>   
       </div>
     </div>
    

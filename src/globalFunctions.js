@@ -149,6 +149,7 @@ export default {
               "flow_total" : null,
               "flow_without_strega": null,
               "flow_serie": null,
+              "installation_date" : this.$SENSORSLISTJSON[i].installation_date,
               "rssi":null,
               "rssiIcone":null,
               "snr":null,
@@ -317,6 +318,12 @@ export default {
         }
       }).catch(error => console.log(error))
     }
+
+   
+     
+
+   
+   
 
 //------------------------------------------------------------------------------------------------------------------------------
 //Query on influxDB : dragino waterheight sensor
@@ -550,6 +557,9 @@ export default {
 
       //  console.log(this.$draginoValues)
       }
+
+      
+
 
 //------------------------------------------------------------------------------------------------------------------------------
 //Divers
