@@ -45,17 +45,36 @@
           <b-card>
             <h4 class="card.title">Hauteur minimale</h4>
               <h1 align="center"> {{sensor.waterHeightMin}} cm</h1>
+              <i style="float:right" v-bind:class="[hovered ? 'fa fa-info-circle text-muted animate__animated animate__rubberBand' : 'fa fa-info-circle text-muted']"
+              v-on:mouseover="hovered=true" v-on:mouseout="hovered=false" @click="info = !info">
+              </i>
+              <br>
+              <div v-if="info" class="animate__animated animate__fadeInDown" transition="zoomInOut">
+                <br>
+                <h5 align="justify">Hauteur minimale sur les 30 derniers jours.
+                </h5>
+              </div>
           </b-card>        
         </div>
         <div class="col-lg-4">
           <b-card>
             <h4 class="card.title">Hauteur maximale</h4>
               <h1 align="center"> {{sensor.waterHeightMax}} cm</h1>
+              <i style="float:right" v-bind:class="[hovered2 ? 'fa fa-info-circle text-muted animate__animated animate__rubberBand' : 'fa fa-info-circle text-muted']"
+              v-on:mouseover="hovered2=true" v-on:mouseout="hovered2=false" @click="info2 = !info2">
+              </i>
+              <br>
+              <div v-if="info2" class="animate__animated animate__fadeInDown" transition="zoomInOut">
+                <br>
+                <h5 align="justify">Hauteur maximale sur les 30 derniers jours.
+                </h5>
+              </div>             
           </b-card>        
         </div>
         <div class="col-lg-4">
           <b-card align="center">
-            <img alt="centered image" width="300" height="165" :src="require('../../assets/vsdr/'+sensor.location.toLowerCase()+'.jpeg')">
+            <img alt="centered image" width="300" height="190" :src="require('../../assets/vsdr/'+sensor.location.toLowerCase()+'.jpeg')">
+            <br>
           </b-card>        
         </div>
       </div>
@@ -87,6 +106,10 @@ import WaterHeightChart from '../../components/WaterHeightChart.vue'
     },
     data() {
       return {
+        hovered: false,
+        info:false,
+        hovered2: false,
+        info2:false,
         locationName: this.$route.name,             //route of the page
         draginoValues : this.$draginoValues,
         project : this.$PROJECT,

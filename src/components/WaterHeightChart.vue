@@ -48,7 +48,7 @@
                         },
 
                         opposite : true,
-                      softMin : 20,
+                      softMin : 50,
                       softMax : 120
 
                     }],
