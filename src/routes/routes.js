@@ -43,11 +43,6 @@ let fountainsMenu ={
     component: Fountains
     },
     {
-      path: 'Skatepark',
-      name: 'Skatepark',
-      component: Fountains
-    },
-    {
       path: 'Tronze',
       name: 'Tronze',
       component: Fountains
