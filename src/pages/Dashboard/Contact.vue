@@ -82,9 +82,25 @@
             <b-carousel-slide
               caption="Capteur de hauteur d'eau"
               :img-src="require('../../assets/vsdr/erbioz1.jpeg')"
-            ></b-carousel-slide><!--
+            ></b-carousel-slide>
 
             <b-carousel-slide
+              caption="Capteur de hauteur d'eau"
+              :img-src="require('../../assets/vsdr/rocher.jpeg')"
+            ></b-carousel-slide>
+
+
+            <b-carousel-slide
+              caption="Capteur de hauteur d'eau"
+              :img-src="require('../../assets/vsdr/faran1.jpeg')"
+            ></b-carousel-slide>
+
+
+
+
+
+
+            <!--<b-carousel-slide
               caption="Pro de Savioz"
               :img-src="require('../../assets/installation/prodesavioz1.jpeg')"
             ></b-carousel-slide>
