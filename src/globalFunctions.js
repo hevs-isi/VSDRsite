@@ -160,7 +160,7 @@ export default {
           }
         }
       }
-      console.log(this.$stregaValveValues)
+      //console.log(this.$stregaValveValues)
      }
 
 
@@ -303,7 +303,7 @@ export default {
           for(let i = 0; i<this.$stregaValveValues.length; i++){
             if(this.$stregaValveValues[i].eui === eui){
               if (resCounter30min[0][0] != undefined ){
-                let counterDifference = this.$stregaValveValues[i].counter - resCounter30min[0][0].value
+                //let counterDifference = this.$stregaValveValues[i].counter - resCounter30min[0][0].value
                 //console.log(resCounter30min)
                 //console.log(this.$stregaValveValues[i].time)
                 //console.log(resCounter30min[0][0].time)
@@ -314,11 +314,11 @@ export default {
                 let val2 =resCounter30min[0][4].value
 
                 let res = ((60*60*1000)/(timeVal2-timeVal1))*(val2-val1)
-                //console.log(new Date(timeVal1).getTime())
-                //console.log(val1)
-                //console.log(new Date(timeVal2).getTime())
-                //console.log(val2)
-                //console.log(res)
+               // console.log(new Date(timeVal1).getTime())
+               // console.log(val1)
+               // console.log(new Date(timeVal2).getTime())
+               // console.log(val2)
+               // console.log(res)
 
                 //this.$stregaValveValues[i].flow_now = counterDifference*2
                 this.$stregaValveValues[i].flow_now = res.toFixed(0)
