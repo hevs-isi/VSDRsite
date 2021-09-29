@@ -43,8 +43,8 @@ let fountainsMenu ={
     component: Fountains
     },
     {
-      path: 'Tronze',
-      name: 'Tronze',
+      path: 'Trontze',
+      name: 'Trontze',
       component: Fountains
     },  
     
@@ -68,6 +68,11 @@ let waterLevelMenu ={
     {
       path: 'Rocher',
       name: 'Rocher',
+      component: WaterLevel
+    },
+    {
+      path: 'Eaux claires',
+      name: 'Eaux claires',
       component: WaterLevel
     },
     {

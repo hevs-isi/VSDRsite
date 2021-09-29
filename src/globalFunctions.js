@@ -289,9 +289,9 @@ export default {
       WHERE
           ("dev_eui" = '$dEUI')  
       AND 
-          time>now()-30m 
+          time>now()-60m 
       order by 
-          time asc limit 1    
+          time desc    
       `;
 
       queryCounter30min = queryCounter30min.replace("$dEUI", eui.toLowerCase())
@@ -304,7 +304,24 @@ export default {
             if(this.$stregaValveValues[i].eui === eui){
               if (resCounter30min[0][0] != undefined ){
                 let counterDifference = this.$stregaValveValues[i].counter - resCounter30min[0][0].value
-                this.$stregaValveValues[i].flow_now = counterDifference*2
+                //console.log(resCounter30min)
+                //console.log(this.$stregaValveValues[i].time)
+                //console.log(resCounter30min[0][0].time)
+                //TODO : Calculate in function of time beetween 2 values
+                let timeVal1 = resCounter30min[0][0].time
+                let val1 = resCounter30min[0][0].value
+                let timeVal2 = resCounter30min[0][4].time
+                let val2 =resCounter30min[0][4].value
+
+                let res = ((60*60*1000)/(timeVal2-timeVal1))*(val2-val1)
+                //console.log(new Date(timeVal1).getTime())
+                //console.log(val1)
+                //console.log(new Date(timeVal2).getTime())
+                //console.log(val2)
+                //console.log(res)
+
+                //this.$stregaValveValues[i].flow_now = counterDifference*2
+                this.$stregaValveValues[i].flow_now = res.toFixed(0)
               }
               this.$stregaValveValues[i].flow_total = this.$stregaValveValues[i].counter 
 
@@ -314,7 +331,8 @@ export default {
 
               let timeOn = parseInt(stop) - parseInt(start)
               this.$stregaValveValues[i].flow_without_strega = (this.$stregaValveValues[i].flow_total * 2400 / timeOn).toFixed(0)- this.$stregaValveValues[i].flow_total
-          }
+          
+            }
         }
       }).catch(error => console.log(error))
     }
@@ -555,7 +573,7 @@ export default {
           }).catch(error => console.log(error))
         }).catch(error => console.log(error))
 
-      //  console.log(this.$draginoValues)
+       // console.log(this.$draginoValues)
       }
 
       
