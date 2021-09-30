@@ -173,7 +173,6 @@ import { min } from 'd3';
           }
         }
       }
-       
       var promises = []
 
       for(let i = 0; i<this.gateway.length; i++){

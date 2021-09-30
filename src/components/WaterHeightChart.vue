@@ -1,15 +1,21 @@
 <template>
-    <highcharts class="stock" :constructor-type="'stockChart'" :options="stockOptions"></highcharts>
+    <div>
+     <highcharts class="stock" :constructor-type="'stockChart'" :options="stockOptions"> </highcharts>
+    
+
+    </div>
 </template>
 
 <script>
     export default {
         props : [
             'dataWaterChart',
+            
 
         ],
         data () {
             return {
+
                 stockOptions: {
                     title:{
                         //text : "Hauteur de neige"
