@@ -369,6 +369,8 @@ export default {
               "coordinates" : this.$SENSORSLISTJSON[i].coordinates,
               "offset" : this.$SENSORSLISTJSON[i].offset,
               "battery" : null,
+              "softmin":this.$SENSORSLISTJSON[i].softmin,
+              "softmax":this.$SENSORSLISTJSON[i].softmax,
               "waterHeight6h":null,
               "waterHeight3h":null,
               "waterHeightNow":null,

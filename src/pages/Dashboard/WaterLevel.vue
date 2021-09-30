@@ -72,7 +72,7 @@
       <div class="col-lg-12">
         <b-card>
             <h4 class="card.title">Hauteur d'eau {{sensor.location}} </h4>
-            <water-height-chart style="padding-right: 10px" :dataWaterChart="sensor.waterHeightSerie" ></water-height-chart>
+            <water-height-chart style="padding-right: 10px" :dataWaterChart="sensor.waterHeightSerie" :softmin="sensor.softmin" :softmax="sensor.softmax"></water-height-chart>
 
         </b-card>        
       </div>           
