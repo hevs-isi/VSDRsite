@@ -8,12 +8,7 @@
    
     <div class="col-lg-12"  v-for="sensor in draginoValues.filter(s=> (s.project.toLowerCase() === project.toLowerCase()))">
         <b-card>
-          <h4 class="card.title">Hauteur d'eau {{sensor.location}}  <i  style="float:right" v-bind:class="[hovered ? 'fa fa-info-circle text-muted animate__animated animate__rubberBand' : 'fa fa-info-circle text-muted']"
-          v-on:mouseover="hovered=true" v-on:mouseout="hovered=false" @click="info = !info"></i>
-          <div v-if="info" class="animate__animated animate__fadeInDown" transition="zoomInOut">
-              <br>
-              <h5 align="justify">Distance entre le capteur et le niveau d'eau. Par conséquent, si la courbe descend c'est que le niveau d'eau a augmenté.</h5>
-          </div> </h4>
+          <h4 class="card.title">Hauteur d'eau {{sensor.location}} </h4>
           <water-height-chart style="padding-right: 10px" :dataWaterChart="sensor.waterHeightSerie" ></water-height-chart>
         </b-card>           
     </div>
@@ -35,9 +30,7 @@ import WaterHeightChart from '../../../components/WaterHeightChart.vue'
     
         
     data() {
-      return {  
-        hovered: false,
-        info:false,
+      return {
         locationName: this.$route.name,             //route of the page
         project : this.$PROJECT,
         mySensorList : this.$SENSORSLISTJSON,

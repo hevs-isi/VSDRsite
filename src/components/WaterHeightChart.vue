@@ -1,7 +1,14 @@
 <template>
     <div>
      <highcharts class="stock" :constructor-type="'stockChart'" :options="stockOptions"> </highcharts>
-    
+
+     <i  style="float:right" v-bind:class="[hovered ? 'fa fa-info-circle text-muted animate__animated animate__rubberBand' : 'fa fa-info-circle text-muted']"
+          v-on:mouseover="hovered=true" v-on:mouseout="hovered=false" @click="info = !info"></i>
+     <div v-if="info"  transition="zoomInOut">
+        <br>
+        <h5 v-if="info" align="justify">Distance entre le capteur et le niveau d'eau. Par conséquent, si la courbe descend c'est que le niveau d'eau a augmenté.</h5>
+     </div> 
+
 
     </div>
 </template>
@@ -15,7 +22,8 @@
         ],
         data () {
             return {
-
+                hovered: false,
+                info:false,
                 stockOptions: {
                     title:{
                         //text : "Hauteur de neige"
@@ -115,6 +123,9 @@
             dataWaterChart (newValue) {
                 this.stockOptions.series = newValue
             },
+            hovered(newValue){
+                console.log(newValue)
+            }
         }
     }
 </script>
