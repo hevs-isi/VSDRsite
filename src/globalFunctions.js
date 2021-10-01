@@ -405,7 +405,7 @@ export default {
         let query6h = `SELECT first(moving_average)
                       FROM
                       (SELECT
-                          moving_average(value, 20)
+                          moving_average(value, 5)
                       FROM
                           "device_frmpayload_data_Dist" 
                       WHERE
@@ -418,7 +418,7 @@ export default {
           let query3h = `SELECT first(moving_average)
                       FROM
                       (SELECT
-                          moving_average(value, 20)
+                          moving_average(value, 5)
                       FROM
                           "device_frmpayload_data_Dist" 
                       WHERE
@@ -431,7 +431,7 @@ export default {
         let queryNow = `SELECT last(moving_average)
                         FROM
                         (SELECT
-                            moving_average(value, 20)
+                            moving_average(value, 5)
                         FROM
                             "device_frmpayload_data_Dist" 
                         WHERE
