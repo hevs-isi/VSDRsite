@@ -17,6 +17,7 @@ import HighchartsVue from 'highcharts-vue'
 import Highcharts from 'highcharts'
 import stockInit from 'highcharts/modules/stock'
 import mapInit from 'highcharts/modules/map'
+import theme_grid from 'highcharts/themes/grid-light'
 
 // Custom Charts
 import SnowChart from "./components/SnowChart";
@@ -72,6 +73,7 @@ Vue.use(VueResponsiveImage)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
+theme_grid(Highcharts)
 stockInit(Highcharts)
 mapInit(Highcharts)
 Vue.use(HighchartsVue)

@@ -70,8 +70,7 @@
                     }],
 
                     rangeSelector: {
-
-                        selected: 'all',
+                        enabled : true, 
                         buttons: [{
                             type: 'hour',
                             count: 12,
@@ -84,20 +83,15 @@
                             type: 'day',
                             count: 7,
                             text: '7d'
-                        }, /*{
-                            type: 'month',
-                            count: 1,
-                            text: '1m'
-                        }, {
-                            type: 'month',
-                            count: 3,
-                            text: '3m'
                         }, {
                             type: 'all',
-                            text: 'All' }*/
-                        ]
+                            text: 'All' 
+                        }],
+                        selected: 'all',
+
                     },
                     series: this.dataWaterChart,
+              
                     series :{
                         id:"toto"
                     },
@@ -115,6 +109,9 @@
                     tooltip:{
                         pointFormat : '{series.name}: <b>{point.y:.1f} cm</b><br/>'
                     },
+       
+
+                    
 
                 }
             }
