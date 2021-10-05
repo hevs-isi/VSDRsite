@@ -553,7 +553,8 @@ export default {
                                 this.$draginoValues[i].waterHeightSerie = Object.assign({}, {
                                   name: "Distance", // name on the chart
                                   color: '#4285f4',
-                                  lineWidth: 0.6,
+                                  lineWidth: 2,
+                                  
                                   turboThreshold: 60000,
                                   data: resSerie[0].map(obj => Object.assign({}, {
                                     x: (moment(obj.time).unix()) * 1000,

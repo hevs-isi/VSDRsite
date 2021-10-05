@@ -91,6 +91,7 @@
 
                     },
                     series: this.dataWaterChart,
+                        
               
                     series :{
                         id:"toto"
@@ -109,6 +110,7 @@
                     tooltip:{
                         pointFormat : '{series.name}: <b>{point.y:.1f} cm</b><br/>'
                     },
+                   
        
 
                     
