@@ -63,10 +63,10 @@
                             format: '{value} cm',
                         },
 
-                        opposite : true,
+                      opposite : true,
                       softMin : this.softmin,
-                      softMax : this.softmax
-
+                      softMax : this.softmax,
+                      reversed : true, 
                     }],
 
                     rangeSelector: {
