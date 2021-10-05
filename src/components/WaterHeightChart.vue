@@ -6,7 +6,7 @@
           v-on:mouseover="hovered=true" v-on:mouseout="hovered=false" @click="info = !info"></i>
      <div v-if="info"  transition="zoomInOut">
         <br>
-        <h5 v-if="info" align="justify">Distance entre le capteur et le niveau d'eau. Par conséquent, si la courbe descend c'est que le niveau d'eau a augmenté.</h5>
+        <h5 v-if="info" align="justify">Distance entre le capteur et le niveau d'eau.</h5>
      </div> 
 
 
@@ -54,7 +54,6 @@
 
                     yAxis: [{ // Primary yAxis
                         title: {
-                            //text: 'Hauteur de neige',
                             style : {
                                 color :  '#4285f4'
                             },
@@ -125,6 +124,12 @@
                 this.stockOptions.series = newValue
             },
 
+            softmin (newValue){
+                this.stockOptions.yAxis.softMin = newValue
+            },
+
+
+            
         }
     }
 </script>

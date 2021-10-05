@@ -41,7 +41,7 @@
           <div v-if="info" class="animate__animated animate__fadeInDown" transition="zoomInOut">
             <br>
             <h5 align="justify">Economie d'eau avec le système de vanne connectée. Cette valeur est calculée sur la base du temps d'écoulement journalier
-              de la fontaine.
+              de la fontaine et la consommation totale. Si l'on change les horaires de fonctionnement de la fontaine, la valeur d'économie d'eau va également évoluer. 
             </h5>
           </div> 
         </card>
