@@ -439,13 +439,13 @@ export default {
                         `;
               
 
-        let querySerie = `SELECT moving_average("value",20)
+        let querySerie = `SELECT moving_average("value",5)
                       FROM
                           "device_frmpayload_data_Dist" 
                       WHERE
                           ("dev_eui" = '$dEUI')  
                       AND
-                          time>now()-15d
+                          time>now()-8d
                       `;
                       
         let queryMin = `SELECT min("value")
@@ -551,7 +551,7 @@ export default {
                               if(resSerie[0]!= undefined){
                                 //treatment for serie for chart                              
                                 this.$draginoValues[i].waterHeightSerie = Object.assign({}, {
-                                  name: "Hauteur d'eau", // name on the chart
+                                  name: "Distance", // name on the chart
                                   color: '#4285f4',
                                   lineWidth: 0.6,
                                   turboThreshold: 60000,

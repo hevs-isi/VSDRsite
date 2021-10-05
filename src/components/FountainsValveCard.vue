@@ -6,10 +6,11 @@
           v-on:mouseover="hovered=true" v-on:mouseout="hovered=false" @click="info = !info">
           </i>
         </h4>
-          <h5 v-if="installation != undefined">Installée le : {{installation}}</h5>
-          <h5 v-if="installation === undefined">Installée le : Pas encore installée</h5>
+          <h5 v-if="installation != '00.00.00'">Installée le : {{installation}}</h5>
+          <h5 v-if="installation === '00.00.00' || installation === undefined">Installée le : Pas encore installée</h5>
+
           
-          <h5>Horaire de fonctionnement : {{startTime}}->{{stopTime}} </h5>
+          <h5>Horaire de fonctionnement : {{startTime}}-{{stopTime}} </h5>
           <h5 v-if="valveState===0">Etat actuel : fermée  <img src="../assets/sensorNotOk.png" align="center"> </h5>
           <h5 v-if="valveState===1">Etat actuel : ouverte  <img src="../assets/sensorOk.png" align="center"> </h5>
           <h5 v-if="valveState===2">Etat actuel : en transition  <img src="../assets/sensorTransition.png" align="center"> </h5>

@@ -25,7 +25,7 @@
                     <div v-else>Etat du capteur : hors ligne
                       <img src="../../assets/sensorNotOk.png" align="center">
                     </div>
-                    <div>Device EUI : <b>{{valve.eui}}</b></div>
+                    <div>Device EUI : <b>{{valve.eui.toLowerCase()}}</b></div>
                   </h5>
 
                   <card title="RSSI">
@@ -85,7 +85,7 @@
                     <div v-else>Etat du capteur : hors ligne
                       <img src="../../assets/sensorNotOk.png" align="center">
                     </div>
-                    <div>Device EUI : <b>{{valve.eui}}</b></div>
+                    <div>Device EUI : <b>{{valve.eui.toLowerCase()}}</b></div>
                   </h5>
 
                   <card title="RSSI">
