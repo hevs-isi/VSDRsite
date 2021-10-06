@@ -76,8 +76,8 @@ let waterLevelMenu ={
       component: WaterLevel
     },
     {
-      path: 'Blocs',
-      name: 'Blocs',
+      path: 'Baucs',
+      name: 'Baucs',
       component: WaterLevel
     },
     {
