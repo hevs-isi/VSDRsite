@@ -77,8 +77,15 @@
                 </b-input-group>
             </div>
             <br>
-            <div class="col-lg-2">
-                <button type="button" class="btn btn-light" v-on:click="saveNewValveTime">Enregistrer</button>
+            <div class="col-lg-12" >
+              
+              <button type="button" class="btn btn-light"  v-on:click="calculateFuturConso">Calculer consommation</button>
+              <h5>Consommation d'eau actuelle : <b>{{this.actualConso}}</b> l/24h</h5>
+              <h5 v-if="displayFutureConso">Consommation d'eau future : <b>{{this.futurConso}}</b> l/24h</h5>
+
+              <div class="col text-center">
+                <button type="button" class="btn btn-light"  v-on:click="saveNewValveTime">Enregistrer</button>
+              </div>  
             </div>
             <br>
           </el-collapse-item>
@@ -118,6 +125,10 @@ import axios from "axios"
         newStopTime : "",
         vsdrSensorJson : this.$SENSORSLISTJSON,
         flowOffset : 0,
+        actualConso : 0,
+        futurConso :0,
+        displayFutureConso:false
+        
 
       }
     },
@@ -143,9 +154,27 @@ import axios from "axios"
               }else{
                 this.installation_date = "Pas encore installée"
               }
-              //console.log(this.$SENSORSLISTJSON[i])
+              
+
+              /*
+                Calculate actual consommation, in fuction of activation time
+              */
+              let nbrHours = parseInt(this.stopTime.split(':')[0])-parseInt(this.startTime.split(':')[0]) 
+              let nbrMinutes = (parseInt(this.stopTime.split(':')[1])-parseInt(this.startTime.split(':')[1]))/60
+              let onTime = nbrHours+nbrMinutes
+
+              for(let i = 0; i<this.$stregaValveValues.length;i++){
+                if(this.$stregaValveValues[i].location.toLowerCase() === this.locationName.toLowerCase()){
+                  this.actualConso = (onTime * this.$stregaValveValues[i].flow_now).toFixed(0)
+                  //console.log("actual conso : " + this.actualConso)
+                }
+              }
+
+            
             }
           }
+
+          
         },
         deep: true,
         immediate: true
@@ -244,6 +273,34 @@ import axios from "axios"
 
         return finalFrameB64
       },
+
+      /**
+       * calculate the new daily consommation when click on the button
+       */
+      calculateFuturConso:function(){
+        this.displayFutureConso=true
+        let nbrHours = parseInt(this.newStopTime.split(':')[0])-parseInt(this.newStartTime.split(':')[0]) 
+        let nbrMinutes = (parseInt(this.newStopTime.split(':')[1])-parseInt(this.newStartTime.split(':')[1]))/60 
+
+        let newOnTime = nbrHours +nbrMinutes
+        //console.log ("new time : " + newOnTime)
+
+
+        for(let i = 0; i< this.$SENSORSLISTJSON.length; i++){
+            if(this.$SENSORSLISTJSON[i].project.toLowerCase() === this.$PROJECT && this.$SENSORSLISTJSON[i].location === this.locationName){
+              let oldHours = parseInt(this.stopTime.split(':')[0])-parseInt(this.startTime.split(':')[0]) 
+              let oldMinutes = (parseInt(this.stopTime.split(':')[1])-parseInt(this.startTime.split(':')[1]))/60
+              let oldOnTime = oldHours +oldMinutes
+              this.futurConso = ((this.actualConso*(newOnTime/24)) / (oldOnTime/24)).toFixed(0)
+              console.log("Future conso : "+this.futurConso)
+            }
+        }
+
+        
+     
+
+
+      }
 
 
 
