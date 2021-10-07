@@ -79,9 +79,9 @@
             <br>
             <div class="col-lg-12" >
               
-              <button type="button" class="btn btn-light"  v-on:click="calculateFuturConso">Calculer consommation</button>
-              <h5>Consommation d'eau actuelle : <b>{{this.actualConso}}</b> l/24h</h5>
-              <h5 v-if="displayFutureConso">Consommation d'eau future : <b>{{this.futurConso}}</b> l/24h</h5>
+              <button type="button" class="btn btn-light"  v-on:click="calculateFuturConso">Calculer consommation</button> <br><br>
+              <h5>Consommation d'eau actuelle : <b>{{this.actualConso}}</b> litres/jour</h5>
+              <h5 v-if="displayFutureConso">Consommation d'eau future : <b>{{this.futurConso}}</b> litres/jour</h5>
 
               <div class="col text-center">
                 <button type="button" class="btn btn-info"  v-on:click="saveNewValveTime">Enregistrer</button>
