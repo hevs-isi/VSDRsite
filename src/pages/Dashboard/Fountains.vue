@@ -84,7 +84,7 @@
               <h5 v-if="displayFutureConso">Consommation d'eau future : <b>{{this.futurConso}}</b> l/24h</h5>
 
               <div class="col text-center">
-                <button type="button" class="btn btn-light"  v-on:click="saveNewValveTime">Enregistrer</button>
+                <button type="button" class="btn btn-info"  v-on:click="saveNewValveTime">Enregistrer</button>
               </div>  
             </div>
             <br>
