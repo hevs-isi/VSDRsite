@@ -60,6 +60,8 @@
         </div>
         <div class="col-lg-4">
           <b-card align="center" >
+             <!--<b-img :src="require('../../assets/vsdr/'+sensor.location.toLowerCase()+'.jpeg')" fluid alt="Responsive image"></b-img>-->
+
             <img alt="centered image" width="300" height="190" :src="require('../../assets/vsdr/'+sensor.location.toLowerCase()+'.jpeg')">
             <br>
           </b-card>  

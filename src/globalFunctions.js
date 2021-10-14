@@ -302,7 +302,7 @@ export default {
      
           for(let i = 0; i<this.$stregaValveValues.length; i++){
             if(this.$stregaValveValues[i].eui === eui){
-              if (resCounter30min[0][0] != undefined ){
+              if (resCounter30min[0][0] != undefined && resCounter30min[0][4] != undefined){
                 //let counterDifference = this.$stregaValveValues[i].counter - resCounter30min[0][0].value
                 //console.log(resCounter30min)
                 //console.log(this.$stregaValveValues[i].time)
@@ -519,25 +519,27 @@ export default {
                         ]).then(resSnr => {
                           for(let i = 0; i<this.$draginoValues.length; i++){
                             if(this.$draginoValues[i].eui === eui){
+                              let offset = parseInt(this.$draginoValues[i].offset)
+
                               if(resBat[0][0] != undefined){
                               this.$draginoValues[i].when = resBat[0][0].time
                               this.$draginoValues[i].batteryIcone = getBatteryIcone(calcPercentBat(resBat[0][0].last))
                               this.$draginoValues[i].battery = calcPercentBat(resBat[0][0].last)
                               }
                               if(res6h[0][0] != undefined){
-                                this.$draginoValues[i].waterHeight6h = (res6h[0][0].first/10).toFixed(1)
+                                this.$draginoValues[i].waterHeight6h = ((res6h[0][0].first*(-1)+offset)/10).toFixed(1)
                               }
                               if(res3h[0][0] != undefined){
-                                this.$draginoValues[i].waterHeight3h = (res3h[0][0].first/10).toFixed(1)
+                                this.$draginoValues[i].waterHeight3h = ((res3h[0][0].first*(-1)+offset)/10).toFixed(1)
                               }
                               if(resNow[0][0] != undefined){
-                                this.$draginoValues[i].waterHeightNow = (resNow[0][0].last/10).toFixed(1)
+                                this.$draginoValues[i].waterHeightNow = ((resNow[0][0].last*(-1)+offset)/10).toFixed(1)
                               }
                               if(resMin[0][0] != undefined){
-                                this.$draginoValues[i].waterHeightMin = resMin[0][0].min/10
+                                this.$draginoValues[i].waterHeightMax = (resMin[0][0].min*(-1)+offset)/10
                               }
                               if(resMax[0][0] != undefined){
-                                this.$draginoValues[i].waterHeightMax = resMax[0][0].max/10                                  
+                                this.$draginoValues[i].waterHeightMin = (resMax[0][0].max*(-1)+offset)/10                                  
                               }
                               if(resRssi[0][0] != undefined){
                                 this.$draginoValues[i].rssi = resRssi[0][0].last
@@ -547,7 +549,6 @@ export default {
                                 this.$draginoValues[i].snr = resSnr[0][0].last    
                                 this.$draginoValues[i].snrIcone = getSnrIcone(resSnr[0][0].last)                                
                               }
-                         
                               if(resSerie[0]!= undefined){
                                 //treatment for serie for chart                              
                                 this.$draginoValues[i].waterHeightSerie = Object.assign({}, {
@@ -558,7 +559,7 @@ export default {
                                   turboThreshold: 60000,
                                   data: resSerie[0].map(obj => Object.assign({}, {
                                     x: (moment(obj.time).unix()) * 1000,
-                                    y: (obj['moving_average'] == null ? obj['moving_average'] : ((obj['moving_average']-this.$draginoValues[i].offset)))/10
+                                    y: (obj['moving_average'] == null ? obj['moving_average'] : ((obj['moving_average']*(-1)+offset)))/10
                                   })),
                                 });
                               }

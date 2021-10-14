@@ -65,7 +65,7 @@
                       opposite : true,
                       softMin : this.softmin,
                       softMax : this.softmax,
-                      reversed : true, 
+                      //reversed : true, 
                     }],
 
                     rangeSelector: {
