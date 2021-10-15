@@ -30,7 +30,7 @@
       <div class="row">
         <div class="col-lg-4">
           <b-card>
-            <h4 class="card.title">Distance minimale</h4>
+            <h4 class="card.title">Hauteur minimale</h4>
               <h1 align="center"> {{sensor.waterHeightMin}} cm</h1>
               <i style="float:right" v-bind:class="[hovered ? 'fa fa-info-circle text-muted animate__animated animate__rubberBand' : 'fa fa-info-circle text-muted']"
               v-on:mouseover="hovered=true" v-on:mouseout="hovered=false" @click="info = !info">
@@ -38,14 +38,14 @@
               <br>
               <div v-if="info" class="animate__animated animate__fadeInDown" transition="zoomInOut">
                 <br>
-                <h5 align="justify">Distant à l'eau minimale sur les 30 derniers jours.
+                <h5 align="justify">Hauteur d'eau minimale sur les 30 derniers jours.
                 </h5>
               </div>
           </b-card>        
         </div>
         <div class="col-lg-4">
           <b-card>
-            <h4 class="card.title">Distance maximale</h4>
+            <h4 class="card.title">Hauteur maximale</h4>
               <h1 align="center"> {{sensor.waterHeightMax}} cm</h1>
               <i style="float:right" v-bind:class="[hovered2 ? 'fa fa-info-circle text-muted animate__animated animate__rubberBand' : 'fa fa-info-circle text-muted']"
               v-on:mouseover="hovered2=true" v-on:mouseout="hovered2=false" @click="info2 = !info2">
@@ -53,7 +53,7 @@
               <br>
               <div v-if="info2" class="animate__animated animate__fadeInDown" transition="zoomInOut">
                 <br>
-                <h5 align="justify">Distance à l'eau maximale sur les 30 derniers jours.
+                <h5 align="justify">Hauteur d'eau maximale sur les 30 derniers jours.
                 </h5>
               </div>             
           </b-card>        
@@ -73,7 +73,7 @@
 <!--chart-->      
       <div class="col-lg-12">
         <b-card>
-            <h4 class="card.title">Distance à l'eau : {{sensor.location}} </h4>
+            <h4 class="card.title">Hauteur d'eau : {{sensor.location}} </h4>
             <water-height-chart style="padding-right: 10px" :dataWaterChart="sensor.waterHeightSerie" :softmin="sensor.softmin" :softmax="sensor.softmax"></water-height-chart>
 
         </b-card>        
