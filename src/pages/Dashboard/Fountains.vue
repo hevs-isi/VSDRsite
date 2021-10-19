@@ -25,13 +25,13 @@
         </card>
       </div>
       <div class="col-lg-4">
-        <card title="Consommation totale">
+        <card title="Consommation mensuelle">
            <h1  align="center">{{valve.flow_total}} L</h1>
            <br>
         </card>        
       </div>
       <div class="col-lg-4">
-        <card title="Economie d'eau"> 
+        <card title="Economie d'eau mensuelle"> 
           
           <h1 align="center">{{valve.flow_without_strega}} L </h1>
           <i style="float:right" v-bind:class="[hovered ? 'fa fa-info-circle text-muted animate__animated animate__rubberBand' : 'fa fa-info-circle text-muted']"

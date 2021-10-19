@@ -190,6 +190,15 @@ export default {
           ("dev_eui" = '$dEUI')  
       `;
       
+      let queryCounter30d = `SELECT first("value")
+      FROM
+          "device_frmpayload_data_Counter" 
+      WHERE
+          ("dev_eui" = '$dEUI')
+      AND
+          time>now()-30d    
+      `;
+
       let queryValve = `SELECT last("value")
       FROM
           "device_frmpayload_data_Valve" 
@@ -202,6 +211,7 @@ export default {
       queryTemp = queryTemp.replace("$dEUI", eui.toLowerCase())
       queryCounter = queryCounter.replace("$dEUI", eui.toLowerCase())
       queryValve = queryValve.replace("$dEUI", eui.toLowerCase())
+      queryCounter30d = queryCounter30d.replace("$dEUI", eui.toLowerCase())
 
       
       let queryRSSI = `SELECT last(rssi)
@@ -239,35 +249,41 @@ export default {
                 Promise.all([
                   influxClient.query(querySNR)
                 ]).then(resSNR => {
-                for(let i = 0; i<this.$stregaValveValues.length; i++){
-                  if(this.$stregaValveValues[i].eui === eui){
-                    if(resBat[0][0] != undefined){
-                      this.$stregaValveValues[i].when = resBat[0][0].time
-                      this.$stregaValveValues[i].battery = resBat[0][0].last.toFixed(0)
-                      this.$stregaValveValues[i].batteryIcone = getBatteryIcone(resBat[0][0].last)
-                    }
-                    if(resTemp[0][0] != undefined){
-                      this.$stregaValveValues[i].temperature = resTemp[0][0].last.toFixed(1)
-                    }
-                    if(resCounter[0][0] != undefined){
-                      this.$stregaValveValues[i].counter = resCounter[0][0].last
-                    }
-                    if(resValve[0][0] != undefined){
-                    this.$stregaValveValues[i].valveState = resValve[0][0].last
-                    }
-                    if(resRSSI[0][0] != undefined){
-                      this.$stregaValveValues[i].rssi = resRSSI[0][0].last
-                      this.$stregaValveValues[i].rssiIcone = getRssiIcone(resRSSI[0][0].last)
-                    }
-                    if(resSNR[0][0] != undefined){
-                      this.$stregaValveValues[i].snr = resSNR[0][0].last
-                      this.$stregaValveValues[i].snrIcone = getSnrIcone(resSNR[0][0].last)
-                    }
-                    //calcule flow
-                    this.$calculateFlow(eui)
+                  Promise.all([
+                    influxClient.query(queryCounter30d)
+                  ]).then(resCounter30d => {
+                    for(let i = 0; i<this.$stregaValveValues.length; i++){
+                      if(this.$stregaValveValues[i].eui === eui){
+                        if(resBat[0][0] != undefined){
+                          this.$stregaValveValues[i].when = resBat[0][0].time
+                          this.$stregaValveValues[i].battery = resBat[0][0].last.toFixed(0)
+                          this.$stregaValveValues[i].batteryIcone = getBatteryIcone(resBat[0][0].last)
+                        }
+                        if(resTemp[0][0] != undefined){
+                          this.$stregaValveValues[i].temperature = resTemp[0][0].last.toFixed(1)
+                        }
+                        if(resCounter[0][0] != undefined){
+                          this.$stregaValveValues[i].counter =  resCounter[0][0].last -resCounter30d[0][0].first
+                        }
+                        if(resValve[0][0] != undefined){
+                        this.$stregaValveValues[i].valveState = resValve[0][0].last
+                        }
+                        if(resRSSI[0][0] != undefined){
+                          this.$stregaValveValues[i].rssi = resRSSI[0][0].last
+                          this.$stregaValveValues[i].rssiIcone = getRssiIcone(resRSSI[0][0].last)
+                        }
+                        if(resSNR[0][0] != undefined){
+                          this.$stregaValveValues[i].snr = resSNR[0][0].last
+                          this.$stregaValveValues[i].snrIcone = getSnrIcone(resSNR[0][0].last)
+                        }
+                        //calcule flow
+                        this.$calculateFlow(eui)
 
-                  }
-                }
+
+
+                      }
+                    }
+                }).catch(error => console.log(error))
               }).catch(error => console.log(error))
             }).catch(error => console.log(error))
             }).catch(error => console.log(error))
