@@ -2,12 +2,12 @@
     <div>
      <highcharts class="stock" :constructor-type="'stockChart'" :options="stockOptions" > </highcharts>
 
-     <i  style="float:right" v-bind:class="[hovered ? 'fa fa-info-circle text-muted animate__animated animate__rubberBand' : 'fa fa-info-circle text-muted']"
+     <!--<i  style="float:right" v-bind:class="[hovered ? 'fa fa-info-circle text-muted animate__animated animate__rubberBand' : 'fa fa-info-circle text-muted']"
           v-on:mouseover="hovered=true" v-on:mouseout="hovered=false" @click="info = !info"></i>
      <div v-if="info"  transition="zoomInOut">
         <br>
         <h5 v-if="info" align="justify">Distance entre le capteur et le niveau d'eau.</h5>
-     </div> 
+     </div> -->
 
 
     </div>

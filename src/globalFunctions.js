@@ -278,8 +278,9 @@ export default {
                         }
                         //calcule flow
                         this.$calculateFlow(eui)
-
-
+                        //console.log(resCounter[0][0].last)
+                        //console.log(resCounter30d[0][0].first)
+                        
 
                       }
                     }
@@ -336,8 +337,8 @@ export default {
                // console.log(val2)
                // console.log(res)
 
-                //this.$stregaValveValues[i].flow_now = counterDifference*2
-                this.$stregaValveValues[i].flow_now = res.toFixed(0)
+
+                this.$stregaValveValues[i].flow_now = res.toFixed(0) //selon calcul, facteur de 0.8 avec la réalité
               }
               this.$stregaValveValues[i].flow_total = this.$stregaValveValues[i].counter 
 
@@ -576,6 +577,7 @@ export default {
                                   data: resSerie[0].map(obj => Object.assign({}, {
                                     x: (moment(obj.time).unix()) * 1000,
                                     y: (obj['moving_average'] == null ? obj['moving_average'] : ((obj['moving_average']*(-1)+offset)))/10
+                                    //y: checkDraginoValue(obj['moving_average'], offset)
                                   })),
                                 });
                               }
@@ -596,7 +598,30 @@ export default {
        // console.log(this.$draginoValues)
       }
 
-      
+      let oldVal=0
+      function checkDraginoValue(val, offset){
+          if(oldVal === 0){
+            oldVal= val
+          }  
+
+
+
+          if(oldVal <= val-200){
+            console.log("old : " + oldVal)
+            console.log("val : " + ((val*(-1)+offset))/10)
+            val = oldVal
+            return ((val*(-1)+offset))/10
+            //console.log("toto")
+          }else{
+            console.log("old : " + oldVal)
+            console.log("val : " + ((val*(-1)+offset))/10)
+            oldVal=val
+            return ((val*(-1)+offset))/10
+          }
+          
+        
+
+      }
 
 
 //------------------------------------------------------------------------------------------------------------------------------

@@ -53,7 +53,7 @@
     </p>
 
     <p v-if="contactTitle==='Nax'">
-      Pour plus d'information, vous pouvez contacter pour la commune de Saviese M. Cervetti Marco, responsable des travaux
+      Pour plus d'information, vous pouvez contacter pour la commune de Mont-Noble M. Cervetti Marco, responsable des travaux
       publics et pour la Haute école d'Ingénierie, <a
       href="https://www.hevs.ch/fr/rad-instituts/institut-systemes-industriels/collaborateurs/professeure-hes/mudry-1640">Prof.
       Pierre-André Mudry</a>.
