@@ -600,24 +600,8 @@ export default {
 
       let oldVal=0
       function checkDraginoValue(val, offset){
-          if(oldVal === 0){
-            oldVal= val
-          }  
-
-
-
-          if(oldVal <= val-200){
-            console.log("old : " + oldVal)
-            console.log("val : " + ((val*(-1)+offset))/10)
-            val = oldVal
-            return ((val*(-1)+offset))/10
-            //console.log("toto")
-          }else{
-            console.log("old : " + oldVal)
-            console.log("val : " + ((val*(-1)+offset))/10)
-            oldVal=val
-            return ((val*(-1)+offset))/10
-          }
+          console.log(val)
+         
           
         
 

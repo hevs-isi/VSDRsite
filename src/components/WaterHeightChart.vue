@@ -121,6 +121,20 @@
 
         watch: {
             dataWaterChart (newValue) {
+                
+                /*Detect if a value as been sent to 0 by the sensor*/
+                let oldVal = 0
+                for(const value of newValue.data){
+                    if(oldVal == 0){
+                        oldVal=value.y
+                    }
+                    if(value.y >= oldVal+10 || value.y <= oldVal-10){ //10 and -10 are final value (after offset removing) limit to know if the value is valid or not
+                        value.y=oldVal                                // if the value is not valid, set the value to the last valid value  
+
+                    }
+                   oldVal=value.y
+                }
+
                 this.stockOptions.series = newValue
             },
 
